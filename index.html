@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kiboga Hill Farm Uganda</title>
+  <meta name="description" content="Kiboga Hill Farm Uganda – Goats, cattle, bananas & coffee, with climate-smart advisory." />
+  <style>
+    :root{ --ink:#1f2937; --muted:#556070; --brand:#10b981; --amber:#f59e0b; --orange:#fb923c; --card:#ffffff; --shadow:0 10px 25px rgba(0,0,0,.08); --r:18px }
+    *{box-sizing:border-box}
+    body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"}
+    .container{max-width:1140px;margin:auto;padding:0 16px}
+    header.khf-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.75);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid #eee}
+    .row{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}
+    .logo{width:38px;height:38px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#84cc16,#10b981);color:#fff;box-shadow:var(--shadow);font-weight:900}
+    nav.khf-nav a{margin:0 10px;text-decoration:none;color:var(--ink);font-weight:700}
+    nav.khf-nav a:hover{color:var(--brand)}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:0;padding:10px 16px;border-radius:16px;background:var(--brand);color:#fff;cursor:pointer;box-shadow:var(--shadow);text-decoration:none;font-weight:800}
+    .btn.out{background:#fff;color:var(--ink);border:2px solid #e9ecef}
+    section{padding:56px 0}
+    h1,h2,h3{color:#2f7d32;margin:0 0 8px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:16px}
+    .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
+    .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+    .hero{overflow:hidden}
+    .heroWrap{display:grid;grid-template-columns:1fr;gap:28px;padding:56px 0}
+    .blob{aspect-ratio:4/3;border-radius:28px;box-shadow:var(--shadow);background:radial-gradient(120% 120% at 0% 0%,#a7f3d0 0%,#fde68a 50%,#fdba74 100%);position:relative;animation:floaty 8s ease-in-out infinite}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+    .b1{background:#10b981;color:#fff}.b2{background:#fde68a}.b3{background:#fed7aa}
+    .banner{background:linear-gradient(90deg,#10b981,#84cc16,#f59e0b);color:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+    .split{display:grid;grid-template-columns:1fr;gap:18px}
+    footer{border-top:1px solid #eee;padding:24px 0;color:var(--muted);font-size:14px;margin-top:8px}
+    .icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#ecfeff}
+    @media(min-width:760px){.heroWrap{grid-template-columns:1.1fr .9fr;align-items:center}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(min-width:1024px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .khf-root{ min-height:100vh; background: linear-gradient(180deg,#FFF7E6,#FFF0D6,#F0FFE3); color: var(--ink); }
+
+    /* --- Gallery --- */	
+.gallery-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  justify-content:center;     /* centers incomplete last row */
+  align-items:stretch;         /* make all tiles in a row equal height */
+}
+
+/* Consistent, responsive tile width */
+.gallery-tile{
+  flex: 0 1 260px;             /* base width ~260px, wraps nicely */
+  display:flex;
+  flex-direction:column;       /* let caption sit under image */
+  padding:0;
+  text-align:center;
+  overflow:hidden;
+  cursor:zoom-in;
+}
+
+/* Uniform thumbnail area */
+.gallery-tile img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
+
+/* Keep captions aligned; 2–3 lines comfortable */
+.gallery-caption{
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--ink);
+  text-align: center;
+
+  /* --- Clamp to 2 lines --- */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;     /* change to 3 if you want 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 40px;          /* ensures consistent height */
+}
+
+/* Smaller tiles on narrow screens */
+@media (max-width: 720px){
+  .gallery-tile{ flex-basis: 200px; }
+  .gallery-tile img{ height:160px; }
+}
+
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React (UMD) + Babel for in-browser JSX -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useEffect, useMemo, useState } = React;
+
+    // ---------------- Data ----------------
+    const PRODUCTS = [
+      { slug: "goats", icon: "🐐", title: "Goats", desc: "Savanna, Galla, Boer & local Mubende lines for meat and resilience.", details: [
+        "Breeding: structured cross-breeding for growth & hardiness",
+        "Feeding: pasture-led; banana/coffee residues for circular nutrients",
+        "Health: vaccination & deworming calendar; humane handling",
+        "Sales: live weight pricing; farm-gate pick-up"
+      ]},
+      { slug: "cattle", icon: "🐄", title: "Cattle", desc: "Hardy breeds managed under humane, pasture-led systems.", details: [
+        "Breeds: Ankole, Friesian crosses depending on system",
+        "Grazing: rotational paddocks; water & shade planning",
+        "Dairy & Beef: weaner calves, heifers, and steers",
+        "Records: simple books for births, weights, treatments"
+      ]},
+      { slug: "bananas", icon: "🍌", title: "Bananas", desc: "Matooke blocks integrated with goats for nutrient recycling.", details: [
+        "Spacing & mulching for moisture retention",
+        "Manure use: composted goat bedding",
+        "Pest/Disease: early detection & sanitation",
+        "Market: bunch grading & handling"
+      ]},
+      { slug: "coffee", icon: "☕", title: "Coffee", desc: "Robusta & Arabica seedlings and farm-gate green beans.", details: [
+        "Seedlings: vigorous varieties; shade integration",
+        "Weed & canopy management",
+        "Harvest: selective picking for quality",
+        "Post-harvest: drying guidelines and storage"
+      ]}
+    ];
+
+    const SERVICES = [
+      { slug: "sales", icon: "🏪", title: "Farm-Gate Sales", text: "Goats, calves, eggs, coffee seedlings, and seasonal produce.", details: [
+        "Order by WhatsApp; pickup windows shared weekly",
+        "Bulk discounts for groups/partners",
+        "Quality assurance and humane standards"
+      ]},
+      { slug: "training", icon: "🚜", title: "Training & Farm Tours", text: "Hands-on sessions for youth and community groups.", details: [
+        "Half-day and full-day modules",
+        "Housing design demos; record-keeping; bio-security",
+        "Group rates for schools and SACCOs"
+      ]},
+      { slug: "climate", icon: "🌞", title: "Climate Services", text: "Actionable advisories for planting, disease risk, and irrigation.", details: [
+        "Weekly tips from seasonal & short-term forecasts",
+        "Onset/cessation signals; heat-stress alerts",
+        "Field-ready bulletins in simple language"
+      ]}
+    ];
+
+    // ---------------- Maps helpers ----------------
+    const MAP = {
+      label: "Kiboga Hill Farm Uganda",
+      address: "3Km from Kikuubo, Bukomero off Hoima Road, Kyomya Sub county Kiboga District, Uganda",
+      lat: 0.716167, // 0°42'58.2"N
+      lng: 32.0245,  // 32°01'28.2"E
+    };
+    const mapsSearchUrl = () => `https://www.google.com/maps/search/?api=1&query=${MAP.lat},${MAP.lng}`;
+    const mapsDirectionsUrl = () => `https://www.google.com/maps/dir/?api=1&destination=${MAP.lat},${MAP.lng}`;
+    const mapsEmbedSrc = () => `https://maps.google.com/maps?q=${MAP.lat},${MAP.lng}&z=14&output=embed`;
+
+    // ---------------- Tiny hash router ----------------
+    function useHashRoute(){
+      const [hash, setHash] = useState(() => window.location.hash || "#/");
+      useEffect(() => {
+        const onChange = () => setHash(window.location.hash || "#/");
+        window.addEventListener("hashchange", onChange);
+        return () => window.removeEventListener("hashchange", onChange);
+      }, []);
+      const parts = useMemo(() => hash.replace(/^#/, "").split("/").filter(Boolean), [hash]);
+      return { parts };
+    }
+
+    const Link = ({ to, className = "", children, ...rest }) => (
+      <a href={to} className={className} {...rest}>{children}</a>
+    );
+
+    const NotFound = ({ what = "Page" }) => (
+      <section className="page" id="not-found">
+        <div className="container">
+          <h2>{what} Not Found</h2>
+          <p className="muted">Sorry, the {what.toLowerCase()} you’re looking for doesn’t exist.</p>
+          <Link className="btn out" to="#/">← Back Home</Link>
+        </div>
+      </section>
+    );
+
+    // ---------------- Pages ----------------
+    const Home = () => (
+      <section className="hero" id="home">
+        <div className="container heroWrap">
+          <div>
+            <h1 style={{fontSize: 38, lineHeight: 1.15}}>Fresh. Resilient. <span style={{color: "#10b981"}}>Ugandan</span> Farming.</h1>
+            <p className="muted" style={{fontSize: 18}}>We raise healthy goats & cattle, keep happy chickens, and grow coffee & bananas—powered by science-driven weather insights for better yields and safer communities.</p>
+            <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10}}>
+              <Link className="btn" to="#/products">Explore Our Farm</Link>
+              <Link className="btn out" to="#/partners" style={{background: "#fff"}}>Join as a Partner</Link>
+            </div>
+            <div className="badges">
+              <span className="badge b1">Animal Welfare First</span>
+              <span className="badge b2">Climate-Smart</span>
+              <span className="badge b3">Community-Driven</span>
+            </div>
+          </div>
+          <div>
+            <div className="blob"></div>
+            <div className="card" style={{marginTop: 12, display: "flex", gap: 10, alignItems: "center"}}>
+              <div className="icon" aria-hidden>☀️</div>
+              <div>
+                <div style={{fontWeight: 700, lineHeight: 1}}>Weather-aware Farming</div>
+                <div className="muted" style={{fontSize: 14}}>Using forecasts to guide daily decisions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const About = () => (
+      <section className="page" id="about">
+        <div className="container">
+          <h2>About Us</h2>
+          <p className="muted">Kiboga Hill Farm Uganda blends modern agri-business with local wisdom. Led by a professional meteorologist, we integrate seasonal forecasts and on-farm observations to reduce risk, cut losses, and improve productivity—from breeding choices to harvest timing.</p>
+        </div>
+      </section>
+    );
+
+    const ProductsIndex = () => (
+      <section className="page" id="products">
+        <div className="container">
+          <h2>Livestock & Crops</h2>
+          <div className="grid cards">
+            {PRODUCTS.map((item) => (
+              <div key={item.slug} className="card">
+                <div style={{display: "flex", gap: 10, alignItems: "center"}}>
+                  <div className="icon" aria-hidden>{item.icon}</div>
+                  <b>{item.title}</b>
+                </div>
+                <p className="muted" style={{marginTop: 8}}>{item.desc}</p>
+                <div style={{marginTop: 8}}>
+                  <Link className="btn out" to={`#/products/${item.slug}`}>View details</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    const ProductDetail = ({ slug }) => {
+      const p = PRODUCTS.find(x => x.slug === slug);
+      if (!p) return <NotFound what="Product"/>;
+      return (
+        <section className="page" id={`product-${slug}`}>
+          <div className="container">
+            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", gap:12, flexWrap:"wrap"}}>
+              <h2 style={{display:"flex", alignItems:"center", gap:10}}><span className="icon" aria-hidden>{p.icon}</span>{p.title}</h2>
+              <Link className="btn out" to="#/products">← Back to Livestock & Crops</Link>
+            </div>
+            <p className="muted" style={{marginTop:8}}>{p.desc}</p>
+            <ul className="muted" style={{margin: "12px 0 0 18px"}}>
+              {p.details.map(d => <li key={d}>{d}</li>)}
+            </ul>
+          </div>
+        </section>
+      );
+    };
+
+    const ServicesIndex = () => (
+      <section className="page" id="services">
+        <div className="container">
+          <h2>What We Offer</h2>
+          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+            {SERVICES.map(s => (
+              <div key={s.slug} className="card">
+                <div style={{display: "flex", gap: 10, alignItems: "center"}}>
+                  <div className="icon" aria-hidden>{s.icon}</div>
+                  <b>{s.title}</b>
+                </div>
+                <p className="muted" style={{marginTop: 8}}>{s.text}</p>
+                <div style={{marginTop: 8}}>
+                  <Link className="btn out" to={`#/services/${s.slug}`}>View details</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    const ServiceDetail = ({ slug }) => {
+      const s = SERVICES.find(x => x.slug === slug);
+      if (!s) return <NotFound what="Service"/>;
+      return (
+        <section className="page" id={`service-${slug}`}>
+          <div className="container">
+            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", gap:12, flexWrap:"wrap"}}>
+              <h2 style={{display:"flex", alignItems:"center", gap:10}}><span className="icon" aria-hidden>{s.icon}</span>{s.title}</h2>
+              <Link className="btn out" to="#/services">← Back to Services</Link>
+            </div>
+            <p className="muted" style={{marginTop:8}}>{s.text}</p>
+            <ul className="muted" style={{margin: "12px 0 0 18px"}}>
+              {s.details.map(d => <li key={d}>{d}</li>)}
+            </ul>
+          </div>
+        </section>
+      );
+    };
+
+    const Partners = () => (
+      <section className="page" id="partners">
+        <div className="container">
+          <div className="banner">
+            <h2 style={{margin: 0}}>Partner Program</h2>
+            <p style={{margin: ".3rem 0 0"}}><b>Goal: 100 Partners</b> — start with <b>10 goats</b>, <b>2 cows</b>, and <b>1 acre</b> of bananas & coffee. We provide know-how, market linkage, and climate advisories.</p>
+          </div>
+          <div className="grid cards" style={{marginTop: 16, gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+            {[
+              { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
+              { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
+              { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
+            ].map((b) => (
+              <div key={b.title} className="card">
+                <b>{b.title}</b>
+                <ul className="muted" style={{margin: "8px 0 0 16px"}}>
+                  {b.pts.map(p => <li key={p}>{p}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop: 12}}><Link className="btn" to="#/contact" aria-label="Apply to Partner Program">Apply Now →</Link></div>
+        </div>
+      </section>
+    );
+
+    const Advisory = () => (
+      <section className="page" id="advisory">
+        <div className="container">
+          <h2>Weather-Smart Advisory</h2>
+          <p className="muted">We translate forecasts into simple actions: when to plant, when to vaccinate, and how to manage heat and rainfall. Join our WhatsApp broadcast to get weekly tips.</p>
+          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+            {[
+              { title: "Planting Windows", text: "Use onset signals to time sowing for better germination." },
+              { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease risk updates." },
+              { title: "Harvest & Post-Harvest", text: "Dry spells for safe drying; rain risk for storage plans." },
+            ].map((a) => (
+              <div key={a.title} className="card">
+                <b>{a.title}</b>
+                <p className="muted" style={{marginTop: 8}}>{a.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    const Vision = () => (
+      <section className="page" id="vision">
+        <div className="container">
+          <div className="card" style={{padding: 0, overflow: "hidden"}}>
+            <div style={{background: "linear-gradient(90deg,#10b981,#84cc16,#f59e0b)", color: "#fff", padding: 20}}>
+              <h2 style={{margin: 0}}>Vision: Humane Production & Export Readiness</h2>
+              <p style={{margin: ".4rem 0 0"}}>We’re designing a slaughterhouse concept targeting <b>500 goats/day</b>, aligned with animal welfare and export standards.</p>
+            </div>
+            <div style={{display: "grid", gap: 16, padding: 18, gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+              {[{ icon: "👥", title: "Youth Jobs", text: "Skilling and dignified work in the value chain." },
+                { icon: "🏷️", title: "Quality Control", text: "Traceability from farm to market." },
+                { icon: "🌿", title: "Sustainability", text: "Nutrient cycling, shade trees, and water stewardship." }].map(v => (
+                  <div key={v.title} style={{display: "flex", gap: 10}}>
+                    <div className="icon" aria-hidden>{v.icon}</div>
+                    <div>
+                      <b>{v.title}</b>
+                      <div className="muted" style={{fontSize: 14}}>{v.text}</div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const SocialCTA = () => (
+      <section className="page" id="social">
+        <div className="container split">
+          <div>
+            <h2>See the Farm in Action</h2>
+            <p className="muted">Follow our daily stories, experiments, and tips.</p>
+            <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10}}>
+              <Link className="btn" to="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp</Link>
+              <Link className="btn out" to="https://www.tiktok.com/@kiboga_hill_farm.ug" target="_blank" rel="noopener noreferrer">TikTok</Link>
+              <Link className="btn out" to="https://www.instagram.com/kibogahillfarmuganda/" target="_blank" rel="noopener noreferrer">Instagram</Link>
+              <Link className="btn out" to="https://www.youtube.com/@Kibogahillfarm.ug1" target="_blank" rel="noopener noreferrer">YouTube</Link>
+              <Link className="btn out" to="https://web.facebook.com/profile.php?id=61581757133392" target="_blank" rel="noopener noreferrer">Facebook</Link>
+			</div>
+          </div>
+          <div className="card">
+            <p className="muted">“We believe farming can be profitable, climate-smart, and youth-friendly. Join us.”</p>
+            <div style={{display: "flex", gap: 10, alignItems: "center", marginTop: 10}}>
+              <div className="icon" aria-hidden>🏞️</div>
+              <div><b>Kiboga Hill Farm Team</b><div className="muted" style={{fontSize: 14}}>Kiboga • Uganda</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Contact = () => (
+      <section className="page" id="contact">
+        <div className="container">
+          <h2>Contact</h2>
+          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+            <div className="card"><b>Phone & WhatsApp</b><div className="muted">+256 (0) 703 663 616</div></div>
+            <div className="card"><b>Email</b><div className="muted">Kibogahillfarmuganda@gmail.com</div></div>
+            <div className="card">
+              <b>Location</b>
+              <div className="muted">{MAP.address}</div>
+              <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
+                <a className="btn" href={mapsSearchUrl()} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+                <a className="btn out" href={mapsDirectionsUrl()} target="_blank" rel="noopener noreferrer">Get Directions</a>
+              </div>
+            </div>
+            {/* Social links inside Contact */}
+            <div className="card">
+              <b>Social</b>
+              <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
+                <a className="btn" href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a className="btn out" href="https://www.tiktok.com/@kiboga_hill_farm.ug" target="_blank" rel="noopener noreferrer">TikTok</a>
+                <a className="btn out" href="https://www.instagram.com/kibogahillfarmuganda/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a className="btn out" href="https://www.youtube.com/@Kibogahillfarm.ug1" target="_blank" rel="noopener noreferrer">YouTube</a>
+				<a className="btn out" href="https://web.facebook.com/profile.php?id=61581757133392" target="_blank" rel="noopener noreferrer">Facebook</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="card" style={{marginTop:16, padding:0, overflow:"hidden"}}>
+            <div style={{position:"relative", width:"100%", paddingBottom:"56%"}}>
+              <iframe title="Kiboga Hill Farm – Map" src={mapsEmbedSrc()} style={{position:"absolute", inset:0, width:"100%", height:"100%", border:0}} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style={{padding:12, fontSize:12, color:"#556070"}}>Pin set to exact GPS coordinates: {MAP.lat}, {MAP.lng}</div>
+          </div>
+        </div>
+      </section>
+    );
+
+    // -------- Gallery (full captions + lightbox captions) --------
+    const Gallery = () => {
+      const [items, setItems] = React.useState([]); // [{src, caption}]
+      const [error, setError] = React.useState("");
+      const [lightbox, setLightbox] = React.useState(null); // {src, caption} | null
+
+      React.useEffect(() => {
+        (async () => {
+          try {
+            const res = await fetch("Images/manifest.json", { cache: "no-store" });
+            if (!res.ok) throw new Error("manifest.json not found");
+            const data = await res.json();
+
+            // Accept either ["a.jpg", "b.jpg"] or [{src:"a.jpg", caption:"..."}, ...]
+            const normalized = (Array.isArray(data) ? data : []).map((x) => {
+              if (typeof x === "string") return { src: x, caption: "" };
+              if (x && typeof x === "object") {
+                return { src: x.src || "", caption: x.caption || "" };
+              }
+              return null;
+            }).filter(Boolean).filter(x => x.src);
+
+            setItems(normalized);
+          } catch (e) {
+            console.error(e);
+            setError("Could not load Images/manifest.json. Ensure it exists and contains valid JSON.");
+          }
+        })();
+      }, []);
+
+      return (
+        <section className="page" id="gallery">
+          <div className="container">
+            <h2>Farm Gallery</h2>
+            {error && <div className="card" style={{color:"#9a3412", background:"#fff7ed"}}>{error}</div>}
+
+            <div className="card" style={{padding:12}}>
+              {items.length === 0 ? (
+                <div className="muted">No images listed yet.</div>
+              ) : (
+                <div className="gallery-grid">
+                  {items.map(({ src, caption }, i) => (
+                    <figure key={i} className="card gallery-tile" style={{padding:0, margin:0}}>
+                      <button
+                        onClick={() => setLightbox({ src: `Images/${src}`, caption })}
+                        aria-label={`Open ${caption || src}`}
+                        style={{display:"block", padding:0, border:0, background:"transparent", cursor:"zoom-in"}}
+                      >
+                        <img src={`Images/${src}`} alt={caption || src} loading="lazy" />
+                      </button>
+                      {caption ? <figcaption className="gallery-caption">{caption}</figcaption> : null}
+                    </figure>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {lightbox && (
+              <div className="lightbox" onClick={()=>setLightbox(null)} role="dialog" aria-label="Image preview">
+                <div style={{textAlign:"center"}}>
+                  <img src={lightbox.src} alt={lightbox.caption || "Preview"} />
+                  {lightbox.caption ? (
+                    <div className="lightbox-caption">{lightbox.caption}</div>
+                  ) : null}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      );
+    };
+
+    // ---------------- App Shell ----------------
+    function App(){
+      const { parts } = useHashRoute();
+      const route = (parts[0] || "").toLowerCase();
+      const sub = (parts[1] || "").toLowerCase();
+
+      useEffect(() => {
+        const fails = [];
+        const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
+        assert("Nav exists", !!document.querySelector("nav.khf-nav"));
+        assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
+        if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
+      }, [route, sub]);
+
+      return (
+        <div className="khf-root">
+          <header className="khf-header">
+            <div className="container row">
+              <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+              <nav className="khf-nav" aria-label="Primary">
+                <Link to="#/about">About</Link>
+                <Link to="#/products">Livestock & Crops</Link>
+                <Link to="#/services">Services</Link>
+                <Link to="#/partners">Partners</Link>
+                <Link to="#/advisory">Advisory</Link>
+                <Link to="#/gallery">Gallery</Link>
+                <Link to="#/contact">Contact</Link>
+              </nav>
+              <Link className="btn" to="#/contact">Talk to Us</Link>
+            </div>
+          </header>
+
+          {(!route || route === "") && <Home/>}
+          {(route === "about") && <About/>}
+          {(route === "products" && !sub) && <ProductsIndex/>}
+          {(route === "products" && sub) && <ProductDetail slug={sub}/>}
+          {(route === "services" && !sub) && <ServicesIndex/>}
+          {(route === "services" && sub) && <ServiceDetail slug={sub}/>}
+          {(route === "partners") && <Partners/>}
+          {(route === "advisory") && <Advisory/>}
+          {(route === "vision") && <Vision/>}
+          {(route === "social") && <SocialCTA/>}
+          {(route === "gallery") && <Gallery/>}
+          {(route === "contact") && <Contact/>}
+          {(!["", "about", "products", "services", "partners", "advisory", "vision", "social", "gallery", "contact"].includes(route)) && <NotFound/>}
+
+          <footer>
+            <div className="container" style={{textAlign: "center"}}>
+              © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>
