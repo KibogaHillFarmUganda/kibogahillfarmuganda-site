@@ -139,7 +139,7 @@
     // ---------------- Maps helpers ----------------
     const MAP = {
       label: "Kiboga Hill Farm Uganda",
-      address: "3Km from Kikuubo, Bukomero off Hoima Road, Kyomya Sub county Kiboga District, Uganda",
+      address: "3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kyomya Sub county Kiboga District, Uganda",
       lat: 0.716167, // 0°42'58.2"N
       lng: 32.0245,  // 32°01'28.2"E
     };
@@ -400,6 +400,14 @@
         </div>
       </section>
     );
+//.........
+	  // --- Email helpers ---
+const EMAIL_PRIMARY = "khf@kibogahillfarmuganda.co.ug";
+const EMAIL_BACKUP  = "Kibogahillfarmuganda@gmail.com"; // optional backup
+const MAIL_SUBJECT  = encodeURIComponent("Inquiry from Kiboga Hill Farm website");
+const MAIL_BODY     = encodeURIComponent(
+  "Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,"
+);
 
 //---------Contact ......
 	  const Contact = () => {
@@ -417,9 +425,30 @@
           </div>
 
           <div className="card">
-            <b>Email</b>
-            <div className="muted">Kibogahillfarmuganda@gmail.com</div>
-          </div>
+  <b>Email</b>
+  <div className="muted" style={{display:"flex", flexDirection:"column", gap:6}}>
+    {/* Clickable email that opens a compose window */}
+    <a
+      className="muted"
+      href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}
+      aria-label="Email Kiboga Hill Farm (primary)"
+    >
+      {EMAIL_PRIMARY}
+    </a>
+
+    {/* Optional: show backup address too */}
+    <a
+      className="muted"
+      href={`mailto:${EMAIL_BACKUP}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}
+      aria-label="Email Kiboga Hill Farm (backup)"
+    >
+      {EMAIL_BACKUP}
+    </a>
+
+    {/* Optional: a button-styled compose shortcut */}
+    {/* <a className="btn out" href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}>Email us</a> */}
+  </div>
+</div>
 
           <div className="card">
             <b>Location</b>
@@ -620,6 +649,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
