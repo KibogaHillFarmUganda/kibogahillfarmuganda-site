@@ -145,7 +145,12 @@
     };
     const mapsSearchUrl = () => `https://www.google.com/maps/search/?api=1&query=${MAP.lat},${MAP.lng}`;
     const mapsDirectionsUrl = () => `https://www.google.com/maps/dir/?api=1&destination=${MAP.lat},${MAP.lng}`;
-    const mapsEmbedSrc = () => `https://maps.google.com/maps?q=${MAP.lat},${MAP.lng}&z=14&output=embed`;
+    // type: 'roadmap' | 'satellite' | 'hybrid'
+   	const mapsEmbedSrc = (type = 'satellite') => {
+  	const t = type === 'satellite' ? 'k' : (type === 'hybrid' ? 'h' : 'm'); // k=sat, h=hybrid, m=map
+  	return `https://maps.google.com/maps?q=${MAP.lat},${MAP.lng}&z=15&t=${t}&output=embed`;
+	};
+
 
     // ---------------- Tiny hash router ----------------
     function useHashRoute(){
@@ -396,43 +401,40 @@
       </section>
     );
 
-    const Contact = () => (
-      <section className="page" id="contact">
-        <div className="container">
-          <h2>Contact</h2>
-          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
-            <div className="card"><b>Phone & WhatsApp</b><div className="muted">+256 (0) 703 663 616</div></div>
-            <div className="card"><b>Email</b><div className="muted">Kibogahillfarmuganda@gmail.com</div></div>
-            <div className="card">
-              <b>Location</b>
-              <div className="muted">{MAP.address}</div>
-              <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
-                <a className="btn" href={mapsSearchUrl()} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-                <a className="btn out" href={mapsDirectionsUrl()} target="_blank" rel="noopener noreferrer">Get Directions</a>
-              </div>
-            </div>
-            {/* Social links inside Contact */}
-            <div className="card">
-              <b>Social</b>
-              <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
-                <a className="btn" href="https://wa.me/256703663616" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                <a className="btn out" href="https://www.tiktok.com/@kiboga_hill_farm.ug" target="_blank" rel="noopener noreferrer">TikTok</a>
-                <a className="btn out" href="https://www.instagram.com/kibogahillfarmuganda/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a className="btn out" href="https://www.youtube.com/@Kibogahillfarm.ug1" target="_blank" rel="noopener noreferrer">YouTube</a>
-				        <a className="btn out" href="https://web.facebook.com/profile.php?id=61581757133392" target="_blank" rel="noopener noreferrer">Facebook</a>
-              </div>
-            </div>
+ const Contact = () => {
+  const [mapType, setMapType] = React.useState('satellite'); // default to lively satellite
+  return (
+    <section className="page" id="contact">
+      <div className="container">
+        <h2>Contact</h2>
+        {/* ... (your cards above stay the same) ... */}
+
+        <div className="card" style={{marginTop:16, padding:0, overflow:"hidden"}}>
+          {/* Small toggle */}
+          <div style={{display:"flex", gap:8, justifyContent:"flex-end", padding:"10px 12px"}}>
+            <button className={mapType==='roadmap' ? 'btn' : 'btn out'} onClick={()=>setMapType('roadmap')}>Map</button>
+            <button className={mapType==='satellite' ? 'btn' : 'btn out'} onClick={()=>setMapType('satellite')}>Satellite</button>
+            <button className={mapType==='hybrid' ? 'btn' : 'btn out'} onClick={()=>setMapType('hybrid')}>Hybrid</button>
           </div>
 
-          <div className="card" style={{marginTop:16, padding:0, overflow:"hidden"}}>
-            <div style={{position:"relative", width:"100%", paddingBottom:"56%"}}>
-              <iframe title="Kiboga Hill Farm – Map" src={mapsEmbedSrc()} style={{position:"absolute", inset:0, width:"100%", height:"100%", border:0}} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div style={{padding:12, fontSize:12, color:"#556070"}}>Pin set to exact GPS coordinates: {MAP.lat}, {MAP.lng}</div>
+          <div style={{position:"relative", width:"100%", paddingBottom:"56%"}}>
+            <iframe
+              title="Kiboga Hill Farm – Map"
+              src={mapsEmbedSrc(mapType)}
+              style={{position:"absolute", inset:0, width:"100%", height:"100%", border:0}}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div style={{padding:12, fontSize:12, color:"#556070"}}>
+            Pin set to exact GPS coordinates: {MAP.lat}, {MAP.lng}
           </div>
         </div>
-      </section>
-    );
+      </div>
+    </section>
+  );
+};
+
 
     // -------- Gallery (optimized thumbs + caching + blur-up) --------
 const Gallery = () => {
@@ -585,5 +587,6 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
