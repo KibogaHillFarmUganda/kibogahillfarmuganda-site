@@ -26,6 +26,16 @@
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
     .hero{overflow:hidden}
     .heroWrap{display:grid;grid-template-columns:1fr;gap:28px;padding:56px 0}
+	/* Blur-up while thumbnails load */
+	.gallery-tile img{
+  	filter: blur(12px);
+  	transform: scale(1.02);
+  	transition: filter .35s ease, transform .35s ease;
+	}
+	.gallery-tile img.img-loaded{
+ 	filter: none;
+  	transform: none;
+	}
 
     /* OLD gradient block (kept for reference)
     .blob{aspect-ratio:4/3;border-radius:28px;box-shadow:var(--shadow);background:radial-gradient(120% 120% at 0% 0%,#a7f3d0 0%,#fde68a 50%,#fdba74 100%);position:relative;animation:floaty 8s ease-in-out infinite}
@@ -424,77 +434,97 @@
       </section>
     );
 
-    // -------- Gallery (full captions + lightbox captions) --------
-    const Gallery = () => {
-      const [items, setItems] = React.useState([]); // [{src, caption}]
-      const [error, setError] = React.useState("");
-      const [lightbox, setLightbox] = React.useState(null); // {src, caption} | null
+    // -------- Gallery (optimized thumbs + caching + blur-up) --------
+const Gallery = () => {
+  const [items, setItems] = React.useState([]); // [{src, caption}]
+  const [error, setError] = React.useState("");
+  const [lightbox, setLightbox] = React.useState(null); // {src, caption} | null
 
-      React.useEffect(() => {
-        (async () => {
-          try {
-            const res = await fetch("Images/manifest.json", { cache: "no-store" });
-            if (!res.ok) throw new Error("manifest.json not found");
-            const data = await res.json();
+  // Derive a thumbnail path from the original filename.
+  // Expects thumbnails in Images/thumbs/<name>-520.webp and -1040.webp (2x).
+  const thumbPath = (src, dpr2=false) => {
+    const match = src.match(/^(.*?)(\.[^.]+)$/); // base + ext
+    const base = match ? match[1] : src;
+    const w = dpr2 ? "1040" : "520";
+    return `Images/thumbs/${base}-${w}.webp`;
+  };
 
-            // Accept either ["a.jpg", "b.jpg"] or [{src:"a.jpg", caption:"..."}, ...]
-            const normalized = (Array.isArray(data) ? data : []).map((x) => {
-              if (typeof x === "string") return { src: x, caption: "" };
-              if (x && typeof x === "object") {
-                return { src: x.src || "", caption: x.caption || "" };
-              }
-              return null;
-            }).filter(Boolean).filter(x => x.src);
+  React.useEffect(() => {
+    (async () => {
+      try {
+        // Let the browser cache the manifest (faster repeat visits)
+        const res = await fetch("Images/manifest.json");
+        if (!res.ok) throw new Error("manifest.json not found");
+        const data = await res.json();
 
-            setItems(normalized);
-          } catch (e) {
-            console.error(e);
-            setError("Could not load Images/manifest.json. Ensure it exists and contains valid JSON.");
-          }
-        })();
-      }, []);
+        const normalized = (Array.isArray(data) ? data : [])
+          .map((x) => typeof x === "string" ? { src: x, caption: "" } : (x && typeof x === "object" ? { src: x.src || "", caption: x.caption || "" } : null))
+          .filter(Boolean).filter(x => x.src);
 
-      return (
-        <section className="page" id="gallery">
-          <div className="container">
-            <h2>Farm Gallery</h2>
-            {error && <div className="card" style={{color:"#9a3412", background:"#fff7ed"}}>{error}</div>}
+        setItems(normalized);
+      } catch (e) {
+        console.error(e);
+        setError("Could not load Images/manifest.json. Ensure it exists and contains valid JSON.");
+      }
+    })();
+  }, []);
 
-            <div className="card" style={{padding:12}}>
-              {items.length === 0 ? (
-                <div className="muted">No images listed yet.</div>
-              ) : (
-                <div className="gallery-grid">
-                  {items.map(({ src, caption }, i) => (
-                    <figure key={i} className="card gallery-tile" style={{padding:0, margin:0}}>
-                      <button
-                        onClick={() => setLightbox({ src: `Images/${src}`, caption })}
-                        aria-label={`Open ${caption || src}`}
-                        style={{display:"block", padding:0, border:0, background:"transparent", cursor:"zoom-in"}}
-                      >
-                        <img src={`Images/${src}`} alt={caption || src} loading="lazy" />
-                      </button>
-                      {caption ? <figcaption className="gallery-caption">{caption}</figcaption> : null}
-                    </figure>
-                  ))}
-                </div>
-              )}
+  return (
+    <section className="page" id="gallery">
+      <div className="container">
+        <h2>Farm Gallery</h2>
+        {error && <div className="card" style={{color:"#9a3412", background:"#fff7ed"}}>{error}</div>}
+
+        <div className="card" style={{padding:12}}>
+          {items.length === 0 ? (
+            <div className="muted">No images listed yet.</div>
+          ) : (
+            <div className="gallery-grid">
+              {items.map(({ src, caption }, i) => {
+                const thumb1x = thumbPath(src, false);
+                const thumb2x = thumbPath(src, true);
+                const full = `Images/${src}`;
+                return (
+                  <figure key={i} className="card gallery-tile" style={{padding:0, margin:0}}>
+                    <button
+                      onClick={() => setLightbox({ src: full, caption })}
+                      aria-label={`Open ${caption || src}`}
+                      style={{display:"block", padding:0, border:0, background:"transparent", cursor:"zoom-in"}}
+                    >
+                      <img
+                        src={thumb1x}                  // fast small webp
+                        srcSet={`${thumb1x} 520w, ${thumb2x} 1040w`}
+                        sizes="(max-width:720px) 200px, 260px"
+                        alt={caption || src}
+                        loading="lazy"
+                        decoding="async"
+                        onLoad={(e)=> e.currentTarget.classList.add("img-loaded")}
+                        // If thumb missing, fall back to original large image
+                        onError={(e)=> { e.currentTarget.src = full; e.currentTarget.removeAttribute('srcset'); }}
+                      />
+                    </button>
+                    {caption ? <figcaption className="gallery-caption">{caption}</figcaption> : null}
+                  </figure>
+                );
+              })}
             </div>
+          )}
+        </div>
 
-            {lightbox && (
-              <div className="lightbox" onClick={()=>setLightbox(null)} role="dialog" aria-label="Image preview">
-                <div style={{textAlign:"center"}}>
-                  <img src={lightbox.src} alt={lightbox.caption || "Preview"} />
-                  {lightbox.caption ? (
-                    <div className="lightbox-caption">{lightbox.caption}</div>
-                  ) : null}
-                </div>
-              </div>
-            )}
+        {lightbox && (
+          <div className="lightbox" onClick={()=>setLightbox(null)} role="dialog" aria-label="Image preview">
+            <div style={{textAlign:"center"}}>
+              <img src={lightbox.src} alt={lightbox.caption || "Preview"} />
+              {lightbox.caption ? (
+                <div className="lightbox-caption">{lightbox.caption}</div>
+              ) : null}
+            </div>
           </div>
-        </section>
-      );
-    };
+        )}
+      </div>
+    </section>
+  );
+};
 
     // ---------------- App Shell ----------------
     function App(){
@@ -555,4 +585,5 @@
   </script>
 </body>
 </html>
+
 
