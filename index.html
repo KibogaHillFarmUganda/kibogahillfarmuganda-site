@@ -401,16 +401,50 @@
       </section>
     );
 
- const Contact = () => {
-  const [mapType, setMapType] = React.useState('satellite'); // default to lively satellite
+//---------Contact ......
+	  const Contact = () => {
+  const [mapType, setMapType] = React.useState('satellite'); // lively by default
   return (
     <section className="page" id="contact">
       <div className="container">
         <h2>Contact</h2>
-        {/* ... (your cards above stay the same) ... */}
 
+        {/* ===== cards (phone/email/location/social) ===== */}
+        <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+          <div className="card">
+            <b>Phone & WhatsApp</b>
+            <div className="muted">+256 (0) 703 663 616</div>
+          </div>
+
+          <div className="card">
+            <b>Email</b>
+            <div className="muted">Kibogahillfarmuganda@gmail.com</div>
+          </div>
+
+          <div className="card">
+            <b>Location</b>
+            <div className="muted">{MAP.address}</div>
+            <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
+              <a className="btn" href={mapsSearchUrl()} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+              <a className="btn out" href={mapsDirectionsUrl()} target="_blank" rel="noopener noreferrer">Get Directions</a>
+            </div>
+          </div>
+
+          {/* Social links */}
+          <div className="card">
+            <b>Social</b>
+            <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
+              <a className="btn" href="https://wa.me/256703663616" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <a className="btn out" href="https://www.tiktok.com/@kiboga_hill_farm.ug" target="_blank" rel="noopener noreferrer">TikTok</a>
+              <a className="btn out" href="https://www.instagram.com/kibogahillfarmuganda/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a className="btn out" href="https://www.youtube.com/@Kibogahillfarm.ug1" target="_blank" rel="noopener noreferrer">YouTube</a>
+              <a className="btn out" href="https://web.facebook.com/profile.php?id=61581757133392" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        {/* ===== map with type toggle ===== */}
         <div className="card" style={{marginTop:16, padding:0, overflow:"hidden"}}>
-          {/* Small toggle */}
           <div style={{display:"flex", gap:8, justifyContent:"flex-end", padding:"10px 12px"}}>
             <button className={mapType==='roadmap' ? 'btn' : 'btn out'} onClick={()=>setMapType('roadmap')}>Map</button>
             <button className={mapType==='satellite' ? 'btn' : 'btn out'} onClick={()=>setMapType('satellite')}>Satellite</button>
@@ -434,7 +468,6 @@
     </section>
   );
 };
-
 
     // -------- Gallery (optimized thumbs + caching + blur-up) --------
 const Gallery = () => {
@@ -587,6 +620,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
