@@ -308,7 +308,7 @@
         <div className="container">
           <div className="banner">
             <h2 style={{margin: 0}}>Family Project</h2>
-            <p style={{margin: ".3rem 0 0"}}><b>Goal: 100 Family Members</b> — Who contributes monthly towards a family enterprise which might be for goats, cows or chicken among others. This gives us market linkages and collective marketing power.</p>
+            <p style={{margin: ".3rem 0 0"}}><b>Goal: Kiboga Hill Farm Family Members</b> — Who contributes monthly towards a family enterprise which might be for goats, cows or chicken among others. This gives us market linkages and collective marketing power.</p>
           </div>
           <div className="grid cards" style={{marginTop: 16, gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {[
@@ -637,7 +637,7 @@ const Gallery = () => {
                 <Link to="#/about">About</Link>
                 <Link to="#/products">Livestock & Crops</Link>
                 <Link to="#/services">Services</Link>
-                <Link to="#/Family">Family</Link>
+                <Link to="#/family">Family</Link>
                 <Link to="#/advisory">Advisory</Link>
                 <Link to="#/gallery">Gallery</Link>
                 <Link to="#/contact">Contact</Link>
@@ -651,13 +651,13 @@ const Gallery = () => {
           {(route === "products" && sub) && <ProductDetail slug={sub}/>}
           {(route === "services" && !sub) && <ServicesIndex/>}
           {(route === "services" && sub) && <ServiceDetail slug={sub}/>}
-          {(route === "Family") && <Family/>}
+          {(route === "family") && <Family/>}
           {(route === "advisory") && <Advisory/>}
           {(route === "vision") && <Vision/>}
           {(route === "social") && <SocialCTA/>}
           {(route === "gallery") && <Gallery/>}
           {(route === "contact") && <Contact/>}
-          {(!["", "about", "products", "services", "Family", "advisory", "vision", "social", "gallery", "contact"].includes(route)) && <NotFound/>}
+          {(!["", "about", "products", "services", "family", "advisory", "vision", "social", "gallery", "contact"].includes(route)) && <NotFound/>}
 
           <footer>
             <div className="container" style={{textAlign: "center"}}>
@@ -672,6 +672,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
