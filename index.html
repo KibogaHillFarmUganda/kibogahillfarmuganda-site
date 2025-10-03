@@ -188,12 +188,12 @@
             <p className="muted" style={{fontSize: 18}}>We raise, buy and sell healthy goats, sheep, cattle, & chickens, and grow coffee, bananas, maize and trees—powered by science-driven weather and climate forecasts for better yields and safer communities.</p>
             <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10}}>
               <Link className="btn" to="#/products">Explore Our Farm</Link>
-              <Link className="btn out" to="#/Family" style={{background: "#fff"}}>Join as a Family member</Link>
+              <Link className="btn out" to="#/family" style={{background: "#fff"}}>Join as a Family member</Link>
             </div>
             <div className="badges">
-              <span className="badge b1">Animal Welfare First</span>
+              <span className="badge b1">Livestock Welfare First</span>
               <span className="badge b2">Climate-Smart</span>
-              <span className="badge b3">Community-Driven</span>
+              <span className="badge b3">Community-Support</span>
             </div>
           </div>
           <div>
@@ -404,8 +404,8 @@
           </div>
         </div>
       </section>
-	/* Simple, accessible ticker */
-.ticker{ 
+/* Simple, accessible ticker */
+.ticker{
   margin-top:12px;
   background:#fff;
   border-radius:16px;
@@ -423,13 +423,11 @@
 .ticker-bullet{ font-weight:700; }
 @keyframes tickerMove{
   from{ transform: translateX(0); }
-  to{   transform: translateX(-50%); }  /* we’ll duplicate content for seamless loop */
+  to{   transform: translateX(-50%); }
 }
-/* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce){
   .ticker-track{ animation:none; }
 }
-    );
 //.........
 	  // --- Email helpers ---
 const EMAIL_PRIMARY = "khf@kibogahillfarmuganda.co.ug";
@@ -702,6 +700,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
