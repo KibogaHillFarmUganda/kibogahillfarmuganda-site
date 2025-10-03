@@ -121,7 +121,7 @@
     const SERVICES = [
       { slug: "sales", icon: "🏪", title: "Farm-Gate Sales", text: "Goats, calves, eggs, coffee, and seasonal produce.", details: [
         "Order by WhatsApp; pickup windows shared weekly",
-        "Bulk discounts for groups/partners",
+        "Bulk discounts for groups/Family members",
         "Quality assurance and humane standards"
       ]},
       { slug: "training", icon: "🚜", title: "Training camps & Farm Tours", text: "Hands-on sessions for youth and community groups, camps where goat bbq, mountain hiking and camp fire a must.", details: [
@@ -187,7 +187,7 @@
             <p className="muted" style={{fontSize: 18}}>We raise, buy and sell healthy goats, sheep, cattle, & chickens, and grow coffee, bananas, maize and trees—powered by science-driven weather and climate forecasts for better yields and safer communities.</p>
             <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10}}>
               <Link className="btn" to="#/products">Explore Our Farm</Link>
-              <Link className="btn out" to="#/partners" style={{background: "#fff"}}>Join as a Partner</Link>
+              <Link className="btn out" to="#/Family" style={{background: "#fff"}}>Join as a Family member</Link>
             </div>
             <div className="badges">
               <span className="badge b1">Animal Welfare First</span>
@@ -324,7 +324,7 @@
               </div>
             ))}
           </div>
-          <div style={{marginTop: 12}}><Link className="btn" to="#/contact" aria-label="Apply to Partner Program">Apply Now →</Link></div>
+          <div style={{marginTop: 12}}><Link className="btn" to="#/contact" aria-label="Apply to  Program">Apply Now →</Link></div>
         </div>
       </section>
     );
@@ -637,7 +637,7 @@ const Gallery = () => {
                 <Link to="#/about">About</Link>
                 <Link to="#/products">Livestock & Crops</Link>
                 <Link to="#/services">Services</Link>
-                <Link to="#/partners">Partners</Link>
+                <Link to="#/Family">Family</Link>
                 <Link to="#/advisory">Advisory</Link>
                 <Link to="#/gallery">Gallery</Link>
                 <Link to="#/contact">Contact</Link>
@@ -651,13 +651,13 @@ const Gallery = () => {
           {(route === "products" && sub) && <ProductDetail slug={sub}/>}
           {(route === "services" && !sub) && <ServicesIndex/>}
           {(route === "services" && sub) && <ServiceDetail slug={sub}/>}
-          {(route === "partners") && <Partners/>}
+          {(route === "Family") && <Family/>}
           {(route === "advisory") && <Advisory/>}
           {(route === "vision") && <Vision/>}
           {(route === "social") && <SocialCTA/>}
           {(route === "gallery") && <Gallery/>}
           {(route === "contact") && <Contact/>}
-          {(!["", "about", "products", "services", "partners", "advisory", "vision", "social", "gallery", "contact"].includes(route)) && <NotFound/>}
+          {(!["", "about", "products", "services", "Family", "advisory", "vision", "social", "gallery", "contact"].includes(route)) && <NotFound/>}
 
           <footer>
             <div className="container" style={{textAlign: "center"}}>
@@ -672,6 +672,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
