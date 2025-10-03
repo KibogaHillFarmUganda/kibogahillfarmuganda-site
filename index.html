@@ -428,22 +428,13 @@ const MAIL_BODY     = encodeURIComponent(
   <b>Email</b>
   <div className="muted" style={{display:"flex", flexDirection:"column", gap:6}}>
     {/* Clickable email that opens a compose window */}
-    <a
-      className="muted"
-      href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}
-      aria-label="Email Kiboga Hill Farm (primary)"
-    >
-      {EMAIL_PRIMARY}
-    </a>
+<a
+  class="btn"
+  href="mailto:info@kibogahillfarmuganda.co.ug?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____"
+>
+  Talk to Us
+</a>
 
-    {/* Optional: show backup address too */}
-    <a
-      className="muted"
-      href={`mailto:${EMAIL_BACKUP}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}
-      aria-label="Email Kiboga Hill Farm (backup)"
-    >
-      {EMAIL_BACKUP}
-    </a>
 
     {/* Optional: a button-styled compose shortcut */}
     {/* <a className="btn out" href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}>Email us</a> */}
@@ -649,6 +640,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
