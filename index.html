@@ -409,55 +409,84 @@ const MAIL_BODY     = encodeURIComponent(
   "Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,"
 );
 
-//---------Contact ......
-	  const Contact = () => {
-  const [mapType, setMapType] = React.useState('satellite'); // lively by default
+// --------- Contact (fixed JSX structure) ----------
+const Contact = () => {
+  const [mapType, setMapType] = React.useState("satellite"); // lively by default
+
   return (
     <section className="page" id="contact">
       <div className="container">
         <h2>Contact</h2>
 
-        {/* ===== cards (phone/email/location/social) ===== */}
-        <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+        {/* ===== cards: phone + email + location + social ===== */}
+        <div
+          className="grid cards"
+          style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}
+        >
+          {/* Phone */}
           <div className="card">
             <b>Phone & WhatsApp</b>
             <div className="muted">+256 (0) 703 663 616</div>
           </div>
 
-<div className="card">
-  <b>Email</b>
-  <p>
-    <a href="mailto:info@kibogahillfarmuganda.co.ug">
-      info@kibogahillfarmuganda.co.ug
-    </a>
-  </p>
+          {/* Email */}
+          <div className="card">
+            <b>Email</b>
+            <p>
+              <a href="mailto:info@kibogahillfarmuganda.co.ug">
+                info@kibogahillfarmuganda.co.ug
+              </a>
+            </p>
+            <a
+              className="btn"
+              href={
+                "mailto:info@kibogahillfarmuganda.co.ug" +
+                "?subject=Hello%20Kiboga%20Hill%20Farm" +
+                "&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____"
+              }
+            >
+              Talk to Us
+            </a>
 
-  <a
-    className="btn"
-    href="mailto:info@kibogahillfarmuganda.co.ug?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____"
-  >
-    Talk to Us
-  </a>
-</div>
+            {/* Optional: a button-styled compose shortcut */}
+            {/* <a className="btn out" href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}>Email us</a> */}
+          </div>
 
-    {/* Optional: a button-styled compose shortcut */}
-    {/* <a className="btn out" href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}>Email us</a> */}
-  </div>
-</div>
-
+          {/* Location */}
           <div className="card">
             <b>Location</b>
             <div className="muted">{MAP.address}</div>
-            <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
-              <a className="btn" href={mapsSearchUrl()} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-              <a className="btn out" href={mapsDirectionsUrl()} target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <div
+              style={{
+                display: "flex",
+                gap: 10,
+                flexWrap: "wrap",
+                marginTop: 10,
+              }}
+            >
+              <a
+                className="btn"
+                href={mapsSearchUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open in Google Maps
+              </a>
+              <a
+                className="btn out"
+                href={mapsDirectionsUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get Directions
+              </a>
             </div>
           </div>
 
-          {/* Social links */}
+          {/* Social */}
           <div className="card">
             <b>Social</b>
-            <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:10}}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 10 }}>
               <a className="btn" href="https://wa.me/256703663616" target="_blank" rel="noopener noreferrer">WhatsApp</a>
               <a className="btn out" href="https://www.tiktok.com/@kiboga_hill_farm.ug" target="_blank" rel="noopener noreferrer">TikTok</a>
               <a className="btn out" href="https://www.instagram.com/kibogahillfarmuganda/" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -468,23 +497,23 @@ const MAIL_BODY     = encodeURIComponent(
         </div>
 
         {/* ===== map with type toggle ===== */}
-        <div className="card" style={{marginTop:16, padding:0, overflow:"hidden"}}>
-          <div style={{display:"flex", gap:8, justifyContent:"flex-end", padding:"10px 12px"}}>
-            <button className={mapType==='roadmap' ? 'btn' : 'btn out'} onClick={()=>setMapType('roadmap')}>Map</button>
-            <button className={mapType==='satellite' ? 'btn' : 'btn out'} onClick={()=>setMapType('satellite')}>Satellite</button>
-            <button className={mapType==='hybrid' ? 'btn' : 'btn out'} onClick={()=>setMapType('hybrid')}>Hybrid</button>
+        <div className="card" style={{ marginTop: 16, padding: 0, overflow: "hidden" }}>
+          <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", padding: "10px 12px" }}>
+            <button className={mapType === "roadmap" ? "btn" : "btn out"} onClick={() => setMapType("roadmap")}>Map</button>
+            <button className={mapType === "satellite" ? "btn" : "btn out"} onClick={() => setMapType("satellite")}>Satellite</button>
+            <button className={mapType === "hybrid" ? "btn" : "btn out"} onClick={() => setMapType("hybrid")}>Hybrid</button>
           </div>
 
-          <div style={{position:"relative", width:"100%", paddingBottom:"56%"}}>
+          <div style={{ position: "relative", width: "100%", paddingBottom: "56%" }}>
             <iframe
               title="Kiboga Hill Farm – Map"
               src={mapsEmbedSrc(mapType)}
-              style={{position:"absolute", inset:0, width:"100%", height:"100%", border:0}}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
-          <div style={{padding:12, fontSize:12, color:"#556070"}}>
+          <div style={{ padding: 12, fontSize: 12, color: "#556070" }}>
             Pin set to exact GPS coordinates: {MAP.lat}, {MAP.lng}
           </div>
         </div>
@@ -644,6 +673,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
