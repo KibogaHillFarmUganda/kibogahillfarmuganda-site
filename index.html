@@ -41,23 +41,24 @@
     .blob{aspect-ratio:4/3;border-radius:28px;box-shadow:var(--shadow);background:radial-gradient(120% 120% at 0% 0%,#a7f3d0 0%,#fde68a 50%,#fdba74 100%);position:relative;animation:floaty 8s ease-in-out infinite}
     */
 
-    /* NEW: hero media wrapper to show the badge image */
-    .heroMedia{
-      aspect-ratio:4/3;
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      background:#f3f4f6;            /* soft fallback while image loads */
-      position:relative;
-      animation:floaty 8s ease-in-out infinite;
-    }
-    .heroMedia img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-    }
+/* Hero badge image — fit inside a neat frame, no cropping */
+.heroMedia{
+  max-width:560px;          /* keeps it neat on large screens */
+  width:100%;
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  background:#fff;          /* white frame around the poster */
+  padding:8px;              /* small border/frame */
+  animation:floaty 8s ease-in-out infinite;
+}
+.heroMedia img{
+  display:block;
+  width:100%;
+  height:auto;              /* keep image’s natural aspect ratio */
+  object-fit:contain;       /* never crop */
+  object-position:center;
+}
 
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
     .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
@@ -200,13 +201,17 @@
             <figure className="heroMedia">
               <img src="Images/camp-badge.png" alt="Kiboga Hill Farm – November Camp News Badge" loading="eager" />
             </figure>
-            <div className="card" style={{marginTop: 12, display: "flex", gap: 10, alignItems: "center"}}>
-              <div className="icon" aria-hidden>☀️</div>
-              <div>
-                <div style={{fontWeight: 700, lineHeight: 1}}>Weather-aware Farming</div>
-                <div className="muted" style={{fontSize: 14}}>Using forecasts to guide daily decisions</div>
-              </div>
-            </div>
+           <div className="ticker" role="status" aria-label="Camp news ticker">
+  <div className="ticker-track">
+    <span className="ticker-bullet">🗓️ NOVEMBER CAMP NEWS:</span>
+    <span>29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop growing Training • Networking • Exciting Campfire</span>
+
+    {/* duplicate once for seamless loop */}
+    <span className="ticker-bullet" aria-hidden="true">🗓️ NOVEMBER CAMP NEWS:</span>
+    <span aria-hidden="true">29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop Training • Networking • Exciting Campfire</span>
+  </div>
+</div>
+
           </div>
         </div>
       </section>
@@ -399,6 +404,31 @@
           </div>
         </div>
       </section>
+	/* Simple, accessible ticker */
+.ticker{ 
+  margin-top:12px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.ticker-track{
+  display:flex;
+  gap:32px;
+  align-items:center;
+  padding:10px 12px;
+  white-space:nowrap;
+  animation:tickerMove 22s linear infinite;
+}
+.ticker-bullet{ font-weight:700; }
+@keyframes tickerMove{
+  from{ transform: translateX(0); }
+  to{   transform: translateX(-50%); }  /* we’ll duplicate content for seamless loop */
+}
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{ animation:none; }
+}
     );
 //.........
 	  // --- Email helpers ---
@@ -672,6 +702,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
