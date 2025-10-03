@@ -424,17 +424,21 @@ const MAIL_BODY     = encodeURIComponent(
             <div className="muted">+256 (0) 703 663 616</div>
           </div>
 
-          <div className="card">
+<div className="card">
   <b>Email</b>
-  <div className="muted" style={{display:"flex", flexDirection:"column", gap:6}}>
-    {/* Clickable email that opens a compose window */}
-<a
-  class="btn"
-  href="mailto:info@kibogahillfarmuganda.co.ug?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____"
->
-  Talk to Us
-</a>
+  <p>
+    <a href="mailto:info@kibogahillfarmuganda.co.ug">
+      info@kibogahillfarmuganda.co.ug
+    </a>
+  </p>
 
+  <a
+    className="btn"
+    href="mailto:info@kibogahillfarmuganda.co.ug?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____"
+  >
+    Talk to Us
+  </a>
+</div>
 
     {/* Optional: a button-styled compose shortcut */}
     {/* <a className="btn out" href={`mailto:${EMAIL_PRIMARY}?subject=${MAIL_SUBJECT}&body=${MAIL_BODY}`}>Email us</a> */}
@@ -640,6 +644,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
