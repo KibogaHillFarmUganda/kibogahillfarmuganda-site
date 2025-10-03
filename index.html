@@ -40,7 +40,30 @@
     /* OLD gradient block (kept for reference)
     .blob{aspect-ratio:4/3;border-radius:28px;box-shadow:var(--shadow);background:radial-gradient(120% 120% at 0% 0%,#a7f3d0 0%,#fde68a 50%,#fdba74 100%);position:relative;animation:floaty 8s ease-in-out infinite}
     */
-
+/* Simple, accessible ticker */
+.ticker{
+  margin-top:12px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.ticker-track{
+  display:flex;
+  gap:32px;
+  align-items:center;
+  padding:10px 12px;
+  white-space:nowrap;
+  animation:tickerMove 22s linear infinite;
+}
+.ticker-bullet{ font-weight:700; }
+@keyframes tickerMove{
+  from{ transform: translateX(0); }
+  to{   transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{ animation:none; }
+}
 /* Hero badge image — fit inside a neat frame, no cropping */
 .heroMedia{
   max-width:560px;          /* keeps it neat on large screens */
@@ -404,34 +427,10 @@
           </div>
         </div>
       </section>
-/* Simple, accessible ticker */
-.ticker{
-  margin-top:12px;
-  background:#fff;
-  border-radius:16px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.ticker-track{
-  display:flex;
-  gap:32px;
-  align-items:center;
-  padding:10px 12px;
-  white-space:nowrap;
-  animation:tickerMove 22s linear infinite;
-}
-.ticker-bullet{ font-weight:700; }
-@keyframes tickerMove{
-  from{ transform: translateX(0); }
-  to{   transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce){
-  .ticker-track{ animation:none; }
-}
+
 //.........
 	  // --- Email helpers ---
 const EMAIL_PRIMARY = "khf@kibogahillfarmuganda.co.ug";
-const EMAIL_BACKUP  = "Kibogahillfarmuganda@gmail.com"; // optional backup
 const MAIL_SUBJECT  = encodeURIComponent("Inquiry from Kiboga Hill Farm website");
 const MAIL_BODY     = encodeURIComponent(
   "Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,"
@@ -700,6 +699,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
