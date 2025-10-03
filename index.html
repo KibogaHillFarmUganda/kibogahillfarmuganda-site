@@ -82,6 +82,85 @@
   object-fit:contain;       /* never crop */
   object-position:center;
 }
+/* --- HERO LAYOUT POLISH --- */
+.heroWrap{
+  display:grid;
+  gap:32px;
+  align-items:center;           /* vertical centering of both columns */
+}
+
+/* two columns on desktop, stacked on mobile */
+@media (min-width: 900px){
+  .heroWrap{
+    grid-template-columns: minmax(320px,520px) 1fr;
+  }
+}
+
+.heroLeft{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.heroLeft h1{
+  font-size: clamp(28px,4vw,42px);
+  line-height: 1.1;
+  margin: 0 0 10px;
+}
+.heroLeft p{
+  max-width: 36ch;              /* nicer line-length so the text “sits” well */
+}
+
+/* right column centers its contents */
+.heroRight{
+  display:flex;
+  flex-direction:column;
+  align-items:center;            /* <— centers the badge */
+}
+
+/* badge frame */
+.heroMedia{
+  width: min(560px, 100%);
+  aspect-ratio: 4 / 3;           /* consistent height */
+  border-radius:28px;
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  background:#fff;
+  padding:10px;
+  animation: floaty 8s ease-in-out infinite;
+  margin: 0 auto;                /* double-ensure centering */
+}
+.heroMedia img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+/* ticker aligns to badge width and center */
+.ticker{
+  width: min(560px, 100%);
+  margin: 12px auto 0;           /* centered under the badge */
+  background:#fff;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.ticker-track{
+  display:flex;
+  gap:32px;
+  align-items:center;
+  padding:10px 12px;
+  white-space:nowrap;
+  animation:tickerMove 28s linear infinite;
+}
+.ticker-bullet{ font-weight:800 }
+@keyframes tickerMove{
+  from{ transform: translateX(0) }
+  to{   transform: translateX(-50%) }
+}
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{ animation:none }
+}
 
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
     .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
@@ -204,40 +283,45 @@
 
     // ---------------- Pages ----------------
     const Home = () => (
-      <section className="hero" id="home">
-        <div className="container heroWrap">
-          <div>
-            <h1 style={{fontSize: 38, lineHeight: 1.15}}>Fresh. Resilient. <span style={{color: "#10b981"}}>Ugandan</span> Farming.</h1>
-            <p className="muted" style={{fontSize: 18}}>We raise, buy and sell healthy goats, sheep, cattle, & chickens, and grow coffee, bananas, maize and trees—powered by science-driven weather and climate forecasts for better yields and safer communities.</p>
-            <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10}}>
-              <Link className="btn" to="#/products">Explore Our Farm</Link>
-              <Link className="btn out" to="#/family" style={{background: "#fff"}}>Join as a Family member</Link>
-            </div>
-            <div className="badges">
-              <span className="badge b1">Livestock Welfare First</span>
-              <span className="badge b2">Climate-Smart</span>
-              <span className="badge b3">Community-Support</span>
-            </div>
-          </div>
-          <div>
-             {/* REPLACED the old gradient square with the badge image */}
-            <figure className="heroMedia">
-              <img src="Images/camp-badge.png" alt="Kiboga Hill Farm – November Camp News Badge" loading="eager" />
-            </figure>
-           <div className="ticker" role="status" aria-label="Camp news ticker">
-  <div className="ticker-track">
-    <span className="ticker-bullet">🗓️ NOVEMBER CAMP NEWS:</span>
-    <span>29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop growing Training • Networking • Exciting Campfire</span>
+    <section className="hero" id="home">
+  <div className="container heroWrap">
+    {/* LEFT: text */}
+    <div className="heroLeft">
+      <h1>Fresh. Resilient. <span style={{color:"#10b981"}}>Ugandan</span> Farming.</h1>
+      <p className="muted" style={{fontSize:18}}>
+        We raise, buy and sell healthy goats, sheep, cattle, & chickens, and grow
+        coffee, bananas, maize and trees—powered by science-driven weather and
+        climate forecasts for better yields and safer communities.
+      </p>
+      <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:10}}>
+        <a className="btn" href="#/products">Explore Our Farm</a>
+        <a className="btn out" href="#/family" style={{background:"#fff"}}>Join as a Family member</a>
+      </div>
+      <div className="badges">
+        <span className="badge b1">Livestock Welfare First</span>
+        <span className="badge b2">Climate-Smart</span>
+        <span className="badge b3">Community-Support</span>
+      </div>
+    </div>
 
-    {/* duplicate once for seamless loop */}
-    <span className="ticker-bullet" aria-hidden="true">🗓️ NOVEMBER CAMP NEWS:</span>
-    <span aria-hidden="true">29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop Training • Networking • Exciting Campfire</span>
-  </div>
-</div>
+    {/* RIGHT: centered badge + ticker */}
+    <div className="heroRight">
+      <figure className="heroMedia">
+        <img src="Images/camp-badge.png" alt="Kiboga Hill Farm – November Camp News Badge" loading="eager" />
+      </figure>
 
-          </div>
+      <div className="ticker" role="status" aria-label="Camp news ticker">
+        <div className="ticker-track">
+          <span className="ticker-bullet">🗓️ NOVEMBER CAMP NEWS:</span>
+          <span>29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop Growing Training • Networking • Exciting Campfire</span>
+          <span className="ticker-bullet" aria-hidden="true">🗓️ NOVEMBER CAMP NEWS:</span>
+          <span aria-hidden="true">29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop Growing Training • Networking • Exciting Campfire</span>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
+
     );
 
     const About = () => (
@@ -699,6 +783,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
