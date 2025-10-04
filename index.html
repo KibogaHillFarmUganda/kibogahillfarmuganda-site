@@ -136,6 +136,22 @@
 }
 
     .khf-root{ min-height:100vh; background: linear-gradient(180deg,#FFF7E6,#FFF0D6,#F0FFE3); color: var(--ink); }
+
+    /* ---- Family Application form ---- */
+.form-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px}
+.form-grid{display:grid;gap:12px}
+.form-grid.two{grid-template-columns:1fr}
+@media (min-width: 780px){ .form-grid.two{grid-template-columns:1fr 1fr} }
+label{font-weight:600;color:var(--ink);font-size:.95rem}
+input[type="text"],input[type="date"],input[type="email"],input[type="tel"],textarea{
+  width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;font:inherit
+}
+textarea{min-height:110px;resize:vertical}
+.fieldset{border:1px solid #eef2f7;border-radius:14px;padding:14px}
+.legend{font-weight:800;color:#334155;margin-bottom:6px}
+.helper{color:var(--muted);font-size:.85rem}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
   </style>
 </head>
 <body>
@@ -378,31 +394,39 @@
       );
     };
 
-    const Family = () => (
-      <section className="page" id="family">
-        <div className="container">
-          <div className="banner">
-            <h2 style={{margin: 0}}>Family Project</h2>
-            <p style={{margin: ".3rem 0 0"}}><b>Goal: Kiboga Hill Farm Family Members</b> — Who contributes monthly towards a family enterprise which might be for goats, cows or chicken among others. This gives us market linkages and collective marketing power.</p>
+const Family = () => (
+  <section className="page" id="family">
+    <div className="container">
+      <div className="banner">
+        <h2 style={{margin:0}}>Family Project</h2>
+        <p style={{margin:".3rem 0 0"}}>
+          <b>Goal:</b> Members contribute monthly toward shared ventures (goats, cattle, chickens, etc.)
+          for market linkages and collective power.
+        </p>
+      </div>
+
+      <div className="grid cards" style={{marginTop:16, gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
+        {[
+          { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
+          { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
+          { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
+        ].map((b) => (
+          <div key={b.title} className="card">
+            <b>{b.title}</b>
+            <ul className="muted" style={{margin:"8px 0 0 16px"}}>
+              {b.pts.map(p => <li key={p}>{p}</li>)}
+            </ul>
           </div>
-          <div className="grid cards" style={{marginTop: 16, gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
-            {[
-              { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
-              { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
-              { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
-            ].map((b) => (
-              <div key={b.title} className="card">
-                <b>{b.title}</b>
-                <ul className="muted" style={{margin: "8px 0 0 16px"}}>
-                  {b.pts.map(p => <li key={p}>{p}</li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div style={{marginTop: 12}}><Link className="btn" to="#/contact" aria-label="Apply to  Program">Apply Now →</Link></div>
-        </div>
-      </section>
-    );
+        ))}
+      </div>
+
+      <div style={{marginTop:12}}>
+        <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
+      </div>
+    </div>
+  </section>
+);
+
 
     const Advisory = () => (
       <section className="page" id="advisory">
@@ -606,6 +630,168 @@
     };
 
     /* ---------------- App Shell ---------------- */
+const FamilyForm = () => {
+  const todayStr = new Date().toISOString().slice(0,10);
+  const [f, setF] = React.useState({
+    first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
+    why:'', skills:'',
+    k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
+    k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
+    agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
+    sign:'', sdate: todayStr
+  });
+
+  const change = e=>{
+    const {name,type,checked,value} = e.target;
+    setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
+  };
+
+  const asText = () => `
+KIBOGA HILL FARM UGANDA – FAMILY PROJECT
+Membership Application
+
+PERSONAL DATA
+Name: ${f.first} ${f.middle} ${f.last}
+DOB: ${f.dob}
+Email: ${f.email}
+Phone: ${f.phone}
+NIN/Passport: ${f.nin}
+Residence: ${f.addr}
+Designation: ${f.role}
+Institution: ${f.inst}
+Institution Address: ${f.instAddr}
+
+Reason for joining:
+${f.why}
+
+Skills / Interests to contribute:
+${f.skills}
+
+NEXT OF KIN – First Choice
+${f.k1first} ${f.k1middle} ${f.k1last}
+Residence: ${f.k1addr} | Tel: ${f.k1tel}
+
+NEXT OF KIN – Second Choice
+${f.k2first} ${f.k2middle} ${f.k2last}
+Residence: ${f.k2addr} | Tel: ${f.k2tel}
+
+DECLARATION (checked = agreed)
+1) Info true/accurate: ${f.agree1 ? '✓' : '—'}
+2) Abide by meeting resolutions: ${f.agree2 ? '✓' : '—'}
+3) Right to withdraw; 2-month settlement: ${f.agree3 ? '✓' : '—'}
+4) Misconduct may lead to removal; 2-month settlement: ${f.agree4 ? '✓' : '—'}
+5) Late contribution penalties: ${f.agree5 ? '✓' : '—'}
+
+Signature (typed): ${f.sign}
+Date: ${f.sdate}
+  `.trim();
+
+  const sendEmail = () => {
+    // Simple static-site submission via email compose
+    const body = encodeURIComponent(asText());
+    const subject = encodeURIComponent("Family Membership Application");
+    window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
+  };
+
+  const downloadTxt = () => {
+    const blob = new Blob([asText()], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
+
+  return (
+    <section className="page" id="family-join">
+      <div className="container">
+        <h2>Join the Kiboga Hill Farm Family</h2>
+        <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
+
+        <div className="form-card">
+          {/* Personal */}
+          <div className="fieldset">
+            <div className="legend">Personal Data / Biodata</div>
+            <div className="form-grid two">
+              <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
+              <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
+              <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
+              <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
+              <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
+              <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
+              <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
+              <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
+              <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
+              <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
+              <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
+            </div>
+          </div>
+
+          {/* Reasons */}
+          <div className="fieldset">
+            <div className="legend">Reason for joining</div>
+            <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?"></textarea>
+          </div>
+
+          {/* Skills */}
+          <div className="fieldset">
+            <div className="legend">Special skills / interests to contribute</div>
+            <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute"></textarea>
+          </div>
+
+          {/* Next of kin */}
+          <div className="fieldset">
+            <div className="legend">Next of Kin – First Choice</div>
+            <div className="form-grid two">
+              <div><label>First Name</label><input name="k1first" value={f.k1first} onChange={change}/></div>
+              <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change}/></div>
+              <div><label>Last Name</label><input name="k1last" value={f.k1last} onChange={change}/></div>
+              <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change}/></div>
+              <div><label>Telephone</label><input name="k1tel" value={f.k1tel} onChange={change}/></div>
+            </div>
+          </div>
+
+          <div className="fieldset">
+            <div className="legend">Next of Kin – Second Choice</div>
+            <div className="form-grid two">
+              <div><label>First Name</label><input name="k2first" value={f.k2first} onChange={change}/></div>
+              <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change}/></div>
+              <div><label>Last Name</label><input name="k2last" value={f.k2last} onChange={change}/></div>
+              <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change}/></div>
+              <div><label>Telephone</label><input name="k2tel" value={f.k2tel} onChange={change}/></div>
+            </div>
+          </div>
+
+          {/* Declaration */}
+          <div className="fieldset">
+            <div className="legend">Declaration</div>
+            <div className="form-grid">
+              <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
+              <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
+              <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
+              <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
+              <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
+            </div>
+            <div className="form-grid two" style={{marginTop:8}}>
+              <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
+              <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
+            </div>
+            <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
+          </div>
+
+          <div className="actions">
+            <button type="button" className="btn" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
+            <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+    
     function App(){
       const { parts } = useHashRoute();
       const route = (parts[0] || "").toLowerCase();
@@ -646,6 +832,7 @@
           {(route === "advisory") && <Advisory/>}
           {(route === "gallery") && <Gallery/>}
           {(route === "contact") && <Contact/>}
+          {(route === "family" && sub === "join") && <FamilyForm/>}
           {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact"].includes(route)) && <NotFound/>}
 
           <footer>
@@ -661,6 +848,7 @@
   </script>
 </body>
 </html>
+
 
 
 
