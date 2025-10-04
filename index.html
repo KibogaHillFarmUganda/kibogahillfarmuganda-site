@@ -729,6 +729,67 @@ Date: ${f.sdate}
           {/* Status messages */}
           {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
           {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
+{/* ▼ PASTE THIS AFTER the Personal Data fieldset, still inside .form-card */}
+<div className="fieldset">
+  <div className="legend">Reason for joining</div>
+  <textarea
+    name="why"
+    value={f.why}
+    onChange={change}
+    placeholder="Why are you interested in joining this family project?"
+  />
+</div>
+
+<div className="fieldset">
+  <div className="legend">Special skills / interests to contribute</div>
+  <textarea
+    name="skills"
+    value={f.skills}
+    onChange={change}
+    placeholder="List any skills or interests you would like to contribute"
+  />
+</div>
+
+<div className="fieldset">
+  <div className="legend">Next of Kin – First Choice</div>
+  <div className="form-grid two">
+    <div><label>First Name</label><input name="k1first"  value={f.k1first}  onChange={change} /></div>
+    <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change} /></div>
+    <div><label>Last Name</label><input name="k1last"   value={f.k1last}   onChange={change} /></div>
+    <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change} /></div>
+    <div><label>Telephone</label><input name="k1tel"    value={f.k1tel}    onChange={change} /></div>
+  </div>
+</div>
+
+<div className="fieldset">
+  <div className="legend">Next of Kin – Second Choice</div>
+  <div className="form-grid two">
+    <div><label>First Name</label><input name="k2first"  value={f.k2first}  onChange={change} /></div>
+    <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change} /></div>
+    <div><label>Last Name</label><input name="k2last"   value={f.k2last}   onChange={change} /></div>
+    <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change} /></div>
+    <div><label>Telephone</label><input name="k2tel"    value={f.k2tel}    onChange={change} /></div>
+  </div>
+</div>
+
+<div className="fieldset">
+  <div className="legend">Declaration</div>
+  <div className="form-grid">
+    <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
+    <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
+    <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
+    <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
+    <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
+  </div>
+
+  <div className="form-grid two" style={{marginTop:8}}>
+    <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
+    <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
+  </div>
+
+  <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
+</div>
+{/* ▲ END PASTE */}
 
           <div className="actions">
             <button type="button" className="btn" onClick={submitToDB} disabled={!allAgreed || submitting}>
@@ -945,6 +1006,7 @@ function App(){
   </script>
 </body>
 </html>
+
 
 
 
