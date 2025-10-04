@@ -60,7 +60,7 @@
   width:100%;
   height:100%;
   /* fill the box (may crop a little) */
-  object-fit:cover;
+  object-fit:contain;
   display:block;
 }
     @media (max-width:900px){ .hero{ padding:56px 5%; gap:28px; } }
@@ -209,24 +209,31 @@
         </div>
 <div className="hero-image">
   <div className="hero-frame">
-    <picture>
-      {/* sharp, cached webp (already in Images/thumbs/) */}
-      <source
-        srcSet="Images/thumbs/november-campfire-poster-1040.webp"
-        type="image/webp"
-      />
-      {/* absolute PNG path so it ignores the hash router */}
-      <img
-        src="/Images/november-campfire-poster.png"
-        alt="Kiboga Hill Farm November Campfire"
-        onError={(e) => {
-          // If PNG ever fails, show the webp thumb
-          e.currentTarget.src = "Images/thumbs/november-campfire-poster-1040.webp";
-        }}
-      />
-    </picture>
+    <img
+      src="/Images/november-campfire-poster.png"
+      alt="Kiboga Hill Farm November Campfire"
+    />
+  </div>
+
+  {/* smooth scrolling “motion statement” */}
+  <div className="ticker" aria-label="Upcoming camp details">
+    <div className="ticker-track">
+      <span className="ticker-bullet">•</span> 29–30 Nov 2025
+      <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
+      <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
+      <span className="ticker-bullet">•</span> Exciting Campfire
+      <span className="ticker-bullet">•</span> Networking
+
+      {/* duplicate the items once for a seamless loop */}
+      <span className="ticker-bullet">•</span> 29–30 Nov 2025
+      <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
+      <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
+      <span className="ticker-bullet">•</span> Exciting Campfire
+      <span className="ticker-bullet">•</span> Networking
+    </div>
   </div>
 </div>
+
       </section>
     );
 
@@ -605,5 +612,6 @@
   </script>
 </body>
 </html>
+
 
 
