@@ -198,12 +198,26 @@
             </a>
           </div>
         </div>
-
-        <div className="hero-image">
-          <div className="hero-frame">
-            <img src="Images/november-campfire-poster.jpg" alt="Kiboga Hill Farm November Campfire" />
-          </div>
-        </div>
+<div className="hero-image">
+  <div className="hero-frame">
+    <picture>
+      {/* sharp, cached webp (already in Images/thumbs/) */}
+      <source
+        srcSet="Images/thumbs/november-campfire-poster-1040.webp"
+        type="image/webp"
+      />
+      {/* absolute PNG path so it ignores the hash router */}
+      <img
+        src="/Images/november-campfire-poster.png"
+        alt="Kiboga Hill Farm November Campfire"
+        onError={(e) => {
+          // If PNG ever fails, show the webp thumb
+          e.currentTarget.src = "Images/thumbs/november-campfire-poster-1040.webp";
+        }}
+      />
+    </picture>
+  </div>
+</div>
       </section>
     );
 
@@ -582,3 +596,4 @@
   </script>
 </body>
 </html>
+
