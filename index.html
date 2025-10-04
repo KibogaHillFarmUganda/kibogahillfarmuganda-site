@@ -72,27 +72,42 @@
 }
 
 /* Ticker: same width as the frame, sits underneath */
+/* Base ticker */
 .ticker{
   width: 100%;
-  max-width: clamp(360px, 46vw, 640px); /* match frame size */
-  margin: 12px 0 0;                    /* no side auto margins so it aligns with frame */
+  max-width: clamp(360px, 46vw, 640px);
+  margin: 12px 0 0;
   background: #fff;
   border-radius: 16px;
   box-shadow: var(--shadow);
   overflow: hidden;
 }
-.ticker-track{
-  display:flex;
-  gap:32px;
-  align-items:center;
-  padding:10px 12px;
-  white-space:nowrap;
-  animation:tickerMove 28s linear infinite;
-}
-    @media (max-width:900px){ .hero{ padding:56px 5%; gap:28px; } }
 
-    /* --- Light float for small accents (optional) --- */
-    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.ticker-track{
+  display: inline-flex;          /* key */
+  gap: 32px;
+  align-items: center;
+  padding: 10px 12px;
+  white-space: nowrap;
+  width: max-content;            /* key: size to content so translate works */
+  animation: tickerMove 28s linear infinite;
+  will-change: transform;
+}
+
+/* Respect OS reduced motion… */
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{ animation: none; }
+  /* …but allow opt-IN forcing via a data attribute */
+  .ticker[data-anim="force"] .ticker-track{
+    animation: tickerMove 28s linear infinite !important;
+  }
+}
+
+/* Make sure this exists once in your CSS */
+@keyframes tickerMove{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
     /* --- Gallery + blur-up --- */
     .gallery-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:stretch}
@@ -646,6 +661,7 @@
   </script>
 </body>
 </html>
+
 
 
 
