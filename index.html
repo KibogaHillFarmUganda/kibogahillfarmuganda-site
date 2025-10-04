@@ -72,36 +72,15 @@
 }
 
 /* Ticker: same width as the frame, sits underneath */
-/* Base ticker */
-.ticker{
-  width: 100%;
-  max-width: clamp(360px, 46vw, 640px);
-  margin: 12px 0 0;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
+/* Ticker (single, tidy version) */
+.ticker{width:100%;max-width:clamp(360px,46vw,640px);margin:12px 0 0;background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
 .ticker-track{
-  display: inline-flex;          /* key */
-  gap: 32px;
-  align-items: center;
-  padding: 10px 12px;
-  white-space: nowrap;
-  width: max-content;            /* key: size to content so translate works */
-  animation: tickerMove 28s linear infinite;
-  will-change: transform;
+  display:inline-flex;gap:32px;align-items:center;padding:10px 12px;white-space:nowrap;
+  width:max-content;animation:tickerMove 28s linear infinite;will-change:transform
 }
+@keyframes tickerMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){ .ticker-track{animation:none} }
 
-/* Respect OS reduced motion… */
-@media (prefers-reduced-motion: reduce){
-  .ticker-track{ animation: none; }
-  /* …but allow opt-IN forcing via a data attribute */
-  .ticker[data-anim="force"] .ticker-track{
-    animation: tickerMove 28s linear infinite !important;
-  }
-}
 
 /* Make sure this exists once in your CSS */
 @keyframes tickerMove{
@@ -152,21 +131,32 @@ textarea{min-height:110px;resize:vertical}
 .helper{color:var(--muted);font-size:.85rem}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 
-    /* nav dropdown helpers */
+/* === Nav dropdown (clean alignment) === */
 .khf-nav{display:flex;gap:10px;align-items:center}
 .khf-nav details{position:relative}
-.khf-nav summary{list-style:none;cursor:pointer;padding:6px 8px;border-radius:10px;font-weight:700;color:var(--ink)}
+.khf-nav summary{
+  list-style:none;cursor:pointer;padding:6px 10px;border-radius:10px;
+  font-weight:700;color:var(--ink);user-select:none
+}
 .khf-nav summary::-webkit-details-marker{display:none}
 .khf-nav details[open] summary{background:#f3f4f6}
 .khf-nav .menu{
-  position:absolute;top:calc(100% + 8px);left:0;min-width:240px;
-  background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:var(--shadow);padding:8px;z-index:20
+  position:absolute;inset-block-start:calc(100% + 8px);inset-inline-start:0; /* under the trigger, left-aligned */
+  min-width:240px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;
+  box-shadow:var(--shadow);padding:8px;z-index:20
 }
-.khf-nav .menu a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink);font-weight:600;white-space:nowrap}
+.khf-nav .menu a{
+  display:block;padding:8px 10px;border-radius:10px;text-decoration:none;
+  color:var(--ink);font-weight:600;white-space:nowrap
+}
 .khf-nav .menu a:hover{background:#f3f4f6;color:var(--brand)}
-.khf-nav .menu-label{font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.khf-nav .menu-label{
+  font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.02em
+}
 .khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
 @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
+
 
   </style>
 </head>
@@ -267,6 +257,17 @@ textarea{min-height:110px;resize:vertical}
       </section>
     );
 
+useEffect(() => {
+  const nav = document.querySelector("nav.khf-nav");
+  if(!nav) return;
+  const close = e => {
+    const d = e.target.closest("details");
+    if(d) d.open = false;
+  };
+  nav.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", close));
+  return () => nav.querySelectorAll(".menu a").forEach(a => a.removeEventListener("click", close));
+}, []);
+    
     /* ---------------- Home (fixed hero) ---------------- */
     const Home = () => (
       <section className="hero">
@@ -866,11 +867,11 @@ Date: ${f.sdate}
           {(route === "products" && sub) && <ProductDetail slug={sub}/>}
           {(route === "services" && !sub) && <ServicesIndex/>}
           {(route === "services" && sub) && <ServiceDetail slug={sub}/>}
-          {(route === "family") && <Family/>}
           {(route === "advisory") && <Advisory/>}
           {(route === "gallery") && <Gallery/>}
           {(route === "contact") && <Contact/>}
-          {(route === "family" && sub === "join") && <FamilyForm/>}
+          {/* Family page + Join form (mutually exclusive) */}
+          {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
           {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact"].includes(route)) && <NotFound/>}
 
           <footer>
@@ -886,6 +887,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
