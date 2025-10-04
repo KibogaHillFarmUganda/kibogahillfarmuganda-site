@@ -748,18 +748,76 @@ function App(){
   const sub   = (parts[1] || "").toLowerCase();
 
   // Redirect old link (#/services/camps) to new top-level route
-  if (route === "services" && sub === "camps") {
-    window.location.hash = "#/camps";
-    return null;
-  }
+  React.useEffect(() => {
+    if (route === "services" && sub === "camps") {
+      window.location.hash = "#/camps";
+    }
+  }, [route, sub]);
+
+  // Smoke tests
+  React.useEffect(() => {
+    const fails = [];
+    const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
+    assert("Nav exists", !!document.querySelector("nav.khf-nav"));
+    assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
+    if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
+  }, [route, sub]);
+
+  // Close dropdown after clicking a menu item
+  React.useEffect(() => {
+    const nav = document.querySelector("nav.khf-nav");
+    if (!nav) return;
+    const closeOnClick = (e) => {
+      const d = e.target.closest("details");
+      if (d) d.open = false;
+    };
+    const links = nav.querySelectorAll(".menu a");
+    links.forEach(a => a.addEventListener("click", closeOnClick));
+    return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
+  }, [route, sub]);
 
   return (
     <div className="khf-root">
-      {/* ... header ... */}
+      <header className="khf-header">
+        <div className="container row">
+          <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+
+          <nav className="khf-nav" aria-label="Primary">
+            <Link to="#/about">About</Link>
+            <Link to="#/camps">Camps & Farm Visits</Link> {/* top-level */}
+
+            <details>
+              <summary>Other Services ▾</summary>        {/* renamed */}
+              <div className="menu" role="menu">
+                <div className="menu-label">Livestock & Crops</div>
+                <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+
+                <div className="menu-sep"></div>
+
+                <div className="menu-label">Our Services</div>
+                <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
+                <Link to="#/services/climate" role="menuitem">Climate Services</Link>
+
+                <div className="menu-sep"></div>
+
+                <div className="menu-label">Advisory</div>
+                <Link to="#/advisory" role="menuitem">Overview</Link>
+                <Link to="#/advisory/planting" role="menuitem">Planting Windows</Link>
+                <Link to="#/advisory/livestock" role="menuitem">Livestock Care</Link>
+                <Link to="#/advisory/harvest" role="menuitem">Harvest & Post-Harvest</Link>
+              </div>
+            </details>
+
+            <Link to="#/family">Family</Link>
+            <Link to="#/gallery">Gallery</Link>
+            <Link to="#/contact">Contact</Link>
+          </nav>
+        </div>
+      </header>
 
       {(!route || route === "") && <Home/>}
       {route === "about" && <About/>}
-      {route === "camps" && <Camps/>}                 {/* ← new */}
+      {route === "camps" && <Camps/>}                     {/* new route */}
       {route === "products" && !sub && <ProductsIndex/>}
       {route === "products" && sub && <ProductDetail slug={sub}/>}
       {route === "services" && !sub && <ServicesIndex/>}
@@ -767,26 +825,17 @@ function App(){
       {route === "advisory" && <Advisory/>}
       {route === "gallery" && <Gallery/>}
       {route === "contact" && <Contact/>}
+      {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
       {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps"].includes(route)) && <NotFound/>}
 
-      {/* ... footer ... */}
+      <footer>
+        <div className="container" style={{textAlign: "center"}}>
+          © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 }
-
-    /* ---------------- App Shell ---------------- */
-    function App(){
-      const { parts } = useHashRoute();
-      const route = (parts[0] || "").toLowerCase();
-      const sub   = (parts[1] || "").toLowerCase();
-
-      useEffect(() => {
-        const fails = [];
-        const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
-        assert("Nav exists", !!document.querySelector("nav.khf-nav"));
-        assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
-        if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
-      }, [route, sub]);
 
       /* Close Services dropdown after a menu click */
       useEffect(() => {
@@ -867,6 +916,7 @@ function App(){
   </script>
 </body>
 </html>
+
 
 
 
