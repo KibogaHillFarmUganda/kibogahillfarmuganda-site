@@ -593,23 +593,30 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
     };
 
     /* ---------------- Family Application ---------------- */
-    const FamilyForm = () => {
-      const todayStr = new Date().toISOString().slice(0,10);
-      const [f, setF] = React.useState({
-        first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
-        why:'', skills:'',
-        k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
-        k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
-        agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
-        sign:'', sdate: todayStr
-      });
+const FamilyForm = () => {
+  const todayStr = new Date().toISOString().slice(0,10);
 
-      const change = e=>{
-        const {name,type,checked,value} = e.target;
-        setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
-      };
+  // form state
+  const [f, setF] = React.useState({
+    first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
+    why:'', skills:'',
+    k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
+    k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
+    agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
+    sign:'', sdate: todayStr
+  });
 
-      const asText = () => `
+  // status state
+  const [submitting, setSubmitting] = React.useState(false);
+  const [doneMsg, setDoneMsg] = React.useState("");
+  const [errMsg,  setErrMsg]  = React.useState("");
+
+  const change = (e) => {
+    const {name,type,checked,value} = e.target;
+    setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
+  };
+
+  const asText = () => `
 KIBOGA HILL FARM UGANDA – FAMILY PROJECT
 Membership Application
 
@@ -647,113 +654,23 @@ DECLARATION (checked = agreed)
 
 Signature (typed): ${f.sign}
 Date: ${f.sdate}
-      `.trim();
+  `.trim();
 
-      const sendEmail = () => {
-        const body = encodeURIComponent(asText());
-        const subject = encodeURIComponent("Family Membership Application");
-        window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
-      };
+  const sendEmail = () => {
+    const body = encodeURIComponent(asText());
+    const subject = encodeURIComponent("Family Membership Application");
+    window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
+  };
 
-      const downloadTxt = () => {
-        const blob = new Blob([asText()], {type:'text/plain'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
-      };
+  const downloadTxt = () => {
+    const blob = new Blob([asText()], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
-      const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
-
-      return (
-        <section className="page" id="family-join">
-          <div className="container">
-            <h2>Join the Kiboga Hill Farm Family</h2>
-            <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
-
-            <div className="form-card">
-              <div className="fieldset">
-                <div className="legend">Personal Data / Biodata</div>
-                <div className="form-grid two">
-                  <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
-                  <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
-                  <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
-                  <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
-                  <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
-                  <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
-                  <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
-                  <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
-                  <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
-                  <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
-                  <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
-                </div>
-              </div>
-
-              <div className="fieldset">
-                <div className="legend">Reason for joining</div>
-                <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?"></textarea>
-              </div>
-
-              <div className="fieldset">
-                <div className="legend">Special skills / interests to contribute</div>
-                <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute"></textarea>
-              </div>
-
-              <div className="fieldset">
-                <div className="legend">Next of Kin – First Choice</div>
-                <div className="form-grid two">
-                  <div><label>First Name</label><input name="k1first" value={f.k1first} onChange={change}/></div>
-                  <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change}/></div>
-                  <div><label>Last Name</label><input name="k1last" value={f.k1last} onChange={change}/></div>
-                  <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change}/></div>
-                  <div><label>Telephone</label><input name="k1tel" value={f.k1tel} onChange={change}/></div>
-                </div>
-              </div>
-
-              <div className="fieldset">
-                <div className="legend">Next of Kin – Second Choice</div>
-                <div className="form-grid two">
-                  <div><label>First Name</label><input name="k2first" value={f.k2first} onChange={change}/></div>
-                  <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change}/></div>
-                  <div><label>Last Name</label><input name="k2last" value={f.k2last} onChange={change}/></div>
-                  <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change}/></div>
-                  <div><label>Telephone</label><input name="k2tel" value={f.k2tel} onChange={change}/></div>
-                </div>
-              </div>
-
-              <div className="fieldset">
-                <div className="legend">Declaration</div>
-                <div className="form-grid">
-                  <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
-                  <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
-                  <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
-                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
-                  <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
-                </div>
-                <div className="form-grid two" style={{marginTop:8}}>
-                  <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
-                  <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
-                </div>
-                <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
-              </div>
-
-              <div className="actions">
-                <button type="button" className="btn" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
-                <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-// ✅ NEW: submission status
-  const [submitting, setSubmitting] = useState(false);
-  const [doneMsg, setDoneMsg] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-
-  const change = (e) => { /* (unchanged) */ };
-
-  // ✅ NEW: send to Supabase
   const submitToDB = async () => {
     setSubmitting(true);
     setDoneMsg(""); setErrMsg("");
@@ -770,51 +687,64 @@ Date: ${f.sdate}
     };
 
     const { error } = await supa.from("family_applications").insert(payload);
-    if (error) {
-      setErrMsg(error.message || "Could not submit. Please try again.");
-    } else {
-      setDoneMsg("Application submitted privately. Thank you!");
-      // optional: clear form
-      // setF(prev => ({ ...prev, first:'', middle:'', last:'', /* etc... */ }));
-    }
+    if (error) setErrMsg(error.message || "Could not submit. Please try again.");
+    else      setDoneMsg("Application submitted privately. Thank you!");
     setSubmitting(false);
   };
-
-  const asText = () => `...` // (unchanged)
-  const sendEmail = () => { /* (unchanged) */ }
-  const downloadTxt = () => { /* (unchanged) */ }
 
   const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
 
   return (
     <section className="page" id="family-join">
       <div className="container">
-        {/* ... existing form ... */}
+        <h2>Join the Kiboga Hill Farm Family</h2>
+        <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
 
-        {/* ✅ NEW: status messages */}
-        {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
-        {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
+        <div className="form-card">
+          {/* --- the rest of your existing inputs, unchanged --- */}
+          {/* Personal Data */}
+          <div className="fieldset">
+            <div className="legend">Personal Data / Biodata</div>
+            <div className="form-grid two">
+              <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
+              <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
+              <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
+              <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
+              <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
+              <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
+              <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
+              <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
+              <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
+              <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
+              <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
+            </div>
+          </div>
 
-        <div className="actions">
-          {/* ✅ NEW: Private submit */}
-          <button
-            type="button"
-            className="btn"
-            onClick={submitToDB}
-            disabled={!allAgreed || submitting}
-          >
-            {submitting ? "Submitting…" : "Submit (private)"}
-          </button>
+          {/* Reason, Skills, NOK sections — unchanged */}
+          {/* ... (keep your existing blocks) ... */}
 
-          {/* Your existing buttons */}
-          <button type="button" className="btn out" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
-          <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
+          {/* Declaration */}
+          {/* ... keep your existing declaration checkboxes and sign/date ... */}
+
+          {/* Status messages */}
+          {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
+          {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
+
+          <div className="actions">
+            <button type="button" className="btn" onClick={submitToDB} disabled={!allAgreed || submitting}>
+              {submitting ? "Submitting…" : "Submit (private)"}
+            </button>
+            <button type="button" className="btn out" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
+            <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
+          </div>
         </div>
       </div>
     </section>
   );
-      
-    };
+};
+
+
+    
 const Admin = () => {
   const [session, setSession] = useState(null);
   const [rows, setRows] = useState([]);
@@ -914,7 +844,6 @@ const Admin = () => {
     </section>
   );
 };
-
     
 function App(){
   const { parts } = useHashRoute();
@@ -1016,6 +945,7 @@ function App(){
   </script>
 </body>
 </html>
+
 
 
 
