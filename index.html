@@ -319,35 +319,49 @@
     );
 
     // ---------------- Pages ----------------
-    const Home = () => (
-<section class="hero">
-  <div class="hero-text">
-    <h1>
-      Fresh.<br />
-      Resilient.<br />
-      <span>Ugandan</span> Farming.
-    </h1>
-    <p>
-      We rear, buy and sell healthy and best breeds of goats, sheep, cattle, and chickens.
-      We also grow, buy and sell coffee, bananas, maize, and trees — We are powered by farming passion and driven by science.
-      We as well utilise weather and climate forecasts for better yields and livestock production.
-    </p>
+ const Home = () => (
+  <section className="hero">
+    <div className="hero-text">
+      <h1>
+        Fresh.<br />
+        Resilient.<br />
+        <span>Ugandan</span> Farming.
+      </h1>
+      <p>
+        We rear, buy and sell healthy and best breeds of goats, sheep, cattle, and chickens.
+        We also grow, buy and sell coffee, bananas, maize, and trees — we are powered by farming
+        passion and driven by science. We also utilise weather and climate forecasts for better
+        yields and livestock production.
+      </p>
 
-    <div class="hero-buttons">
-      <a href="#about" class="btn" style="background: var(--brand); color: white;">Explore Our Farm</a>
-      <a href="#family" class="btn" style="background: white; color: var(--ink); box-shadow: var(--shadow);">
-        Join as a family Member you will never regret
-      </a>
+      <div className="hero-buttons">
+        <a
+          href="#/about"
+          className="btn"
+          style={{ background: "var(--brand)", color: "white" }}
+        >
+          Explore Our Farm
+        </a>
+
+        <a
+          href="#/family"
+          className="btn"
+          style={{ background: "white", color: "var(--ink)", boxShadow: "var(--shadow)" }}
+        >
+          Join as a Family Member — you will never regret
+        </a>
+      </div>
     </div>
-  </div>
 
-  <div class="hero-image">
-    <img src="Images/november-campfire-poster.jpg" alt="Kiboga Hill Farm November Campfire" />
-  </div>
-</section>
+    <div className="hero-image">
+      <img
+        src="Images/november-campfire-poster.jpg"
+        alt="Kiboga Hill Farm November Campfire"
+      />
+    </div>
+  </section>
+);
 
-
-    );
 
     const About = () => (
       <section className="page" id="about">
@@ -808,6 +822,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
