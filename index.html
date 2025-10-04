@@ -837,85 +837,14 @@ function App(){
   );
 }
 
-      /* Close Services dropdown after a menu click */
-      useEffect(() => {
-        const nav = document.querySelector("nav.khf-nav");
-        if (!nav) return;
-        const closeOnClick = (e) => {
-          const d = e.target.closest("details");
-          if (d) d.open = false;
-        };
-        const links = nav.querySelectorAll(".menu a");
-        links.forEach(a => a.addEventListener("click", closeOnClick));
-        return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
-      }, [route, sub]);
-
-      return (
-        <div className="khf-root">
-          <header className="khf-header">
-            <div className="container row">
-              <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
-
-<nav className="khf-nav" aria-label="Primary">
-  <Link to="#/about">About</Link>
-  <Link to="#/camps">Camps & Farm Visits</Link>  {/* ← exact label */}
-
-  <details>
-    <summary>Other Services ▾</summary>          {/* ← rename dropdown */}
-    <div className="menu" role="menu">
-      <div className="menu-label">Livestock & Crops</div>
-      <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
-
-      <div className="menu-sep"></div>
-
-      <div className="menu-label">Our Services</div>
-      <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
-      <Link to="#/services/climate" role="menuitem">Climate Services</Link>
-
-      <div className="menu-sep"></div>
-
-      <div className="menu-label">Advisory</div>
-      <Link to="#/advisory" role="menuitem">Overview</Link>
-      <Link to="#/advisory/planting" role="menuitem">Planting Windows</Link>
-      <Link to="#/advisory/livestock" role="menuitem">Livestock Care</Link>
-      <Link to="#/advisory/harvest" role="menuitem">Harvest & Post-Harvest</Link>
-    </div>
-  </details>
-
-  <Link to="#/family">Family</Link>
-  <Link to="#/gallery">Gallery</Link>
-  <Link to="#/contact">Contact</Link>
-</nav>
-
-            </div>
-          </header>
-
-          {(!route || route === "") && <Home/>}
-          {(route === "about") && <About/>}
-          {(route === "products" && !sub) && <ProductsIndex/>}
-          {(route === "products" && sub) && <ProductDetail slug={sub}/>}
-          {(route === "services" && !sub) && <ServicesIndex/>}
-          {(route === "services" && sub) && <ServiceDetail slug={sub}/>}
-          {(route === "advisory") && <Advisory/>}
-          {(route === "gallery") && <Gallery/>}
-          {(route === "contact") && <Contact/>}
-          {/* Family page + Join form (mutually exclusive) */}
-          {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
-          {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact"].includes(route)) && <NotFound/>}
-
-          <footer>
-            <div className="container" style={{textAlign: "center"}}>
-              © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
-            </div>
-          </footer>
-        </div>
-      );
+     
     }
 
     ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
   </script>
 </body>
 </html>
+
 
 
 
