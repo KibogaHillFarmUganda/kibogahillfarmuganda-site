@@ -25,17 +25,10 @@
     .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
 
-    /* -------- Hero (fixed alignment) -------- */
+    /* -------- Hero -------- */
     .hero{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:48px;
-      flex-wrap:wrap;
-      min-height:90vh;
-      padding:80px 5%;
-      background:linear-gradient(to bottom,#fff8ef,#f6f8e7);
-      overflow:hidden;
+      display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;
+      min-height:90vh;padding:80px 5%;background:linear-gradient(to bottom,#fff8ef,#f6f8e7);overflow:hidden;
     }
     .hero-text{ flex:1 1 460px; max-width:560px; }
     .hero-text h1{ font-size:2.8rem; line-height:1.2; color:var(--ink); font-weight:700; }
@@ -43,50 +36,27 @@
     .hero-text p{ font-size:1.05rem; color:var(--muted); margin-top:16px; line-height:1.6; }
     .hero-buttons{ display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
     .hero-buttons .btn{ padding:12px 22px; border-radius:var(--r); font-weight:600; }
-/* Right column: stack poster + ticker vertically and center them */
-.hero-image{
-  flex: 1 1 520px;
-  display: flex;
-  flex-direction: column;   /* ← puts ticker under the image */
-  align-items: center;
-  gap: 12px;
-}
 
-/* Poster frame: bigger and edge-to-edge image */
-.hero-frame{
-  width: clamp(360px, 46vw, 640px);  /* grows on desktop, capped */
-  max-width: 100%;
-  aspect-ratio: 1 / 1;               /* poster is square; use 4/3 if yours isn’t */
-  padding: 0;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  animation: floaty 8s ease-in-out infinite;
-}
-.hero-frame img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;                  /* fills the box; switch to 'contain' for no crop */
-  display: block;
-}
+    /* Right column: poster + ticker */
+    .hero-image{ flex:1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+    .hero-frame{
+      width:clamp(360px,46vw,640px); max-width:100%; aspect-ratio:1/1; padding:0; background:#fff;
+      border-radius:18px; box-shadow:var(--shadow); overflow:hidden; animation:floaty 8s ease-in-out infinite;
+    }
+    .hero-frame img{ width:100%; height:100%; object-fit:contain; display:block; }
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-/* Ticker: same width as the frame, sits underneath */
-/* Ticker (single, tidy version) */
-.ticker{width:100%;max-width:clamp(360px,46vw,640px);margin:12px 0 0;background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
-.ticker-track{
-  display:inline-flex;gap:32px;align-items:center;padding:10px 12px;white-space:nowrap;
-  width:max-content;animation:tickerMove 28s linear infinite;will-change:transform
-}
-@keyframes tickerMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce){ .ticker-track{animation:none} }
-
-
-/* Make sure this exists once in your CSS */
-@keyframes tickerMove{
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+    /* ---- Ticker (single clean version) ---- */
+    .ticker{
+      width:100%; max-width:clamp(360px,46vw,640px); margin:12px 0 0; background:#fff;
+      border-radius:16px; box-shadow:var(--shadow); overflow:hidden;
+    }
+    .ticker-track{
+      display:inline-flex; gap:32px; align-items:center; padding:10px 12px; white-space:nowrap;
+      width:max-content; animation:tickerMove 28s linear infinite; will-change:transform;
+    }
+    @keyframes tickerMove{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none } }
 
     /* --- Gallery + blur-up --- */
     .gallery-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:stretch}
@@ -103,61 +73,38 @@
     @media(min-width:760px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(min-width:1024px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-    /* keep the general rule somewhere else if you like */
-@media (prefers-reduced-motion: reduce){
-  /* stop all other animations… */
-  .ticker-track{ animation:none; }
-}
-
-/* …but force this one to run */
-.ticker .ticker-track{
-  animation: tickerMove 28s linear infinite !important;
-}
-
     .khf-root{ min-height:100vh; background: linear-gradient(180deg,#FFF7E6,#FFF0D6,#F0FFE3); color: var(--ink); }
 
     /* ---- Family Application form ---- */
-.form-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px}
-.form-grid{display:grid;gap:12px}
-.form-grid.two{grid-template-columns:1fr}
-@media (min-width: 780px){ .form-grid.two{grid-template-columns:1fr 1fr} }
-label{font-weight:600;color:var(--ink);font-size:.95rem}
-input[type="text"],input[type="date"],input[type="email"],input[type="tel"],textarea{
-  width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;font:inherit
-}
-textarea{min-height:110px;resize:vertical}
-.fieldset{border:1px solid #eef2f7;border-radius:14px;padding:14px}
-.legend{font-weight:800;color:#334155;margin-bottom:6px}
-.helper{color:var(--muted);font-size:.85rem}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .form-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px}
+    .form-grid{display:grid;gap:12px}
+    .form-grid.two{grid-template-columns:1fr}
+    @media (min-width: 780px){ .form-grid.two{grid-template-columns:1fr 1fr} }
+    label{font-weight:600;color:var(--ink);font-size:.95rem}
+    input[type="text"],input[type="date"],input[type="email"],input[type="tel"],textarea{
+      width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;font:inherit
+    }
+    textarea{min-height:110px;resize:vertical}
+    .fieldset{border:1px solid #eef2f7;border-radius:14px;padding:14px}
+    .legend{font-weight:800;color:#334155;margin-bottom:6px}
+    .helper{color:var(--muted);font-size:.85rem}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 
-/* === Nav dropdown (clean alignment) === */
-.khf-nav{display:flex;gap:10px;align-items:center}
-.khf-nav details{position:relative}
-.khf-nav summary{
-  list-style:none;cursor:pointer;padding:6px 10px;border-radius:10px;
-  font-weight:700;color:var(--ink);user-select:none
-}
-.khf-nav summary::-webkit-details-marker{display:none}
-.khf-nav details[open] summary{background:#f3f4f6}
-.khf-nav .menu{
-  position:absolute;inset-block-start:calc(100% + 8px);inset-inline-start:0; /* under the trigger, left-aligned */
-  min-width:240px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;
-  box-shadow:var(--shadow);padding:8px;z-index:20
-}
-.khf-nav .menu a{
-  display:block;padding:8px 10px;border-radius:10px;text-decoration:none;
-  color:var(--ink);font-weight:600;white-space:nowrap
-}
-.khf-nav .menu a:hover{background:#f3f4f6;color:var(--brand)}
-.khf-nav .menu-label{
-  font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.02em
-}
-.khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
-@media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
-
-
+    /* === Nav dropdown === */
+    .khf-nav{display:flex;gap:10px;align-items:center}
+    .khf-nav details{position:relative}
+    .khf-nav summary{list-style:none;cursor:pointer;padding:6px 10px;border-radius:10px;font-weight:700;color:var(--ink);user-select:none}
+    .khf-nav summary::-webkit-details-marker{display:none}
+    .khf-nav details[open] summary{background:#f3f4f6}
+    .khf-nav .menu{
+      position:absolute;inset-block-start:calc(100% + 8px);inset-inline-start:0;min-width:240px;background:#fff;
+      border:1px solid #e5e7eb;border-radius:14px;box-shadow:var(--shadow);padding:8px;z-index:20
+    }
+    .khf-nav .menu a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink);font-weight:600;white-space:nowrap}
+    .khf-nav .menu a:hover{background:#f3f4f6;color:var(--brand)}
+    .khf-nav .menu-label{font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+    .khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
+    @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
   </style>
 </head>
 <body>
@@ -221,13 +168,13 @@ textarea{min-height:110px;resize:vertical}
     const MAP = {
       label: "Kiboga Hill Farm Uganda",
       address: "3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kyomya Sub county Kiboga District, Uganda",
-      lat: 0.716167, // 0°42'58.2"N
-      lng: 32.0245,  // 32°01'28.2"E
+      lat: 0.716167,
+      lng: 32.0245,
     };
     const mapsSearchUrl = () => `https://www.google.com/maps/search/?api=1&query=${MAP.lat},${MAP.lng}`;
     const mapsDirectionsUrl = () => `https://www.google.com/maps/dir/?api=1&destination=${MAP.lat},${MAP.lng}`;
     const mapsEmbedSrc = (type = 'satellite') => {
-      const t = type === 'satellite' ? 'k' : (type === 'hybrid' ? 'h' : 'm'); // k=sat, h=hybrid, m=map
+      const t = type === 'satellite' ? 'k' : (type === 'hybrid' ? 'h' : 'm');
       return `https://maps.google.com/maps?q=${MAP.lat},${MAP.lng}&z=15&t=${t}&output=embed`;
     };
 
@@ -257,18 +204,7 @@ textarea{min-height:110px;resize:vertical}
       </section>
     );
 
-useEffect(() => {
-  const nav = document.querySelector("nav.khf-nav");
-  if(!nav) return;
-  const close = e => {
-    const d = e.target.closest("details");
-    if(d) d.open = false;
-  };
-  nav.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", close));
-  return () => nav.querySelectorAll(".menu a").forEach(a => a.removeEventListener("click", close));
-}, []);
-    
-    /* ---------------- Home (fixed hero) ---------------- */
+    /* ---------------- Home ---------------- */
     const Home = () => (
       <section className="hero">
         <div className="hero-text">
@@ -293,29 +229,29 @@ useEffect(() => {
             </a>
           </div>
         </div>
-<div className="hero-image">
-  <div className="hero-frame">
-    <img src="/Images/camp-poster.png" alt="Kiboga Hill Farm Camp" />
-  </div>
 
-  <div className="ticker" aria-label="Upcoming camp details">
-    <div className="ticker-track">
-      <span className="ticker-bullet">•</span> 29–30 Nov 2025
-      <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
-      <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
-      <span className="ticker-bullet">•</span> Exciting Campfire
-      <span className="ticker-bullet">•</span> Networking
+        <div className="hero-image">
+          <div className="hero-frame">
+            <img src="/Images/camp-poster.png" alt="Kiboga Hill Farm Camp" />
+          </div>
 
-      {/* duplicate once for seamless loop */}
-      <span className="ticker-bullet">•</span> 29–30 Nov 2025
-      <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
-      <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
-      <span className="ticker-bullet">•</span> Exciting Campfire
-      <span className="ticker-bullet">•</span> Networking
-    </div>
-  </div>
-</div>
+          <div className="ticker" aria-label="Upcoming camp details">
+            <div className="ticker-track">
+              <span className="ticker-bullet">•</span> 29–30 Nov 2025
+              <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
+              <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
+              <span className="ticker-bullet">•</span> Exciting Campfire
+              <span className="ticker-bullet">•</span> Networking
 
+              <!-- duplicate once for seamless loop -->
+              <span className="ticker-bullet">•</span> 29–30 Nov 2025
+              <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
+              <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
+              <span className="ticker-bullet">•</span> Exciting Campfire
+              <span className="ticker-bullet">•</span> Networking
+            </div>
+          </div>
+        </div>
       </section>
     );
 
@@ -333,20 +269,20 @@ useEffect(() => {
       <section className="page" id="products">
         <div className="container">
           <h2>Livestock & Crops</h2>
-        <div className="grid cards">
-          {PRODUCTS.map((item) => (
-            <div key={item.slug} className="card">
-              <div style={{display: "flex", gap: 10, alignItems: "center"}}>
-                <div className="icon" aria-hidden>{item.icon}</div>
-                <b>{item.title}</b>
+          <div className="grid cards">
+            {PRODUCTS.map((item) => (
+              <div key={item.slug} className="card">
+                <div style={{display: "flex", gap: 10, alignItems: "center"}}>
+                  <div className="icon" aria-hidden>{item.icon}</div>
+                  <b>{item.title}</b>
+                </div>
+                <p className="muted" style={{marginTop: 8}}>{item.desc}</p>
+                <div style={{marginTop: 8}}>
+                  <Link className="btn out" to={`#/products/${item.slug}`}>View details</Link>
+                </div>
               </div>
-              <p className="muted" style={{marginTop: 8}}>{item.desc}</p>
-              <div style={{marginTop: 8}}>
-                <Link className="btn out" to={`#/products/${item.slug}`}>View details</Link>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
       </section>
     );
@@ -411,39 +347,38 @@ useEffect(() => {
       );
     };
 
-const Family = () => (
-  <section className="page" id="family">
-    <div className="container">
-      <div className="banner">
-        <h2 style={{margin:0}}>Family Project</h2>
-        <p style={{margin:".3rem 0 0"}}>
-          <b>Goal:</b> Members contribute monthly toward shared ventures (goats, cattle, chickens, etc.)
-          for market linkages and collective power.
-        </p>
-      </div>
-
-      <div className="grid cards" style={{marginTop:16, gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
-        {[
-          { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
-          { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
-          { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
-        ].map((b) => (
-          <div key={b.title} className="card">
-            <b>{b.title}</b>
-            <ul className="muted" style={{margin:"8px 0 0 16px"}}>
-              {b.pts.map(p => <li key={p}>{p}</li>)}
-            </ul>
+    const Family = () => (
+      <section className="page" id="family">
+        <div className="container">
+          <div className="banner">
+            <h2 style={{margin:0}}>Family Project</h2>
+            <p style={{margin:".3rem 0 0"}}>
+              <b>Goal:</b> Members contribute monthly toward shared ventures (goats, cattle, chickens, etc.)
+              for market linkages and collective power.
+            </p>
           </div>
-        ))}
-      </div>
 
-      <div style={{marginTop:12}}>
-        <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
-      </div>
-    </div>
-  </section>
-);
+          <div className="grid cards" style={{marginTop:16, gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
+            {[
+              { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
+              { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
+              { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
+            ].map((b) => (
+              <div key={b.title} className="card">
+                <b>{b.title}</b>
+                <ul className="muted" style={{margin:"8px 0 0 16px"}}>
+                  {b.pts.map(p => <li key={p}>{p}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
 
+          <div style={{marginTop:12}}>
+            <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
+          </div>
+        </div>
+      </section>
+    );
 
     const Advisory = () => (
       <section className="page" id="advisory">
@@ -466,32 +401,7 @@ const Family = () => (
       </section>
     );
 
-    const SocialCTA = () => (
-      <section className="page" id="social">
-        <div className="container split">
-          <div>
-            <h2>See the Farm in Action</h2>
-            <p className="muted">Follow our daily stories, experiments, and tips.</p>
-            <div style={{display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10}}>
-              <Link className="btn" to="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp</Link>
-              <Link className="btn out" to="https://www.tiktok.com/@kiboga_hill_farm.ug" target="_blank" rel="noopener noreferrer">TikTok</Link>
-              <Link className="btn out" to="https://www.instagram.com/kibogahillfarmuganda/" target="_blank" rel="noopener noreferrer">Instagram</Link>
-              <Link className="btn out" to="https://www.youtube.com/@Kibogahillfarm.ug1" target="_blank" rel="noopener noreferrer">YouTube</Link>
-              <Link className="btn out" to="https://web.facebook.com/profile.php?id=61581757133392" target="_blank" rel="noopener noreferrer">Facebook</Link>
-            </div>
-          </div>
-          <div className="card">
-            <p className="muted">“We believe farming can be profitable, climate-smart, and youth-friendly. Join us.”</p>
-            <div style={{display: "flex", gap: 10, alignItems: "center", marginTop: 10}}>
-              <div className="icon" aria-hidden>🏞️</div>
-              <div><b>Kiboga Hill Farm Team</b><div className="muted" style={{fontSize: 14}}>Kiboga • Uganda</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-
-    /* -------- Email helpers (kept for later server wiring) -------- */
+    /* -------- Email helpers -------- */
     const EMAIL_PRIMARY = "khf@kibogahillfarmuganda.co.ug";
     const MAIL_SUBJECT  = encodeURIComponent("Inquiry from Kiboga Hill Farm website");
     const MAIL_BODY     = encodeURIComponent("Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,");
@@ -646,24 +556,24 @@ const Family = () => (
       );
     };
 
-    /* ---------------- App Shell ---------------- */
-const FamilyForm = () => {
-  const todayStr = new Date().toISOString().slice(0,10);
-  const [f, setF] = React.useState({
-    first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
-    why:'', skills:'',
-    k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
-    k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
-    agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
-    sign:'', sdate: todayStr
-  });
+    /* ---------------- Family Application ---------------- */
+    const FamilyForm = () => {
+      const todayStr = new Date().toISOString().slice(0,10);
+      const [f, setF] = React.useState({
+        first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
+        why:'', skills:'',
+        k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
+        k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
+        agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
+        sign:'', sdate: todayStr
+      });
 
-  const change = e=>{
-    const {name,type,checked,value} = e.target;
-    setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
-  };
+      const change = e=>{
+        const {name,type,checked,value} = e.target;
+        setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
+      };
 
-  const asText = () => `
+      const asText = () => `
 KIBOGA HILL FARM UGANDA – FAMILY PROJECT
 Membership Application
 
@@ -701,118 +611,112 @@ DECLARATION (checked = agreed)
 
 Signature (typed): ${f.sign}
 Date: ${f.sdate}
-  `.trim();
+      `.trim();
 
-  const sendEmail = () => {
-    // Simple static-site submission via email compose
-    const body = encodeURIComponent(asText());
-    const subject = encodeURIComponent("Family Membership Application");
-    window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
-  };
+      const sendEmail = () => {
+        const body = encodeURIComponent(asText());
+        const subject = encodeURIComponent("Family Membership Application");
+        window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
+      };
 
-  const downloadTxt = () => {
-    const blob = new Blob([asText()], {type:'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+      const downloadTxt = () => {
+        const blob = new Blob([asText()], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+      };
 
-  const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
+      const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
 
-  return (
-    <section className="page" id="family-join">
-      <div className="container">
-        <h2>Join the Kiboga Hill Farm Family</h2>
-        <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
+      return (
+        <section className="page" id="family-join">
+          <div className="container">
+            <h2>Join the Kiboga Hill Farm Family</h2>
+            <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
 
-        <div className="form-card">
-          {/* Personal */}
-          <div className="fieldset">
-            <div className="legend">Personal Data / Biodata</div>
-            <div className="form-grid two">
-              <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
-              <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
-              <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
-              <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
-              <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
-              <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
-              <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
-              <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
-              <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
-              <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
-              <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
+            <div className="form-card">
+              <div className="fieldset">
+                <div className="legend">Personal Data / Biodata</div>
+                <div className="form-grid two">
+                  <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
+                  <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
+                  <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
+                  <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
+                  <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
+                  <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
+                  <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
+                  <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
+                  <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
+                  <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
+                  <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
+                </div>
+              </div>
+
+              <div className="fieldset">
+                <div className="legend">Reason for joining</div>
+                <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?"></textarea>
+              </div>
+
+              <div className="fieldset">
+                <div className="legend">Special skills / interests to contribute</div>
+                <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute"></textarea>
+              </div>
+
+              <div className="fieldset">
+                <div className="legend">Next of Kin – First Choice</div>
+                <div className="form-grid two">
+                  <div><label>First Name</label><input name="k1first" value={f.k1first} onChange={change}/></div>
+                  <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change}/></div>
+                  <div><label>Last Name</label><input name="k1last" value={f.k1last} onChange={change}/></div>
+                  <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change}/></div>
+                  <div><label>Telephone</label><input name="k1tel" value={f.k1tel} onChange={change}/></div>
+                </div>
+              </div>
+
+              <div className="fieldset">
+                <div className="legend">Next of Kin – Second Choice</div>
+                <div className="form-grid two">
+                  <div><label>First Name</label><input name="k2first" value={f.k2first} onChange={change}/></div>
+                  <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change}/></div>
+                  <div><label>Last Name</label><input name="k2last" value={f.k2last} onChange={change}/></div>
+                  <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change}/></div>
+                  <div><label>Telephone</label><input name="k2tel" value={f.k2tel} onChange={change}/></div>
+                </div>
+              </div>
+
+              <div className="fieldset">
+                <div className="legend">Declaration</div>
+                <div className="form-grid">
+                  <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
+                  <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
+                  <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
+                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
+                  <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
+                </div>
+                <div className="form-grid two" style={{marginTop:8}}>
+                  <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
+                  <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
+                </div>
+                <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
+              </div>
+
+              <div className="actions">
+                <button type="button" className="btn" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
+                <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
+              </div>
             </div>
           </div>
+        </section>
+      );
+    };
 
-          {/* Reasons */}
-          <div className="fieldset">
-            <div className="legend">Reason for joining</div>
-            <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?"></textarea>
-          </div>
-
-          {/* Skills */}
-          <div className="fieldset">
-            <div className="legend">Special skills / interests to contribute</div>
-            <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute"></textarea>
-          </div>
-
-          {/* Next of kin */}
-          <div className="fieldset">
-            <div className="legend">Next of Kin – First Choice</div>
-            <div className="form-grid two">
-              <div><label>First Name</label><input name="k1first" value={f.k1first} onChange={change}/></div>
-              <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change}/></div>
-              <div><label>Last Name</label><input name="k1last" value={f.k1last} onChange={change}/></div>
-              <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change}/></div>
-              <div><label>Telephone</label><input name="k1tel" value={f.k1tel} onChange={change}/></div>
-            </div>
-          </div>
-
-          <div className="fieldset">
-            <div className="legend">Next of Kin – Second Choice</div>
-            <div className="form-grid two">
-              <div><label>First Name</label><input name="k2first" value={f.k2first} onChange={change}/></div>
-              <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change}/></div>
-              <div><label>Last Name</label><input name="k2last" value={f.k2last} onChange={change}/></div>
-              <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change}/></div>
-              <div><label>Telephone</label><input name="k2tel" value={f.k2tel} onChange={change}/></div>
-            </div>
-          </div>
-
-          {/* Declaration */}
-          <div className="fieldset">
-            <div className="legend">Declaration</div>
-            <div className="form-grid">
-              <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
-              <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
-              <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
-              <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
-              <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
-            </div>
-            <div className="form-grid two" style={{marginTop:8}}>
-              <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
-              <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
-            </div>
-            <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
-          </div>
-
-          <div className="actions">
-            <button type="button" className="btn" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
-            <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-    
+    /* ---------------- App Shell ---------------- */
     function App(){
       const { parts } = useHashRoute();
       const route = (parts[0] || "").toLowerCase();
-      const sub = (parts[1] || "").toLowerCase();
+      const sub   = (parts[1] || "").toLowerCase();
 
       useEffect(() => {
         const fails = [];
@@ -822,42 +726,55 @@ Date: ${f.sdate}
         if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
       }, [route, sub]);
 
+      /* Close Services dropdown after a menu click */
+      useEffect(() => {
+        const nav = document.querySelector("nav.khf-nav");
+        if (!nav) return;
+        const closeOnClick = (e) => {
+          const d = e.target.closest("details");
+          if (d) d.open = false;
+        };
+        const links = nav.querySelectorAll(".menu a");
+        links.forEach(a => a.addEventListener("click", closeOnClick));
+        return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
+      }, [route, sub]);
+
       return (
         <div className="khf-root">
           <header className="khf-header">
             <div className="container row">
               <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
-            
+
               <nav className="khf-nav" aria-label="Primary">
-  <Link to="#/about">About</Link>
+                <Link to="#/about">About</Link>
 
-  <details>
-    <summary>Services ▾</summary>
-    <div className="menu" role="menu">
-      <div className="menu-label">Livestock & Crops</div>
-      <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+                <details>
+                  <summary>Services ▾</summary>
+                  <div className="menu" role="menu">
+                    <div className="menu-label">Livestock & Crops</div>
+                    <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
 
-      <div className="menu-sep"></div>
+                    <div className="menu-sep"></div>
 
-      <div className="menu-label">Our Services</div>
-      <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
-      <Link to="#/services/training" role="menuitem">Training Camps & Tours</Link>
-      <Link to="#/services/climate" role="menuitem">Climate Services</Link>
+                    <div className="menu-label">Our Services</div>
+                    <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
+                    <Link to="#/services/training" role="menuitem">Training Camps & Tours</Link>
+                    <Link to="#/services/climate" role="menuitem">Climate Services</Link>
 
-      <div className="menu-sep"></div>
+                    <div className="menu-sep"></div>
 
-      <div className="menu-label">Advisory</div>
-      <Link to="#/advisory" role="menuitem">Overview</Link>
-      <Link to="#/advisory/planting" role="menuitem">Planting Windows</Link>
-      <Link to="#/advisory/livestock" role="menuitem">Livestock Care</Link>
-      <Link to="#/advisory/harvest" role="menuitem">Harvest & Post-Harvest</Link>
-    </div>
-  </details>
+                    <div className="menu-label">Advisory</div>
+                    <Link to="#/advisory" role="menuitem">Overview</Link>
+                    <Link to="#/advisory/planting" role="menuitem">Planting Windows</Link>
+                    <Link to="#/advisory/livestock" role="menuitem">Livestock Care</Link>
+                    <Link to="#/advisory/harvest" role="menuitem">Harvest & Post-Harvest</Link>
+                  </div>
+                </details>
 
-  <Link to="#/family">Family</Link>
-  <Link to="#/gallery">Gallery</Link>
-  <Link to="#/contact">Contact</Link>
-</nav>
+                <Link to="#/family">Family</Link>
+                <Link to="#/gallery">Gallery</Link>
+                <Link to="#/contact">Contact</Link>
+              </nav>
             </div>
           </header>
 
@@ -887,13 +804,3 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
