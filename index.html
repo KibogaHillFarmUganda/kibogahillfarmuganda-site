@@ -152,6 +152,22 @@ textarea{min-height:110px;resize:vertical}
 .helper{color:var(--muted);font-size:.85rem}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 
+    /* nav dropdown helpers */
+.khf-nav{display:flex;gap:10px;align-items:center}
+.khf-nav details{position:relative}
+.khf-nav summary{list-style:none;cursor:pointer;padding:6px 8px;border-radius:10px;font-weight:700;color:var(--ink)}
+.khf-nav summary::-webkit-details-marker{display:none}
+.khf-nav details[open] summary{background:#f3f4f6}
+.khf-nav .menu{
+  position:absolute;top:calc(100% + 8px);left:0;min-width:240px;
+  background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:var(--shadow);padding:8px;z-index:20
+}
+.khf-nav .menu a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink);font-weight:600;white-space:nowrap}
+.khf-nav .menu a:hover{background:#f3f4f6;color:var(--brand)}
+.khf-nav .menu-label{font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
+@media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
+
   </style>
 </head>
 <body>
@@ -810,15 +826,37 @@ Date: ${f.sdate}
           <header className="khf-header">
             <div className="container row">
               <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+            
               <nav className="khf-nav" aria-label="Primary">
-                <Link to="#/about">About</Link>
-                <Link to="#/products">Livestock & Crops</Link>
-                <Link to="#/services">Services</Link>
-                <Link to="#/family">Family</Link>
-                <Link to="#/advisory">Advisory</Link>
-                <Link to="#/gallery">Gallery</Link>
-                <Link to="#/contact">Contact</Link>
-              </nav>
+  <Link to="#/about">About</Link>
+
+  <details>
+    <summary>Services ▾</summary>
+    <div className="menu" role="menu">
+      <div className="menu-label">Livestock & Crops</div>
+      <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+
+      <div className="menu-sep"></div>
+
+      <div className="menu-label">Our Services</div>
+      <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
+      <Link to="#/services/training" role="menuitem">Training Camps & Tours</Link>
+      <Link to="#/services/climate" role="menuitem">Climate Services</Link>
+
+      <div className="menu-sep"></div>
+
+      <div className="menu-label">Advisory</div>
+      <Link to="#/advisory" role="menuitem">Overview</Link>
+      <Link to="#/advisory/planting" role="menuitem">Planting Windows</Link>
+      <Link to="#/advisory/livestock" role="menuitem">Livestock Care</Link>
+      <Link to="#/advisory/harvest" role="menuitem">Harvest & Post-Harvest</Link>
+    </div>
+  </details>
+
+  <Link to="#/family">Family</Link>
+  <Link to="#/gallery">Gallery</Link>
+  <Link to="#/contact">Contact</Link>
+</nav>
             </div>
           </header>
 
@@ -848,6 +886,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
