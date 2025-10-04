@@ -153,16 +153,16 @@
         "Bulk discounts for groups/Family members",
         "Quality assurance and humane standards"
       ]},
-      { slug: "Camps", icon: "🚜", title: "& Farm Visits", text: "Hands-on sessions for farm visits women, youth, special needs people and community groups, camps where goat BBQ, mountain hiking and camp fire are a must must.", details: [
-        "Half-day and full-day training modules",
-        "Experience and lessons sharing around camp fire",
-        "Exercising as we move around the different departments of the farm",
-        "Experience sharing on Livestock housing design; record-keeping; bio-security and disease control management",
-        "Special meals taken during the farm visit",
-        "Lots of fun games",
-        "Group rates for schools and SACCOs"
+{ slug: "camps", icon: "🚜", title: "Camps & Farm Visits", text: "Hands-on sessions for farm visits for women, youth, special needs people and community groups — with goat BBQ, mountain hiking and camp fire.", details: [
+  "Half-day and full-day training modules",
+  "Experience and lessons sharing around the camp fire",
+  "Guided walks through different farm departments",
+  "Livestock housing design; record-keeping; biosecurity and disease control",
+  "Special meals during the visit",
+  "Fun games and team activities",
+  "Group rates for schools and SACCOs"
+]},
 
-      ]},
       { slug: "climate", icon: "🌞", title: "Climate Services", text: "We share with fellow farmers actionable advisories for crop and Livestock production including irrigation schedule, disease risk management", details: [
         "Weekly tips from seasonal & short-term forecasts",
         "Onset/cessation signals; heat-stress alerts",
@@ -238,7 +238,7 @@
 
         <div className="hero-image">
           <div className="hero-frame">
-            <img src="/Images/camp-poster.png" alt="Kiboga Hill Farm Camp" />
+            <img src="Images/camp-poster.png" alt="Kiboga Hill Farm Camp" />
           </div>
 
       <div className="ticker" aria-label="Upcoming camp details">
@@ -335,7 +335,7 @@
     );
 
     const ServiceDetail = ({ slug }) => {
-      const s = SERVICES.find(x => x.slug === slug);
+      const s = SERVICES.find(x => (x.slug || "").toLowerCase() === slug);
       if (!s) return <NotFound what="Service"/>;
       return (
         <section className="page" id={`service-${slug}`}>
@@ -810,6 +810,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
