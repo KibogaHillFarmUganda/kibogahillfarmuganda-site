@@ -65,29 +65,66 @@
   .ticker-track{ animation:none; }
 }
 /* Hero badge image — fit inside a neat frame, no cropping */
-.heroMedia{
-  max-width:560px;          /* keeps it neat on large screens */
-  width:100%;
-  border-radius:28px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  background:#fff;          /* white frame around the poster */
-  padding:8px;              /* small border/frame */
-  animation:floaty 8s ease-in-out infinite;
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 90vh;
+  padding: 80px 5%;
+  background: linear-gradient(to bottom, #fff8ef, #f6f8e7);
 }
-.heroMedia img{
-  display:block;
-  width:100%;
-  height:auto;              /* keep image’s natural aspect ratio */
-  object-fit:contain;       /* never crop */
-  object-position:center;
+
+.hero-text {
+  flex: 1 1 45%;
+  max-width: 500px;
 }
-/* --- HERO LAYOUT POLISH --- */
-.heroWrap{
-  display:grid;
-  gap:32px;
-  align-items:center;           /* vertical centering of both columns */
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  line-height: 1.2;
+  color: var(--ink);
+  font-weight: 700;
 }
+
+.hero-text h1 span {
+  color: var(--brand);
+}
+
+.hero-text p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.hero-buttons .btn {
+  padding: 12px 22px;
+  border-radius: var(--r);
+  font-weight: 600;
+}
+
+.hero-image {
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
 
 /* two columns on desktop, stacked on mobile */
 @media (min-width: 900px){
@@ -283,44 +320,32 @@
 
     // ---------------- Pages ----------------
     const Home = () => (
-    <section className="hero" id="home">
-  <div className="container heroWrap">
-    {/* LEFT: text */}
-    <div className="heroLeft">
-      <h1>Fresh. Resilient. <span style={{color:"#10b981"}}>Ugandan</span> Farming.</h1>
-      <p className="muted" style={{fontSize:18}}>
-        We raise, buy and sell healthy goats, sheep, cattle, & chickens, and grow
-        coffee, bananas, maize and trees—powered by science-driven weather and
-        climate forecasts for better yields and safer communities.
-      </p>
-      <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:10}}>
-        <a className="btn" href="#/products">Explore Our Farm</a>
-        <a className="btn out" href="#/family" style={{background:"#fff"}}>Join as a Family member</a>
-      </div>
-      <div className="badges">
-        <span className="badge b1">Livestock Welfare First</span>
-        <span className="badge b2">Climate-Smart</span>
-        <span className="badge b3">Community-Support</span>
-      </div>
-    </div>
+<section class="hero">
+  <div class="hero-text">
+    <h1>
+      Fresh.<br />
+      Resilient.<br />
+      <span>Ugandan</span> Farming.
+    </h1>
+    <p>
+      We rear, buy and sell healthy and best breeds of goats, sheep, cattle, and chickens.
+      We also grow, buy and sell coffee, bananas, maize, and trees — We are powered by farming passion and driven by science.
+      We as well utilise weather and climate forecasts for better yields and livestock production.
+    </p>
 
-    {/* RIGHT: centered badge + ticker */}
-    <div className="heroRight">
-      <figure className="heroMedia">
-        <img src="Images/camp-badge.png" alt="Kiboga Hill Farm – November Camp News Badge" loading="eager" />
-      </figure>
-
-      <div className="ticker" role="status" aria-label="Camp news ticker">
-        <div className="ticker-track">
-          <span className="ticker-bullet">🗓️ NOVEMBER CAMP NEWS:</span>
-          <span>29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop Growing Training • Networking • Exciting Campfire</span>
-          <span className="ticker-bullet" aria-hidden="true">🗓️ NOVEMBER CAMP NEWS:</span>
-          <span aria-hidden="true">29–30 Nov 2025 • Goat BBQ / Goat Choma • Practical Livestock & Crop Growing Training • Networking • Exciting Campfire</span>
-        </div>
-      </div>
+    <div class="hero-buttons">
+      <a href="#about" class="btn" style="background: var(--brand); color: white;">Explore Our Farm</a>
+      <a href="#family" class="btn" style="background: white; color: var(--ink); box-shadow: var(--shadow);">
+        Join as a family Member you will never regret
+      </a>
     </div>
   </div>
+
+  <div class="hero-image">
+    <img src="Images/november-campfire-poster.jpg" alt="Kiboga Hill Farm November Campfire" />
+  </div>
 </section>
+
 
     );
 
@@ -783,6 +808,7 @@ const Gallery = () => {
   </script>
 </body>
 </html>
+
 
 
 
