@@ -25,19 +25,18 @@
     .grid{display:grid;gap:16px}
     .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
-.camp-logo{
-  width:var(--size);
-  height:var(--size);
-  border-radius:999px;
-  display:grid;
-  place-items:center;
-  background:#fff;
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
-}
+    .camp-logo{
+      width:var(--size);
+      height:var(--size);
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
 
-    
     /* -------- Hero -------- */
     .hero{
       display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;
@@ -52,27 +51,22 @@
 
     /* Right column: poster + ticker */
     .hero-image{
-  flex:1 1 520px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
-  position:relative;   /* <-- add this */
-}
+      flex:1 1 520px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+      position:relative;   /* <-- keep this */
+    }
     .hero-frame{
       width:clamp(360px,46vw,640px); max-width:100%; aspect-ratio:1/1; padding:0; background:#fff;
       border-radius:18px; box-shadow:var(--shadow); overflow:hidden; animation:floaty 8s ease-in-out infinite;
     }
-    .hero-frame img{ width:100<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var el = document.getElementById('lcp-hero');
-    if (el) el.remove();
-  });
-
-     .hero-frame img{ width:100%; height:100%; object-fit:contain; display:block; }
+    /* ✅ fixed rule (no script inside CSS) */
+    .hero-frame img{ width:100%; height:100%; object-fit:contain; display:block; }
 
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-    
+
     /* ---- Ticker ---- */
     .ticker{
       width:100%; max-width:clamp(360px,46vw,640px); margin:12px 0 0; background:#fff;
@@ -158,24 +152,21 @@
     .lightbox img{ max-width:95vw; max-height:80vh; }
 
     /* ===== Camp Logo Badge styles ===== */
-  /* ===== Camp Logo Badge styles ===== */
-.camp-logo-wrap{
-  position:absolute; left:0; right:0; top:10px;
-  display:grid; justify-items:center; z-index:4; pointer-events:none;
-}
-   /* fade in after 10s with CSS only (no JS needed) */
-.camp-logo-badge{
-  --size:108px;
-  display:grid; grid-template-rows:auto auto; justify-items:center; gap:8px;
-  opacity:0; transform:translateY(8px) scale(.98);
-  animation:badgeIn .6s ease forwards;  /* sets opacity:1 + resets transform */
-  animation-delay:10s;
-}
-    
-@keyframes badgeIn{
-  to{ opacity:1; transform:none; }
-}
-    
+    .camp-logo-wrap{
+      position:absolute; left:0; right:0; top:10px;
+      display:grid; justify-items:center; z-index:4; pointer-events:none;
+    }
+    /* fade in after 10s with CSS only (no JS needed) */
+    .camp-logo-badge{
+      --size:108px;
+      display:grid; grid-template-rows:auto auto; justify-items:center; gap:8px;
+      opacity:0; transform:translateY(8px) scale(.98);
+      animation:badgeIn .6s ease forwards;  /* sets opacity:1 + resets transform */
+      animation-delay:10s;
+    }
+    @keyframes badgeIn{
+      to{ opacity:1; transform:none; }
+    }
     .camp-logo::after{ content:""; position:absolute; inset:-8px; border-radius:999px; border:3px solid rgba(16,185,129,.25); animation:pulse 2.2s ease-in-out infinite; }
     @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7 } 50%{ transform:scale(1.06); opacity:1 } }
     .camp-logo img{ width:70%; height:70%; object-fit:contain; display:block; }
@@ -210,15 +201,7 @@
         style="max-width:min(640px,90vw);height:auto;display:block"
       />
     </picture>
-  </section>
-
-</section>  <!-- end of #lcp-hero -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var el = document.getElementById('lcp-hero');
-    if (el) el.remove();
-  });
-</script>
+  </section>  <!-- end of #lcp-hero -->
 
   <div id="root"></div>
 
@@ -352,31 +335,30 @@
     );
 
     /* === Camp Logo Badge component (uses your logo) === */
-   function CampLogoBadge(){
-  return (
-    <div className="camp-logo-wrap" aria-live="polite">
-      <div className="camp-logo-badge" role="group" aria-label="Kiboga Hill Farm highlights">
-        <div className="camp-logo">
-          <picture>
-            <source type="image/webp" srcSet="Images/khf-logo.webp" />
-           <img
-  src="Images/khf-logo.png"
-  onError={(e) => { e.currentTarget.src = "Images/khf-logo.PNG"; }}
-  alt="Kiboga Hill Farm logo"
-  width="512"
-  height="512"
-  loading="lazy"
-  decoding="async"
-/>
-
-          </picture>
-          <span className="camp-tag" aria-label="November Camp">Nov 29–30</span>
+    function CampLogoBadge(){
+      return (
+        <div className="camp-logo-wrap" aria-live="polite">
+          <div className="camp-logo-badge" role="group" aria-label="Kiboga Hill Farm highlights">
+            <div className="camp-logo">
+              <picture>
+                <source type="image/webp" srcSet="Images/khf-logo.webp" />
+                <img
+                  src="Images/khf-logo.png"
+                  onError={(e) => { e.currentTarget.src = "Images/khf-logo.PNG"; }}
+                  alt="Kiboga Hill Farm logo"
+                  width="512"
+                  height="512"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+              <span className="camp-tag" aria-label="November Camp">Nov 29–30</span>
+            </div>
+            <div className="camp-caption">What we have at Kiboga Hill Farm.</div>
+          </div>
         </div>
-        <div className="camp-caption">What we have at Kiboga Hill Farm.</div>
-      </div>
-    </div>
-  );
-}
+      );
+    }
 
     /* ---------------- Home ---------------- */
     const Home = () => (
@@ -1053,13 +1035,13 @@ Date: ${f.sdate}
       const route = (parts[0] || "").toLowerCase();
       const sub   = (parts[1] || "").toLowerCase();
 
-      React.useEffect(() => {
+      useEffect(() => {
         if (route === "services" && sub === "camps") {
           window.location.hash = "#/camps";
         }
       }, [route, sub]);
 
-      React.useEffect(() => {
+      useEffect(() => {
         const fails = [];
         const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
         assert("Nav exists", !!document.querySelector("nav.khf-nav"));
@@ -1067,7 +1049,7 @@ Date: ${f.sdate}
         if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
       }, [route, sub]);
 
-      React.useEffect(() => {
+      useEffect(() => {
         const nav = document.querySelector("nav.khf-nav");
         if (!nav) return;
         const closeOnClick = (e) => {
@@ -1144,8 +1126,3 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
-
-
-
-
-
