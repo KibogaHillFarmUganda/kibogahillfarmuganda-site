@@ -190,7 +190,7 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
     ];
 
     const SERVICES = [
-      { slug: "sales", icon: "🏪", title: "Farm-Gate Sales", text: "Goats, calves, eggs, coffee, and seasonal produce.", details: [
+      { slug: "sales", icon: "🏪", title: "Farm-Gate Sales and Purchases", text: "Goats, cows, chicken, coffee, and other agricultural produce.", details: [
         "Order by WhatsApp; pickup windows shared weekly",
         "Bulk discounts for groups/Family members",
         "Quality assurance and humane standards"
@@ -253,7 +253,7 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
             <span>Ugandan</span> Farming.
           </h1>
           <p>
-            We rear, buy and sell healthy and best breeds of goats, sheep, cattle, and chickens.
+            We rear, buy and sell quality and best breeds of goats, sheep, cattle, and chickens.
             We also grow, buy and sell coffee, bananas, maize, and trees — we are powered by farming
             passion and driven by science. We also utilise weather and climate forecasts for better
             yields and livestock production.
@@ -311,7 +311,7 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
       <section className="page" id="about">
         <div className="container">
           <h2>About Us</h2>
-          <p className="muted">Kiboga Hill Farm Uganda blends modern agri-business with local wisdom. Led by a professional meteorologist, we integrate seasonal forecasts and on-farm observations to reduce risk, cut losses, and improve productivity—from breeding choices to harvest timing.</p>
+          <p className="muted">Kiboga Hill Farm Uganda blends modern agri-business with passion and experience. Led by a professional meteorologist, we integrate seasonal forecasts and on-farm observations to reduce weather related risks, cut losses, and improve productivity—from breeding choices to yield estimates.</p>
         </div>
       </section>
     );
@@ -404,16 +404,17 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
           <div className="banner">
             <h2 style={{margin:0}}>Family Project</h2>
             <p style={{margin:".3rem 0 0"}}>
-              <b>Goal:</b> Members contribute monthly toward shared ventures (goats, cattle, chickens, etc.)
+              <b>Goal:</b> Motimate our Members to start and love farming through learning from our group enterprises (goats, cattle, chickens, etc.)
               for market linkages and collective power.
             </p>
           </div>
 
           <div className="grid cards" style={{marginTop:16, gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
             {[
-              { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
-              { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
-              { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
+              { title: "Jump Start", pts: ["Dream Big", "Grow passion", "Learn", "Motivate one another"] },
+              { title: "Network", pts: ["Make Friends", "True Friendship", "Team work"] },
+              { title: "Project Management", pts: ["3 month camps", "Collective Decisions", "Provide project Advises", "Choice of Enterprise] },
+              { title: "Marketing", pts: ["Collective advertizing", "Quality standard Assurance"] },
             ].map((b) => (
               <div key={b.title} className="card">
                 <b>{b.title}</b>
@@ -435,12 +436,14 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
       <section className="page" id="advisory">
         <div className="container">
           <h2>Weather-Smart Advisory</h2>
-          <p className="muted">We translate forecasts into simple actions: when to plant, when to vaccinate, and how to manage heat and rainfall. Join our WhatsApp broadcast to get weekly tips.</p>
+          <p className="muted">We translate government weather and climate forecasts into simple actions esp. when to plant, when to vaccinate, and how to manage heat and rainfall. Join our Family WhatsApp to get regular tips.</p>
           <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {[
-              { title: "Planting Windows", text: "Use onset signals to time sowing for better germination." },
+              { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
+              { title: "Harvest & Post-Harvest", text: "When to harvest, Dry spells and rain risk  timing for safe drying and storage plans." },
               { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease risk updates." },
-              { title: "Harvest & Post-Harvest", text: "Dry spells for safe drying; rain risk for storage plans." },
+              { title: "Livestock Farm Start", text: "Advise on Housing designs, Breeding guidance, Health schedule." },
+              
             ].map((a) => (
               <div key={a.title} className="card">
                 <b>{a.title}</b>
@@ -712,7 +715,7 @@ Date: ${f.sdate}
   return (
     <section className="page" id="family-join">
       <div className="container">
-        <h2>Join the Kiboga Hill Farm Family</h2>
+        <h2>Join Kiboga Hill Farm Family Project</h2>
         <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
 
         <div className="form-card">
@@ -1018,6 +1021,7 @@ function App(){
   </script>
 </body>
 </html>
+
 
 
 
