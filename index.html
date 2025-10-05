@@ -25,17 +25,6 @@
     .grid{display:grid;gap:16px}
     .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
-    .camp-logo{
-      width:var(--size);
-      height:var(--size);
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      background:#fff;
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
 
     /* -------- Hero -------- */
     .hero{
@@ -56,13 +45,12 @@
       flex-direction:column;
       align-items:center;
       gap:12px;
-      position:relative;   /* <-- keep this */
+      position:relative;
     }
     .hero-frame{
       width:clamp(360px,46vw,640px); max-width:100%; aspect-ratio:1/1; padding:0; background:#fff;
       border-radius:18px; box-shadow:var(--shadow); overflow:hidden; animation:floaty 8s ease-in-out infinite;
     }
-    /* ✅ fixed rule (no script inside CSS) */
     .hero-frame img{ width:100%; height:100%; object-fit:contain; display:block; }
 
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
@@ -79,7 +67,6 @@
     @keyframes tickerMove{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
     @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none } }
 
-    /* Ticker bullet spacing + visibility */
     .ticker-bullet{ margin:0 10px; opacity:.45; font-weight:900; }
 
     /* --- Gallery + blur-up --- */
@@ -152,29 +139,22 @@
     .lightbox img{ max-width:95vw; max-height:80vh; }
 
     /* ===== Camp Logo Badge styles ===== */
-    .camp-logo-wrap{
-      position:absolute; left:0; right:0; top:10px;
-      display:grid; justify-items:center; z-index:4; pointer-events:none;
-    }
-    /* fade in after 10s with CSS only (no JS needed) */
+    .camp-logo-wrap{ position:absolute; left:0; right:0; top:10px; display:grid; justify-items:center; z-index:4; pointer-events:none; }
     .camp-logo-badge{
       --size:108px;
       display:grid; grid-template-rows:auto auto; justify-items:center; gap:8px;
       opacity:0; transform:translateY(8px) scale(.98);
-      animation:badgeIn .6s ease forwards;  /* sets opacity:1 + resets transform */
-      animation-delay:10s;
+      animation:badgeIn .6s ease forwards; animation-delay:10s;
     }
-    @keyframes badgeIn{
-      to{ opacity:1; transform:none; }
+    @keyframes badgeIn{ to{ opacity:1; transform:none; } }
+    .camp-logo{
+      width:var(--size); height:var(--size); border-radius:999px; display:grid; place-items:center; background:#fff; box-shadow:var(--shadow);
+      position:relative; overflow:hidden;
     }
     .camp-logo::after{ content:""; position:absolute; inset:-8px; border-radius:999px; border:3px solid rgba(16,185,129,.25); animation:pulse 2.2s ease-in-out infinite; }
     @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7 } 50%{ transform:scale(1.06); opacity:1 } }
     .camp-logo img{ width:70%; height:70%; object-fit:contain; display:block; }
-    .camp-tag{
-      position:absolute; bottom:-6px; right:-6px; background:linear-gradient(135deg,#10b981,#84cc16);
-      color:#fff; font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px; box-shadow:var(--shadow);
-      transform:rotate(-2deg); animation:tagWiggle 4.5s ease-in-out infinite;
-    }
+    .camp-tag{ position:absolute; bottom:-6px; right:-6px; background:linear-gradient(135deg,#10b981,#84cc16); color:#fff; font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px; box-shadow:var(--shadow); transform:rotate(-2deg); animation:tagWiggle 4.5s ease-in-out infinite; }
     @keyframes tagWiggle{ 0%,100%{ transform:rotate(-2deg) translateY(0) } 50%{ transform:rotate(2deg) translateY(-2px) } }
     .camp-caption{ font-size:.95rem; color:var(--ink); text-align:center; }
     @media (prefers-reduced-motion:reduce){ .camp-logo::after, .camp-tag{ animation:none } }
@@ -201,16 +181,48 @@
         style="max-width:min(640px,90vw);height:auto;display:block"
       />
     </picture>
-  </section>  <!-- end of #lcp-hero -->
+  </section>
+
+  <!-- ✅ Always remove the poster, even if Babel/React fails -->
+  <script>
+    (function(){
+      function removeLCP(){
+        var el = document.getElementById('lcp-hero');
+        if (el) el.remove();
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', removeLCP);
+      } else {
+        removeLCP();
+      }
+      // Safety: if app hasn't mounted, still remove and show a friendly hint
+      setTimeout(function(){
+        var root = document.getElementById('root');
+        if (root && !root.children.length) {
+          removeLCP();
+          // Optional tiny hint (comment out if you don't want it)
+          var msg = document.createElement('div');
+          msg.style.cssText='padding:12px;margin:16px auto;max-width:760px;background:#fffbe6;border:1px solid #ffe58f;border-radius:12px;font:14px/1.5 system-ui;color:#663c00';
+          msg.textContent='The app is taking long to load. Check your internet connection (CDNs) and refresh.';
+          document.body.insertBefore(msg, root);
+        }
+      }, 2500);
+    })();
+  </script>
 
   <div id="root"></div>
 
-  <!-- React (UMD) + Babel for in-browser JSX -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- React + ReactDOM + Babel + Supabase (with CDN fallbacks) -->
+  <script defer src="https://unpkg.com/react@18/umd/react.production.min.js"
+          onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js'"></script>
+  <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+          onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js'"></script>
+  <script defer src="https://unpkg.com/@babel/standalone/babel.min.js"
+          onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js'"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+          onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2'"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- App -->
   <script type="text/babel" data-presets="env,react">
     const { useEffect, useMemo, useState } = React;
 
@@ -298,8 +310,7 @@
     const MAP = {
       label: "Kiboga Hill Farm Uganda",
       address: "3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kagogo A Village, Kyomya Sub county Kiboga District, Uganda",
-      lat: 0.716167,
-      lng: 32.0245,
+      lat: 0.716167, lng: 32.0245,
     };
     const mapsSearchUrl = () => `https://www.google.com/maps/search/?api=1&query=${MAP.lat},${MAP.lng}`;
     const mapsDirectionsUrl = () => `https://www.google.com/maps/dir/?api=1&destination=${MAP.lat},${MAP.lng}`;
@@ -334,7 +345,6 @@
       </section>
     );
 
-    /* === Camp Logo Badge component (uses your logo) === */
     function CampLogoBadge(){
       return (
         <div className="camp-logo-wrap" aria-live="polite">
@@ -410,7 +420,6 @@
               <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
               <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
               <span className="ticker-bullet" aria-hidden="true">•</span> Social Networking
-              {/* duplicate once for seamless loop */}
               <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
               <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
               <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
@@ -419,7 +428,6 @@
             </div>
           </div>
 
-          {/* ✅ New: delayed animated logo + caption */}
           <CampLogoBadge />
         </div>
       </section>
@@ -480,7 +488,7 @@
       <section className="page" id="services">
         <div className="container">
           <h2>What We Offer</h2>
-          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+        <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {SERVICES.map(s => (
               <div key={s.slug} className="card">
                 <div style={{display: "flex", gap: 10, alignItems: "center"}}>
@@ -575,11 +583,6 @@
       </section>
     );
 
-    /* -------- Email helpers -------- */
-    const EMAIL_PRIMARY = "khf@kibogahillfarmuganda.co.ug";
-    const MAIL_SUBJECT  = encodeURIComponent("Inquiry from Kiboga Hill Farm website");
-    const MAIL_BODY     = encodeURIComponent("Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,");
-
     /* ---------------- Contact ---------------- */
     const Contact = () => {
       const [mapType, setMapType] = React.useState("satellite");
@@ -647,101 +650,6 @@
       );
     };
 
-    /* -------- Gallery (thumbs + blur-up + chunked render) -------- */
-    const Gallery = () => {
-      const [items, setItems] = React.useState([]);
-      const [error, setError] = React.useState("");
-      const [lightbox, setLightbox] = React.useState(null);
-      const [visible, setVisible] = React.useState(12);
-
-      const thumbPath = (src, dpr2=false) => {
-        const match = src.match(/^(.*?)(\.[^.]+)$/);
-        const base = match ? match[1] : src;
-        const w = dpr2 ? "1040" : "520";
-        return `Images/thumbs/${base}-${w}.webp`;
-      };
-
-      React.useEffect(() => {
-        (async () => {
-          try {
-            const res = await fetch("Images/manifest.json");
-            if (!res.ok) throw new Error("manifest.json not found");
-            const data = await res.json();
-            const normalized = (Array.isArray(data) ? data : [])
-              .map((x) => typeof x === "string" ? { src: x, caption: "" } :
-                           (x && typeof x === "object" ? { src: x.src || "", caption: x.caption || "" } : null))
-              .filter(Boolean).filter(x => x.src);
-            setItems(normalized);
-          } catch (e) {
-            console.error(e);
-            setError("Could not load Images/manifest.json. Ensure it exists and contains valid JSON.");
-          }
-        })();
-      }, []);
-
-      React.useEffect(() => {
-        const onScroll = () => {
-          if (window.scrollY + window.innerHeight + 200 >= document.body.scrollHeight) {
-            setVisible(v => Math.min(v + 12, items.length));
-          }
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-      }, [items.length]);
-
-      return (
-        <section className="page" id="gallery">
-          <div className="container">
-            <h2>Farm Gallery</h2>
-            {error && <div className="card" style={{color:"#9a3412", background:"#fff7ed"}}>{error}</div>}
-
-            <div className="card" style={{padding:12}}>
-              {items.length === 0 ? (
-                <div className="muted">No images listed yet.</div>
-              ) : (
-                <div className="gallery-grid">
-                  {items.slice(0, visible).map(({ src, caption }, i) => {
-                    const thumb1x = thumbPath(src, false);
-                    const thumb2x = thumbPath(src, true);
-                    const full = `Images/${src}`;
-                    return (
-                      <figure key={i} className="card gallery-tile" style={{padding:0, margin:0}}>
-                        <button onClick={() => setLightbox({ src: full, caption })}
-                                aria-label={`Open ${caption || src}`}
-                                style={{display:"block", padding:0, border:0, background:"transparent", cursor:"zoom-in"}}>
-                          <img
-                            src={thumb1x}
-                            srcSet={`${thumb1x} 520w, ${thumb2x} 1040w`}
-                            sizes="(max-width:720px) 200px, 260px"
-                            alt={caption || src}
-                            width="260" height="200"
-                            loading="lazy"
-                            decoding="async"
-                            onLoad={(e)=> e.currentTarget.classList.add("img-loaded")}
-                            onError={(e)=> { e.currentTarget.src = full; e.currentTarget.removeAttribute('srcset'); }}
-                          />
-                        </button>
-                        {caption ? <figcaption className="gallery-caption">{caption}</figcaption> : null}
-                      </figure>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {lightbox && (
-              <div className="lightbox" onClick={()=>setLightbox(null)} role="dialog" aria-label="Image preview">
-                <div style={{textAlign:"center"}}>
-                  <img src={lightbox.src} alt={lightbox.caption || "Preview"} />
-                  {lightbox.caption ? <div className="lightbox-caption">{lightbox.caption}</div> : null}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      );
-    };
-
     /* ---------------- Family Application ---------------- */
     const FamilyForm = () => {
       const todayStr = new Date().toISOString().slice(0,10);
@@ -797,7 +705,7 @@ DECLARATION (checked = agreed)
 1) Info true/accurate: ${f.agree1 ? '✓' : '—'}
 2) Abide by meeting resolutions: ${f.agree2 ? '✓' : '—'}
 3) Right to withdraw; 2-month settlement: ${f.agree3 ? '✓' : '—'}
-4) Misconduct may lead to removal; 2-month settlement: ${f.agree4 ? '✓' : '—'}
+4) Misconduct can lead to removal; 2-month settlement: ${f.agree4 ? '✓' : '—'}
 5) Late contribution penalties: ${f.agree5 ? '✓' : '—'}
 
 Signature (typed): ${f.sign}
@@ -904,7 +812,7 @@ Date: ${f.sdate}
                   <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
                   <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
                   <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
-                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
+                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; 2-month settlement.</label>
                   <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
                 </div>
 
@@ -1120,9 +1028,13 @@ Date: ${f.sdate}
     }
 
     ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
-
-    // 🧹 Remove the static LCP hero once React has rendered
-    (function removeLCP(){ const el = document.getElementById('lcp-hero'); if (el) el.remove(); })();
   </script>
+
+  <noscript>
+    <div style="max-width:760px;margin:24px auto;padding:16px;border:1px solid #e5e7eb;border-radius:12px;font-family:system-ui">
+      JavaScript is required to view this site. Please enable it and refresh.
+    </div>
+  </noscript>
 </body>
 </html>
+
