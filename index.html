@@ -39,7 +39,14 @@
     .hero-buttons .btn{ padding:12px 22px; border-radius:var(--r); font-weight:600; }
 
     /* Right column: poster + ticker */
-    .hero-image{ flex:1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+    .hero-image{
+  flex:1 1 520px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  position:relative;   /* <-- add this */
+}
     .hero-frame{
       width:clamp(360px,46vw,640px); max-width:100%; aspect-ratio:1/1; padding:0; background:#fff;
       border-radius:18px; box-shadow:var(--shadow); overflow:hidden; animation:floaty 8s ease-in-out infinite;
@@ -132,19 +139,24 @@
     .lightbox img{ max-width:95vw; max-height:80vh; }
 
     /* ===== Camp Logo Badge styles ===== */
-    .camp-logo-wrap{ position:relative; width:100%; display:flex; justify-content:center; margin-top:12px; }
-    .camp-logo-badge{
-      --size:108px;
-      display:grid; grid-template-rows:auto auto; justify-items:center; gap:8px;
-      opacity:0; transform:translateY(8px) scale(.98);
-      pointer-events:none;
-      transition:opacity .6s ease, transform .6s ease;
-    }
-    .camp-logo-badge.show{ opacity:1; transform:none; pointer-events:auto; }
-    .camp-logo{
-      width:var(--size); height:var(--size); border-radius:999px; display:grid; place-items:center;
-      background:#fff; box-shadow:var(--shadow); position:relative; overflow:hidden;
-    }
+  /* ===== Camp Logo Badge styles ===== */
+.camp-logo-wrap{
+  position:absolute; left:0; right:0; top:10px;
+  display:grid; justify-items:center; z-index:4; pointer-events:none;
+}
+   /* fade in after 10s with CSS only (no JS needed) */
+.camp-logo-badge{
+  --size:108px;
+  display:grid; grid-template-rows:auto auto; justify-items:center; gap:8px;
+  opacity:0; transform:translateY(8px) scale(.98);
+  animation:badgeIn .6s ease forwards;  /* sets opacity:1 + resets transform */
+  animation-delay:10s;
+}
+    
+@keyframes badgeIn{
+  to{ opacity:1; transform:none; }
+}
+    
     .camp-logo::after{ content:""; position:absolute; inset:-8px; border-radius:999px; border:3px solid rgba(16,185,129,.25); animation:pulse 2.2s ease-in-out infinite; }
     @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7 } 50%{ transform:scale(1.06); opacity:1 } }
     .camp-logo img{ width:70%; height:70%; object-fit:contain; display:block; }
@@ -313,34 +325,28 @@
     );
 
     /* === Camp Logo Badge component (uses your logo) === */
-    function CampLogoBadge(){
-      const [show, setShow] = React.useState(false);
-
-      React.useEffect(() => {
-        const t = setTimeout(() => setShow(true), 10000); // 10 seconds
-        return () => clearTimeout(t);
-      }, []);
-
-      return (
-        <div className="camp-logo-wrap" aria-live="polite">
-          <div className={`camp-logo-badge ${show ? "show" : ""}`} role="group" aria-label="Kiboga Hill Farm highlights">
-            <div className="camp-logo" aria-hidden={!show}>
-              <picture>
-                <source type="image/webp" srcSet="Images/KHF-logo.webp" />
-                <img
-                  src="Images/KHF-logo.png"
-                  alt="Kiboga Hill Farm logo"
-                  width="512" height="512"
-                  loading="lazy" decoding="async"
-                />
-              </picture>
-              <span className="camp-tag" aria-label="November Camp">Nov 29–30</span>
-            </div>
-            <div className="camp-caption">What we have at Kiboga Hill Farm.</div>
-          </div>
+   function CampLogoBadge(){
+  return (
+    <div className="camp-logo-wrap" aria-live="polite">
+      <div className="camp-logo-badge" role="group" aria-label="Kiboga Hill Farm highlights">
+        <div className="camp-logo">
+          <picture>
+            <source type="image/webp" srcSet="Images/khf-logo.webp" />
+            <img
+              src="Images/khf-logo.png"              /* use lowercase path */
+              onError={(e)=>{ e.currentTarget.src = "Images/khf-logo.PNG"; }} /* fallback if server has .PNG */
+              alt="Kiboga Hill Farm logo"
+              width="512" height="512"
+              loading="lazy" decoding="async"
+            />
+          </picture>
+          <span className="camp-tag" aria-label="November Camp">Nov 29–30</span>
         </div>
-      );
-    }
+        <div className="camp-caption">What we have at Kiboga Hill Farm.</div>
+      </div>
+    </div>
+  );
+}
 
     /* ---------------- Home ---------------- */
     const Home = () => (
@@ -1108,4 +1114,5 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
