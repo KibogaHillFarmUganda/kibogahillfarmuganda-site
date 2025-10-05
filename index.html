@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kiboga Hill Farm Uganda</title>
   <meta name="description" content="Kiboga Hill Farm Uganda – Goats, cattle, bananas & coffee, with climate-smart advisory." />
+
   <style>
     :root{ --ink:#1f2937; --muted:#556070; --brand:#10b981; --amber:#f59e0b; --orange:#fb923c; --card:#ffffff; --shadow:0 10px 25px rgba(0,0,0,.08); --r:18px }
     *{box-sizing:border-box}
@@ -46,7 +47,7 @@
     .hero-frame img{ width:100%; height:100%; object-fit:contain; display:block; }
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-    /* ---- Ticker (single clean version) ---- */
+    /* ---- Ticker ---- */
     .ticker{
       width:100%; max-width:clamp(360px,46vw,640px); margin:12px 0 0; background:#fff;
       border-radius:16px; box-shadow:var(--shadow); overflow:hidden;
@@ -61,7 +62,7 @@
     /* --- Gallery + blur-up --- */
     .gallery-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:stretch}
     .gallery-tile{flex:0 1 260px;display:flex;flex-direction:column;padding:0;text-align:center;overflow:hidden;cursor:zoom-in}
-    .gallery-tile img{width:100%;height:200px;object-fit:cover;object-position:center;display:block;filter:blur(12px);transform:scale(1.02);transition:filter .35s ease, transform .35s ease}
+    .gallery-tile img{width:100%;height:200px;object-fit:cover;object-position:center;display:block;filter:blur(6px);transform:scale(1.02);transition:filter .35s ease, transform .35s ease} /* reduced blur */
     .gallery-tile img.img-loaded{filter:none;transform:none}
     .gallery-caption{padding:10px 12px;font-size:14px;line-height:1.35;color:var(--ink);text-align:center;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:40px}
     @media (max-width: 720px){.gallery-tile{flex-basis:200px}.gallery-tile img{height:160px}}
@@ -106,46 +107,64 @@
     .khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
     @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
 
+    /* === Extra responsiveness/speed tweaks === */
     /* 1) Safer mobile viewport height on iOS */
-.hero{ min-height:100svh; }
+    .hero{ min-height:100svh; }
 
-/* 2) So very small phones don’t feel cramped */
-@media (max-width:480px){
-  .container{ padding:0 12px; }
-  .hero{ padding:56px 4%; gap:24px; }
-  .hero-text h1{ font-size:clamp(1.6rem, 6vw, 2.2rem); }
-  .hero-frame{ width:clamp(280px, 86vw, 560px); }
-  .hero-buttons .btn{ width:100%; justify-content:center; }
-}
+    /* 2) Small phones */
+    @media (max-width:480px){
+      .container{ padding:0 12px; }
+      .hero{ padding:56px 4%; gap:24px; }
+      .hero-text h1{ font-size:clamp(1.6rem, 6vw, 2.2rem); }
+      .hero-frame{ width:clamp(280px, 86vw, 560px); }
+      .hero-buttons .btn{ width:100%; justify-content:center; }
+    }
 
-/* 3) Prevent any accidental horizontal scroll */
-html, body { overflow-x:hidden; }
-img, iframe, video { max-width:100%; height:auto; }
+    /* 3) No accidental horizontal scroll */
+    html, body { overflow-x:hidden; }
+    img, iframe, video { max-width:100%; height:auto; }
 
-/* 4) Make long words/links wrap nicely in cards & table cells */
-.card, td, th, p, .muted { overflow-wrap:anywhere; }
+    /* 4) Nice wrapping */
+    .card, td, th, p, .muted { overflow-wrap:anywhere; }
 
-/* 5) Nav spacing on wrap so it doesn’t look broken on mobile */
-.khf-nav{ row-gap:6px; }
-@media (max-width:760px){
-  .khf-nav a, .khf-nav summary{ padding:6px 8px; border-radius:8px; }
-}
+    /* 5) Nav spacing on wrap */
+    .khf-nav{ row-gap:6px; }
+    @media (max-width:760px){
+      .khf-nav a, .khf-nav summary{ padding:6px 8px; border-radius:8px; }
+    }
 
-/* 6) Grid: ensure 2-up at mid, 1-up on small, 3–4 on large (already have, but a touch more forgiving) */
-.cards{ grid-template-columns:repeat(1,minmax(0,1fr)); }
-@media (min-width:640px){ .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (min-width:1024px){ .cards{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+    /* 6) Grid breakpoints */
+    .cards{ grid-template-columns:repeat(1,minmax(0,1fr)); }
+    @media (min-width:640px){ .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (min-width:1024px){ .cards{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-/* 7) Lightbox image should scale down on small screens */
-.lightbox img{ max-width:95vw; max-height:80vh; }
-
-  
+    /* 7) Lightbox scaling */
+    .lightbox img{ max-width:95vw; max-height:80vh; }
   </style>
-   
-  <link rel="preload" as="image" href="Images/camp-poster.avif">
 
+  <!-- Preload LCP image -->
+  <link rel="preload" as="image" href="Images/camp-poster.avif">
 </head>
+
 <body>
+
+  <!-- 🔥 Static LCP hero: renders immediately before React loads -->
+  <section id="lcp-hero" style="min-height:60vh;display:grid;place-items:center;background:linear-gradient(to bottom,#fff8ef,#f6f8e7);padding:40px 5%">
+    <picture>
+      <source type="image/avif" srcset="Images/camp-poster.avif" />
+      <source type="image/webp" srcset="Images/camp-poster.webp" />
+      <img
+        src="Images/camp-poster.png"
+        alt="Kiboga Hill Farm Camp"
+        width="1200" height="1200"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
+        style="max-width:min(640px,90vw);height:auto;display:block"
+      />
+    </picture>
+  </section>
+
   <div id="root"></div>
 
   <!-- React (UMD) + Babel for in-browser JSX -->
@@ -155,48 +174,48 @@ img, iframe, video { max-width:100%; height:auto; }
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="text/babel" data-presets="env,react">
-
     const { useEffect, useMemo, useState } = React;
-// 🔐 Supabase config
-const SUPABASE_URL  = "https://uieqtkdxnuqqvcpkgtiz.supabase.co";   // ← replace
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpZXF0a2R4bnVxcXZjcGtndGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2MDA4MTcsImV4cCI6MjA3NTE3NjgxN30.J5fkqIknkIgVX-As1yZfn1qbH2_vMfRPBhuvC2UxY3Y";                      // ← replace
-const { createClient } = window.supabase;
-const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // 🔐 Supabase config
+    const SUPABASE_URL  = "https://uieqtkdxnuqqvcpkgtiz.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpZXF0a2R4bnVxcXZjcGtndGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2MDA4MTcsImV4cCI6MjA3NTE3NjgxN30.J5fkqIknkIgVX-As1yZfn1qbH2_vMfRPBhuvC2UxY3Y";
+    const { createClient } = window.supabase;
+    const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
 
     /* ---------------- Data ---------------- */
     const Camps = () => (
-  <section className="page" id="camps">
-    <div className="container">
-      <h2>Camps & Farm Visits</h2>
-      <p className="muted">
-        Hands-on sessions for women, youth, people with special needs and community groups — with goat BBQ,
-        mountain hiking and a campfire.
-      </p>
+      <section className="page" id="camps">
+        <div className="container">
+          <h2>Camps & Farm Visits</h2>
+          <p className="muted">
+            Hands-on sessions for women, youth, people with special needs and community groups — with goat BBQ,
+            mountain hiking and a campfire.
+          </p>
 
-      <div className="grid cards" style={{gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
-        <div className="card">
-          <b>What to expect</b>
-          <ul className="muted" style={{margin:"8px 0 0 16px"}}>
-            <li>Half-day and full-day training modules</li>
-            <li>Experience sharing around the campfire</li>
-            <li>Guided walks through farm departments</li>
-            <li>Housing, record-keeping, biosecurity & disease control</li>
-            <li>Special meals during the visit</li>
-            <li>Fun games and team activities</li>
-            <li>Group rates for schools and SACCOs</li>
-          </ul>
-        </div>
+          <div className="grid cards" style={{gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
+            <div className="card">
+              <b>What to expect</b>
+              <ul className="muted" style={{margin:"8px 0 0 16px"}}>
+                <li>Half-day and full-day training modules</li>
+                <li>Experience sharing around the campfire</li>
+                <li>Guided walks through farm departments</li>
+                <li>Housing, record-keeping, biosecurity & disease control</li>
+                <li>Special meals during the visit</li>
+                <li>Fun games and team activities</li>
+                <li>Group rates for schools and SACCOs</li>
+              </ul>
+            </div>
 
-        <div className="card">
-          <b>Book a visit/ CAMP</b>
-          <p className="muted">Call or WhatsApp <a href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">+256 763 081 880</a>.</p>
-          <a className="btn" href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp to Book</a>
+            <div className="card">
+              <b>Book a visit/ CAMP</b>
+              <p className="muted">Call or WhatsApp <a href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">+256 763 081 880</a>.</p>
+              <a className="btn" href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp to Book</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-);
-    
+      </section>
+    );
+
     const PRODUCTS = [
       { slug: "goats", icon: "🐐", title: "Goats", desc: "Savanna, Galla, Boer & local Mubende lines for meat and resilience.", details: [
         "Breeding: structured cross-breeding for growth & hardiness",
@@ -230,7 +249,6 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
         "Bulk discounts for bulk purchases",
         "Quality assurance and humane standards"
       ]},
-
       { slug: "climate", icon: "🌞", title: "Climate Services", text: "We share with fellow farmers actionable advisories for crop and Livestock production for soil moisture, water stress and disease risk management", details: [
         "Weekly tips from seasonal & short-term forecasts",
         "Onset/cessation signals; heat-stress alerts",
@@ -307,37 +325,36 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
         <div className="hero-image">
           <div className="hero-frame">
             <picture>
-  <source type="image/avif" srcSet="Images/camp-poster.avif" />
-  <source type="image/webp" srcSet="Images/camp-poster.webp" />
-  <img
-    src="Images/camp-poster.png"
-    alt="Kiboga Hill Farm Camp"
-    width={700}
-    height={700}
-    loading="eager"
-    decoding="async"
-    style={{ maxWidth: "100%", height: "100%", display: "block" }}
-  />
-</picture>
+              <source type="image/avif" srcSet="Images/camp-poster.avif" />
+              <source type="image/webp" srcSet="Images/camp-poster.webp" />
+              <img
+                src="Images/camp-poster.png"
+                alt="Kiboga Hill Farm Camp"
+                width={700}
+                height={700}
+                loading="eager"
+                decoding="async"
+                style={{ maxWidth: "100%", height: "100%", display: "block" }}
+              />
+            </picture>
           </div>
 
-      <div className="ticker" aria-label="Upcoming camp details">
-          <div className="ticker-track">
+          <div className="ticker" aria-label="Upcoming camp details">
+            <div className="ticker-track">
               <span className="ticker-bullet">•</span> 29–30 Nov 2025
               <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
               <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
               <span className="ticker-bullet">•</span> Exciting Campfire
               <span className="ticker-bullet">•</span> Social Networking
-
-              {/* duplicate once for seamless loop */}   {/* ✅ JSX comment */}
+              {/* duplicate once for seamless loop */}
               <span className="ticker-bullet">•</span> 29–30 Nov 2025
               <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
               <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
               <span className="ticker-bullet">•</span> Exciting Campfire
               <span className="ticker-bullet">•</span> Networking
             </div>
+          </div>
         </div>
-      </div>
       </section>
     );
 
@@ -396,7 +413,7 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
       <section className="page" id="services">
         <div className="container">
           <h2>What We Offer</h2>
-          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+        <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {SERVICES.map(s => (
               <div key={s.slug} className="card">
                 <div style={{display: "flex", gap: 10, alignItems: "center"}}>
@@ -444,23 +461,24 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
             </p>
           </div>
 
-<div className="grid cards" style={{ marginTop: 16, gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
-  {[
-    { title: "Jump Start",            pts: ["Dream Big", "Motivate One Another", "Grow Passion", "Learn"] },
-    { title: "Social Network",        pts: ["Meet and Make many Friends", "Keep True Friends", "Teamwork"] },
-    { title: "Project Management",    pts: ["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"] },
-    { title: "Collective Marketing",  pts: ["Collective Advertising", "Quality Standards & Assurance"] },
-  ].map((b) => (
-    <div key={b.title} className="card">
-      <b>{b.title}</b>
-      <ul className="muted" style={{ margin: "8px 0 0 16px" }}>
-        {b.pts.map((p, i) => (
-          <li key={`${b.title}-${i}`}>{p}</li>
-        ))}
-      </ul>
-    </div>
-  ))}
-</div>
+          <div className="grid cards" style={{ marginTop: 16, gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
+            {[
+              { title: "Jump Start",            pts: ["Dream Big", "Motivate One Another", "Grow Passion", "Learn"] },
+              { title: "Social Network",        pts: ["Meet and Make many Friends", "Keep True Friends", "Teamwork"] },
+              { title: "Project Management",    pts: ["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"] },
+              { title: "Collective Marketing",  pts: ["Collective Advertising", "Quality Standards & Assurance"] },
+            ].map((b) => (
+              <div key={b.title} className="card">
+                <b>{b.title}</b>
+                <ul className="muted" style={{ margin: "8px 0 0 16px" }}>
+                  {b.pts.map((p, i) => (
+                    <li key={`${b.title}-${i}`}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
           <div style={{marginTop:12}}>
             <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
           </div>
@@ -479,7 +497,6 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
               { title: "Harvest & Post-Harvest", text: "When to harvest, Dry spells and rain risk  timing for safe drying and storage plans." },
               { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease risk updates." },
               { title: "Livestock Farm Start", text: "Advise on Housing designs, Breeding guidance, Health schedule." },
-              
             ].map((a) => (
               <div key={a.title} className="card">
                 <b>{a.title}</b>
@@ -563,11 +580,12 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
       );
     };
 
-    /* -------- Gallery (thumbs + blur-up) -------- */
+    /* -------- Gallery (thumbs + blur-up + chunked render) -------- */
     const Gallery = () => {
       const [items, setItems] = React.useState([]);
       const [error, setError] = React.useState("");
       const [lightbox, setLightbox] = React.useState(null);
+      const [visible, setVisible] = React.useState(12); // render first 12, then add in chunks
 
       const thumbPath = (src, dpr2=false) => {
         const match = src.match(/^(.*?)(\.[^.]+)$/);
@@ -594,6 +612,17 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
         })();
       }, []);
 
+      // Infinite scroll: when near bottom, reveal more
+      React.useEffect(() => {
+        const onScroll = () => {
+          if (window.scrollY + window.innerHeight + 200 >= document.body.scrollHeight) {
+            setVisible(v => Math.min(v + 12, items.length));
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+      }, [items.length]);
+
       return (
         <section className="page" id="gallery">
           <div className="container">
@@ -605,7 +634,7 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
                 <div className="muted">No images listed yet.</div>
               ) : (
                 <div className="gallery-grid">
-                  {items.map(({ src, caption }, i) => {
+                  {items.slice(0, visible).map(({ src, caption }, i) => {
                     const thumb1x = thumbPath(src, false);
                     const thumb2x = thumbPath(src, true);
                     const full = `Images/${src}`;
@@ -619,6 +648,7 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
                             srcSet={`${thumb1x} 520w, ${thumb2x} 1040w`}
                             sizes="(max-width:720px) 200px, 260px"
                             alt={caption || src}
+                            width="260" height="200"     /* reserve space for faster layout */
                             loading="lazy"
                             decoding="async"
                             onLoad={(e)=> e.currentTarget.classList.add("img-loaded")}
@@ -647,30 +677,30 @@ const supa = createClient(SUPABASE_URL, SUPABASE_ANON);
     };
 
     /* ---------------- Family Application ---------------- */
-const FamilyForm = () => {
-  const todayStr = new Date().toISOString().slice(0,10);
+    const FamilyForm = () => {
+      const todayStr = new Date().toISOString().slice(0,10);
 
-  // form state
-  const [f, setF] = React.useState({
-    first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
-    why:'', skills:'',
-    k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
-    k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
-    agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
-    sign:'', sdate: todayStr
-  });
+      // form state
+      const [f, setF] = React.useState({
+        first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
+        why:'', skills:'',
+        k1first:'', k1middle:'', k1last:'', k1addr:'', k1tel:'',
+        k2first:'', k2middle:'', k2last:'', k2addr:'', k2tel:'',
+        agree1:false, agree2:false, agree3:false, agree4:false, agree5:false,
+        sign:'', sdate: todayStr
+      });
 
-  // status state
-  const [submitting, setSubmitting] = React.useState(false);
-  const [doneMsg, setDoneMsg] = React.useState("");
-  const [errMsg,  setErrMsg]  = React.useState("");
+      // status state
+      const [submitting, setSubmitting] = React.useState(false);
+      const [doneMsg, setDoneMsg] = React.useState("");
+      const [errMsg,  setErrMsg]  = React.useState("");
 
-  const change = (e) => {
-    const {name,type,checked,value} = e.target;
-    setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
-  };
+      const change = (e) => {
+        const {name,type,checked,value} = e.target;
+        setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
+      };
 
-  const asText = () => `
+      const asText = () => `
 KIBOGA HILL FARM UGANDA – FAMILY PROJECT
 Membership Application
 
@@ -708,377 +738,337 @@ DECLARATION (checked = agreed)
 
 Signature (typed): ${f.sign}
 Date: ${f.sdate}
-  `.trim();
+      `.trim();
 
-  const sendEmail = () => {
-    const body = encodeURIComponent(asText());
-    const subject = encodeURIComponent("Family Membership Application");
-    window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
-  };
+      const sendEmail = () => {
+        const body = encodeURIComponent(asText());
+        const subject = encodeURIComponent("Family Membership Application");
+        window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
+      };
 
-  const downloadTxt = () => {
-    const blob = new Blob([asText()], {type:'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+      const downloadTxt = () => {
+        const blob = new Blob([asText()], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `KHFU-application-${f.first||'member'}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+      };
 
-  const submitToDB = async () => {
-    setSubmitting(true);
-    setDoneMsg(""); setErrMsg("");
+      const submitToDB = async () => {
+        setSubmitting(true);
+        setDoneMsg(""); setErrMsg("");
 
-    const payload = {
-      first: f.first, middle: f.middle, last: f.last,
-      dob: f.dob || null,
-      email: f.email, phone: f.phone, nin: f.nin, addr: f.addr,
-      role: f.role, inst: f.inst, instAddr: f.instAddr,
-      why: f.why, skills: f.skills,
-      k1first: f.k1first, k1middle: f.k1middle, k1last: f.k1last, k1addr: f.k1addr, k1tel: f.k1tel,
-      k2first: f.k2first, k2middle: f.k2middle, k2last: f.k2last, k2addr: f.k2addr, k2tel: f.k2tel,
-      sign: f.sign, sdate: f.sdate || null
-    };
+        const payload = {
+          first: f.first, middle: f.middle, last: f.last,
+          dob: f.dob || null,
+          email: f.email, phone: f.phone, nin: f.nin, addr: f.addr,
+          role: f.role, inst: f.inst, instAddr: f.instAddr,
+          why: f.why, skills: f.skills,
+          k1first: f.k1first, k1middle: f.k1middle, k1last: f.k1last, k1addr: f.k1addr, k1tel: f.k1tel,
+          k2first: f.k2first, k2middle: f.k2middle, k2last: f.k2last, k2addr: f.k2addr, k2tel: f.k2tel,
+          sign: f.sign, sdate: f.sdate || null
+        };
 
-    const { error } = await supa.from("family_applications").insert(payload);
-    if (error) setErrMsg(error.message || "Could not submit. Please try again.");
-    else      setDoneMsg("Application submitted privately. Thank you!");
-    setSubmitting(false);
-  };
+        const { error } = await supa.from("family_applications").insert(payload);
+        if (error) setErrMsg(error.message || "Could not submit. Please try again.");
+        else      setDoneMsg("Application submitted privately. Thank you!");
+        setSubmitting(false);
+      };
 
-  const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
+      const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
 
-  return (
-    <section className="page" id="family-join">
-      <div className="container">
-        <h2>Join Kiboga Hill Farm Family Project</h2>
-        <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
+      return (
+        <section className="page" id="family-join">
+          <div className="container">
+            <h2>Join Kiboga Hill Farm Family Project</h2>
+            <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
 
-        <div className="form-card">
-          {/* --- the rest of your existing inputs, unchanged --- */}
-          {/* Personal Data */}
-          <div className="fieldset">
-            <div className="legend">Personal Data / Biodata</div>
-            <div className="form-grid two">
-              <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
-              <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
-              <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
-              <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
-              <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
-              <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
-              <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
-              <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
-              <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
-              <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
-              <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
+            <div className="form-card">
+              {/* Personal Data */}
+              <div className="fieldset">
+                <div className="legend">Personal Data / Biodata</div>
+                <div className="form-grid two">
+                  <div><label>First Name</label><input name="first" value={f.first} onChange={change} required/></div>
+                  <div><label>Middle Name</label><input name="middle" value={f.middle} onChange={change}/></div>
+                  <div><label>Last Name</label><input name="last" value={f.last} onChange={change} required/></div>
+                  <div><label>Date of Birth</label><input type="date" name="dob" value={f.dob} onChange={change} required/></div>
+                  <div><label>Email</label><input type="email" name="email" value={f.email} onChange={change} required/></div>
+                  <div><label>Telephone</label><input type="tel" name="phone" value={f.phone} onChange={change} required/></div>
+                  <div><label>NIN / Passport</label><input name="nin" value={f.nin} onChange={change}/></div>
+                  <div><label>Current Residential Address</label><input name="addr" value={f.addr} onChange={change}/></div>
+                  <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
+                  <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
+                  <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
+                </div>
+              </div>
+
+              {/* Reason for joining */}
+              <div className="fieldset">
+                <div className="legend">Reason for joining</div>
+                <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?" />
+              </div>
+
+              {/* Skills */}
+              <div className="fieldset">
+                <div className="legend">Special skills / interests to contribute</div>
+                <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute" />
+              </div>
+
+              {/* NOK 1 */}
+              <div className="fieldset">
+                <div className="legend">Next of Kin – First Choice</div>
+                <div className="form-grid two">
+                  <div><label>First Name</label><input name="k1first"  value={f.k1first}  onChange={change} /></div>
+                  <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change} /></div>
+                  <div><label>Last Name</label><input name="k1last"   value={f.k1last}   onChange={change} /></div>
+                  <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change} /></div>
+                  <div><label>Telephone</label><input name="k1tel"    value={f.k1tel}    onChange={change} /></div>
+                </div>
+              </div>
+
+              {/* NOK 2 */}
+              <div className="fieldset">
+                <div className="legend">Next of Kin – Second Choice</div>
+                <div className="form-grid two">
+                  <div><label>First Name</label><input name="k2first"  value={f.k2first}  onChange={change} /></div>
+                  <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change} /></div>
+                  <div><label>Last Name</label><input name="k2last"   value={f.k2last}   onChange={change} /></div>
+                  <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change} /></div>
+                  <div><label>Telephone</label><input name="k2tel"    value={f.k2tel}    onChange={change} /></div>
+                </div>
+              </div>
+
+              {/* Declaration */}
+              <div className="fieldset">
+                <div className="legend">Declaration</div>
+                <div className="form-grid">
+                  <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
+                  <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
+                  <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
+                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
+                  <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
+                </div>
+
+                <div className="form-grid two" style={{marginTop:8}}>
+                  <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
+                  <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
+                </div>
+
+                <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
+              </div>
+
+              {/* Status messages */}
+              {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
+              {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
+
+              <div className="actions">
+                <button type="button" className="btn" onClick={submitToDB} disabled={!allAgreed || submitting}>
+                  {submitting ? "Submitting…" : "Submit (private)"}
+                </button>
+                <button type="button" className="btn out" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
+                <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
+              </div>
             </div>
           </div>
+        </section>
+      );
+    };
 
-          {/* Reason, Skills, NOK sections — unchanged */}
-          {/* ... (keep your existing blocks) ... */}
+    const Admin = () => {
+      const [session, setSession] = useState(null);
+      const [rows, setRows] = useState([]);
+      const [loading, setLoading] = useState(false);
+      const [err, setErr] = useState("");
 
-          {/* Declaration */}
-          {/* ... keep your existing declaration checkboxes and sign/date ... */}
+      useEffect(() => {
+        supa.auth.getSession().then(({ data }) => setSession(data.session || null));
+        const { data: sub } = supa.auth.onAuthStateChange((_event, sess) => setSession(sess));
+        return () => sub?.subscription?.unsubscribe();
+      }, []);
 
-          {/* Status messages */}
-          {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
-          {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
-{/* ▼ PASTE THIS AFTER the Personal Data fieldset, still inside .form-card */}
-<div className="fieldset">
-  <div className="legend">Reason for joining</div>
-  <textarea
-    name="why"
-    value={f.why}
-    onChange={change}
-    placeholder="Why are you interested in joining this family project?"
-  />
-</div>
+      useEffect(() => {
+        if (!session) return;
+        setLoading(true); setErr("");
+        supa.from("family_applications").select("*").order("created_at", { ascending: false })
+          .then(({ data, error }) => {
+            if (error) setErr(error.message);
+            else setRows(data || []);
+          })
+          .finally(() => setLoading(false));
+      }, [session]);
 
-<div className="fieldset">
-  <div className="legend">Special skills / interests to contribute</div>
-  <textarea
-    name="skills"
-    value={f.skills}
-    onChange={change}
-    placeholder="List any skills or interests you would like to contribute"
-  />
-</div>
-
-<div className="fieldset">
-  <div className="legend">Next of Kin – First Choice</div>
-  <div className="form-grid two">
-    <div><label>First Name</label><input name="k1first"  value={f.k1first}  onChange={change} /></div>
-    <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change} /></div>
-    <div><label>Last Name</label><input name="k1last"   value={f.k1last}   onChange={change} /></div>
-    <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change} /></div>
-    <div><label>Telephone</label><input name="k1tel"    value={f.k1tel}    onChange={change} /></div>
-  </div>
-</div>
-
-<div className="fieldset">
-  <div className="legend">Next of Kin – Second Choice</div>
-  <div className="form-grid two">
-    <div><label>First Name</label><input name="k2first"  value={f.k2first}  onChange={change} /></div>
-    <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change} /></div>
-    <div><label>Last Name</label><input name="k2last"   value={f.k2last}   onChange={change} /></div>
-    <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change} /></div>
-    <div><label>Telephone</label><input name="k2tel"    value={f.k2tel}    onChange={change} /></div>
-  </div>
-</div>
-
-<div className="fieldset">
-  <div className="legend">Declaration</div>
-  <div className="form-grid">
-    <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
-    <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
-    <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
-    <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
-    <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
-  </div>
-
-  <div className="form-grid two" style={{marginTop:8}}>
-    <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
-    <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
-  </div>
-
-  <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
-</div>
-{/* ▲ END PASTE */}
-
-          <div className="actions">
-            <button type="button" className="btn" onClick={submitToDB} disabled={!allAgreed || submitting}>
-              {submitting ? "Submitting…" : "Submit (private)"}
-            </button>
-            <button type="button" className="btn out" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
-            <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-
-    
-const Admin = () => {
-  const [session, setSession] = useState(null);
-  const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState("");
-
-  // watch auth session
-  useEffect(() => {
-    supa.auth.getSession().then(({ data }) => setSession(data.session || null));
-    const { data: sub } = supa.auth.onAuthStateChange((_event, sess) => setSession(sess));
-    return () => sub?.subscription?.unsubscribe();
-  }, []);
-
-  // fetch rows after login
-  useEffect(() => {
-    if (!session) return;
-    setLoading(true); setErr("");
-    supa.from("family_applications").select("*").order("created_at", { ascending: false })
-      .then(({ data, error }) => {
+      const onSignIn = async (e) => {
+        e.preventDefault();
+        setErr("");
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const { error } = await supa.auth.signInWithPassword({ email, password });
         if (error) setErr(error.message);
-        else setRows(data || []);
-      })
-      .finally(() => setLoading(false));
-  }, [session]);
+      };
 
-  const onSignIn = async (e) => {
-    e.preventDefault();
-    setErr("");
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const { error } = await supa.auth.signInWithPassword({ email, password });
-    if (error) setErr(error.message);
-  };
+      const onSignOut = async () => {
+        await supa.auth.signOut();
+        setRows([]);
+      };
 
-  const onSignOut = async () => {
-    await supa.auth.signOut();
-    setRows([]);
-  };
+      if (!session) {
+        return (
+          <section className="page" id="admin">
+            <div className="container">
+              <h2>Admin — Members List</h2>
+              <p className="muted">Sign in to view applications.</p>
+              {err && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{err}</div>}
+              <form className="card" onSubmit={onSignIn} style={{maxWidth:420}}>
+                <div><label>Email</label><input name="email" type="email" required /></div>
+                <div style={{marginTop:8}}><label>Password</label><input name="password" type="password" required /></div>
+                <div style={{marginTop:12}}><button className="btn" type="submit">Sign in</button></div>
+              </form>
+            </div>
+          </section>
+        );
+      }
 
-  if (!session) {
-    return (
-      <section className="page" id="admin">
-        <div className="container">
-          <h2>Admin — Members List</h2>
-          <p className="muted">Sign in to view applications.</p>
-          {err && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{err}</div>}
-          <form className="card" onSubmit={onSignIn} style={{maxWidth:420}}>
-            <div><label>Email</label><input name="email" type="email" required /></div>
-            <div style={{marginTop:8}}><label>Password</label><input name="password" type="password" required /></div>
-            <div style={{marginTop:12}}><button className="btn" type="submit">Sign in</button></div>
-          </form>
-        </div>
-      </section>
-    );
-  }
+      return (
+        <section className="page" id="admin">
+          <div className="container">
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+              <h2>Members (Private)</h2>
+              <button className="btn out" onClick={onSignOut}>Sign out</button>
+            </div>
 
-  return (
-    <section className="page" id="admin">
-      <div className="container">
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
-          <h2>Members (Private)</h2>
-          <button className="btn out" onClick={onSignOut}>Sign out</button>
-        </div>
-
-        {err && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{err}</div>}
-        {loading ? <div className="card">Loading…</div> : (
-          <div className="card" style={{overflowX:"auto"}}>
-            {rows.length === 0 ? (
-              <div className="muted">No applications yet.</div>
-            ) : (
-              <table style={{width:"100%", borderCollapse:"collapse"}}>
-                <thead>
-                  <tr>
-                    <th style={{textAlign:"left", padding:"8px"}}>Date</th>
-                    <th style={{textAlign:"left", padding:"8px"}}>Name</th>
-                    <th style={{textAlign:"left", padding:"8px"}}>Phone</th>
-                    <th style={{textAlign:"left", padding:"8px"}}>Email</th>
-                    <th style={{textAlign:"left", padding:"8px"}}>Why Join</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map(r => (
-                    <tr key={r.id} style={{borderTop:"1px solid #eee"}}>
-                      <td style={{padding:"8px"}}>{new Date(r.created_at).toLocaleString()}</td>
-                      <td style={{padding:"8px"}}>{[r.first, r.middle, r.last].filter(Boolean).join(" ")}</td>
-                      <td style={{padding:"8px"}}>{r.phone}</td>
-                      <td style={{padding:"8px"}}>{r.email}</td>
-                      <td style={{padding:"8px", maxWidth:360, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap"}}>{r.why}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            {err && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{err}</div>}
+            {loading ? <div className="card">Loading…</div> : (
+              <div className="card" style={{overflowX:"auto"}}>
+                {rows.length === 0 ? (
+                  <div className="muted">No applications yet.</div>
+                ) : (
+                  <table style={{width:"100%", borderCollapse:"collapse"}}>
+                    <thead>
+                      <tr>
+                        <th style={{textAlign:"left", padding:"8px"}}>Date</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Name</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Phone</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Email</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Why Join</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rows.map(r => (
+                        <tr key={r.id} style={{borderTop:"1px solid #eee"}}>
+                          <td style={{padding:"8px"}}>{new Date(r.created_at).toLocaleString()}</td>
+                          <td style={{padding:"8px"}}>{[r.first, r.middle, r.last].filter(Boolean).join(" ")}</td>
+                          <td style={{padding:"8px"}}>{r.phone}</td>
+                          <td style={{padding:"8px"}}>{r.email}</td>
+                          <td style={{padding:"8px", maxWidth:360, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap"}}>{r.why}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
             )}
           </div>
-        )}
-      </div>
-    </section>
-  );
-};
-    
-function App(){
-  const { parts } = useHashRoute();
-  const route = (parts[0] || "").toLowerCase();
-  const sub   = (parts[1] || "").toLowerCase();
-
-  // Redirect old link (#/services/camps) to new top-level route
-  React.useEffect(() => {
-    if (route === "services" && sub === "camps") {
-      window.location.hash = "#/camps";
-    }
-  }, [route, sub]);
-
-  // Smoke tests
-  React.useEffect(() => {
-    const fails = [];
-    const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
-    assert("Nav exists", !!document.querySelector("nav.khf-nav"));
-    assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
-    if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
-  }, [route, sub]);
-
-  // Close dropdown after clicking a menu item
-  React.useEffect(() => {
-    const nav = document.querySelector("nav.khf-nav");
-    if (!nav) return;
-    const closeOnClick = (e) => {
-      const d = e.target.closest("details");
-      if (d) d.open = false;
+        </section>
+      );
     };
-    const links = nav.querySelectorAll(".menu a");
-    links.forEach(a => a.addEventListener("click", closeOnClick));
-    return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
-  }, [route, sub]);
 
-  return (
-    <div className="khf-root">
-      <header className="khf-header">
-        <div className="container row">
-          <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+    function App(){
+      const { parts } = useHashRoute();
+      const route = (parts[0] || "").toLowerCase();
+      const sub   = (parts[1] || "").toLowerCase();
 
-          <nav className="khf-nav" aria-label="Primary">
-            <Link to="#/about">About</Link>
-            <Link to="#/camps">Camps & Farm Visits</Link> {/* top-level */}
+      // Redirect old link (#/services/camps) to new top-level route
+      React.useEffect(() => {
+        if (route === "services" && sub === "camps") {
+          window.location.hash = "#/camps";
+        }
+      }, [route, sub]);
 
-            <details>
-              <summary>Other Services ▾</summary>        {/* renamed */}
-              <div className="menu" role="menu">
-                <div className="menu-label">Livestock & Crops</div>
-                <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+      // Smoke tests
+      React.useEffect(() => {
+        const fails = [];
+        const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
+        assert("Nav exists", !!document.querySelector("nav.khf-nav"));
+        assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
+        if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
+      }, [route, sub]);
 
-                <div className="menu-sep"></div>
+      // Close dropdown after clicking a menu item
+      React.useEffect(() => {
+        const nav = document.querySelector("nav.khf-nav");
+        if (!nav) return;
+        const closeOnClick = (e) => {
+          const d = e.target.closest("details");
+          if (d) d.open = false;
+        };
+        const links = nav.querySelectorAll(".menu a");
+        links.forEach(a => a.addEventListener("click", closeOnClick));
+        return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
+      }, [route, sub]);
 
-                <div className="menu-label">Our Services</div>
-                <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
-                <Link to="#/services/climate" role="menuitem">Climate Services</Link>
+      return (
+        <div className="khf-root">
+          <header className="khf-header">
+            <div className="container row">
+              <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
 
-                <div className="menu-sep"></div>
-                <div className="menu-label">Advisory</div>
-                <Link to="#/advisory" role="menuitem">Weather-Smart Advisory</Link>
+              <nav className="khf-nav" aria-label="Primary">
+                <Link to="#/about">About</Link>
+                <Link to="#/camps">Camps & Farm Visits</Link> {/* top-level */}
 
-              </div>
-            </details>
+                <details>
+                  <summary>Other Services ▾</summary>
+                  <div className="menu" role="menu">
+                    <div className="menu-label">Livestock & Crops</div>
+                    <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
 
-            <Link to="#/family">Family</Link>
-            <Link to="#/gallery">Gallery</Link>
-            <Link to="#/contact">Contact</Link>
-          </nav>
+                    <div className="menu-sep"></div>
+
+                    <div className="menu-label">Our Services</div>
+                    <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
+                    <Link to="#/services/climate" role="menuitem">Climate Services</Link>
+
+                    <div className="menu-sep"></div>
+                    <div className="menu-label">Advisory</div>
+                    <Link to="#/advisory" role="menuitem">Weather-Smart Advisory</Link>
+                  </div>
+                </details>
+
+                <Link to="#/family">Family</Link>
+                <Link to="#/gallery">Gallery</Link>
+                <Link to="#/contact">Contact</Link>
+              </nav>
+            </div>
+          </header>
+
+          {(!route || route === "") && <Home/>}
+          {route === "about" && <About/>}
+          {route === "camps" && <Camps/>}
+          {route === "products" && !sub && <ProductsIndex/>}
+          {route === "products" && sub && <ProductDetail slug={sub}/>}
+          {route === "services" && !sub && <ServicesIndex/>}
+          {route === "services" && sub && <ServiceDetail slug={sub}/>}
+          {route === "advisory" && <Advisory/>}
+          {route === "gallery" && <Gallery/>}
+          {route === "contact" && <Contact/>}
+          {route === "admin" && <Admin/>}
+          {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
+          {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
+
+          <footer>
+            <div className="container" style={{textAlign: "center"}}>
+              © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+            </div>
+          </footer>
         </div>
-      </header>
+      );
+    }
 
-      {(!route || route === "") && <Home/>}
-      {route === "about" && <About/>}
-      {route === "camps" && <Camps/>}                     {/* new route */}
-      {route === "products" && !sub && <ProductsIndex/>}
-      {route === "products" && sub && <ProductDetail slug={sub}/>}
-      {route === "services" && !sub && <ServicesIndex/>}
-      {route === "services" && sub && <ServiceDetail slug={sub}/>}
-      {route === "advisory" && <Advisory/>}
-      {route === "gallery" && <Gallery/>}
-      {route === "contact" && <Contact/>}
-      {route === "admin" && <Admin/>}
-      {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
-      {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 
-      <footer>
-        <div className="container" style={{textAlign: "center"}}>
-          © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-      ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+    // 🧹 Remove the static LCP hero once React has rendered
+    (function removeLCP(){ const el = document.getElementById('lcp-hero'); if (el) el.remove(); })();
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
