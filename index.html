@@ -69,8 +69,8 @@
     if (el) el.remove();
   });
 
-      </script>
- height:100%; object-fit:contain; display:block; }
+     .hero-frame img{ width:100%; height:100%; object-fit:contain; display:block; }
+
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
     
     /* ---- Ticker ---- */
@@ -211,6 +211,14 @@
       />
     </picture>
   </section>
+
+</section>  <!-- end of #lcp-hero -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var el = document.getElementById('lcp-hero');
+    if (el) el.remove();
+  });
+</script>
 
   <div id="root"></div>
 
@@ -1136,6 +1144,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
