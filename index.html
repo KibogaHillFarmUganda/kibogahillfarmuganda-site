@@ -59,10 +59,13 @@
     @keyframes tickerMove{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
     @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none } }
 
+    /* Ticker bullet spacing + visibility */
+    .ticker-bullet{ margin:0 10px; opacity:.45; font-weight:900; }
+
     /* --- Gallery + blur-up --- */
     .gallery-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:stretch}
     .gallery-tile{flex:0 1 260px;display:flex;flex-direction:column;padding:0;text-align:center;overflow:hidden;cursor:zoom-in}
-    .gallery-tile img{width:100%;height:200px;object-fit:cover;object-position:center;display:block;filter:blur(6px);transform:scale(1.02);transition:filter .35s ease, transform .35s ease} /* reduced blur */
+    .gallery-tile img{width:100%;height:200px;object-fit:cover;object-position:center;display:block;filter:blur(6px);transform:scale(1.02);transition:filter .35s ease, transform .35s ease}
     .gallery-tile img.img-loaded{filter:none;transform:none}
     .gallery-caption{padding:10px 12px;font-size:14px;line-height:1.35;color:var(--ink);text-align:center;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:40px}
     @media (max-width: 720px){.gallery-tile{flex-basis:200px}.gallery-tile img{height:160px}}
@@ -108,10 +111,7 @@
     @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
 
     /* === Extra responsiveness/speed tweaks === */
-    /* 1) Safer mobile viewport height on iOS */
     .hero{ min-height:100svh; }
-
-    /* 2) Small phones */
     @media (max-width:480px){
       .container{ padding:0 12px; }
       .hero{ padding:56px 4%; gap:24px; }
@@ -119,27 +119,43 @@
       .hero-frame{ width:clamp(280px, 86vw, 560px); }
       .hero-buttons .btn{ width:100%; justify-content:center; }
     }
-
-    /* 3) No accidental horizontal scroll */
     html, body { overflow-x:hidden; }
     img, iframe, video { max-width:100%; height:auto; }
-
-    /* 4) Nice wrapping */
     .card, td, th, p, .muted { overflow-wrap:anywhere; }
-
-    /* 5) Nav spacing on wrap */
     .khf-nav{ row-gap:6px; }
     @media (max-width:760px){
       .khf-nav a, .khf-nav summary{ padding:6px 8px; border-radius:8px; }
     }
-
-    /* 6) Grid breakpoints */
     .cards{ grid-template-columns:repeat(1,minmax(0,1fr)); }
     @media (min-width:640px){ .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (min-width:1024px){ .cards{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
-
-    /* 7) Lightbox scaling */
     .lightbox img{ max-width:95vw; max-height:80vh; }
+
+    /* ===== Camp Logo Badge styles ===== */
+    .camp-logo-wrap{ position:relative; width:100%; display:flex; justify-content:center; margin-top:12px; }
+    .camp-logo-badge{
+      --size:108px;
+      display:grid; grid-template-rows:auto auto; justify-items:center; gap:8px;
+      opacity:0; transform:translateY(8px) scale(.98);
+      pointer-events:none;
+      transition:opacity .6s ease, transform .6s ease;
+    }
+    .camp-logo-badge.show{ opacity:1; transform:none; pointer-events:auto; }
+    .camp-logo{
+      width:var(--size); height:var(--size); border-radius:999px; display:grid; place-items:center;
+      background:#fff; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    }
+    .camp-logo::after{ content:""; position:absolute; inset:-8px; border-radius:999px; border:3px solid rgba(16,185,129,.25); animation:pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7 } 50%{ transform:scale(1.06); opacity:1 } }
+    .camp-logo img{ width:70%; height:70%; object-fit:contain; display:block; }
+    .camp-tag{
+      position:absolute; bottom:-6px; right:-6px; background:linear-gradient(135deg,#10b981,#84cc16);
+      color:#fff; font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px; box-shadow:var(--shadow);
+      transform:rotate(-2deg); animation:tagWiggle 4.5s ease-in-out infinite;
+    }
+    @keyframes tagWiggle{ 0%,100%{ transform:rotate(-2deg) translateY(0) } 50%{ transform:rotate(2deg) translateY(-2px) } }
+    .camp-caption{ font-size:.95rem; color:var(--ink); text-align:center; }
+    @media (prefers-reduced-motion:reduce){ .camp-logo::after, .camp-tag{ animation:none } }
   </style>
 
   <!-- Preload LCP image -->
@@ -259,7 +275,7 @@
     /* ---------------- Maps helpers ---------------- */
     const MAP = {
       label: "Kiboga Hill Farm Uganda",
-      address: "3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kyomya Sub county Kiboga District, Uganda",
+      address: "3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kagogo A Village, Kyomya Sub county Kiboga District, Uganda",
       lat: 0.716167,
       lng: 32.0245,
     };
@@ -295,6 +311,36 @@
         </div>
       </section>
     );
+
+    /* === Camp Logo Badge component (uses your logo) === */
+    function CampLogoBadge(){
+      const [show, setShow] = React.useState(false);
+
+      React.useEffect(() => {
+        const t = setTimeout(() => setShow(true), 10000); // 10 seconds
+        return () => clearTimeout(t);
+      }, []);
+
+      return (
+        <div className="camp-logo-wrap" aria-live="polite">
+          <div className={`camp-logo-badge ${show ? "show" : ""}`} role="group" aria-label="Kiboga Hill Farm highlights">
+            <div className="camp-logo" aria-hidden={!show}>
+              <picture>
+                <source type="image/webp" srcSet="Images/khf-logo.webp" />
+                <img
+                  src="Images/khf-logo.png"
+                  alt="Kiboga Hill Farm logo"
+                  width="512" height="512"
+                  loading="lazy" decoding="async"
+                />
+              </picture>
+              <span className="camp-tag" aria-label="November Camp">Nov 29–30</span>
+            </div>
+            <div className="camp-caption">What we have at Kiboga Hill Farm.</div>
+          </div>
+        </div>
+      );
+    }
 
     /* ---------------- Home ---------------- */
     const Home = () => (
@@ -341,19 +387,22 @@
 
           <div className="ticker" aria-label="Upcoming camp details">
             <div className="ticker-track">
-              <span className="ticker-bullet">•</span> 29–30 Nov 2025
-              <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
-              <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
-              <span className="ticker-bullet">•</span> Exciting Campfire
-              <span className="ticker-bullet">•</span> Social Networking
+              <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
+              <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
+              <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
+              <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
+              <span className="ticker-bullet" aria-hidden="true">•</span> Social Networking
               {/* duplicate once for seamless loop */}
-              <span className="ticker-bullet">•</span> 29–30 Nov 2025
-              <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
-              <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
-              <span className="ticker-bullet">•</span> Exciting Campfire
-              <span className="ticker-bullet">•</span> Networking
+              <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
+              <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
+              <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
+              <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
+              <span className="ticker-bullet" aria-hidden="true">•</span> Networking
             </div>
           </div>
+
+          {/* ✅ New: delayed animated logo + caption */}
+          <CampLogoBadge />
         </div>
       </section>
     );
@@ -413,7 +462,7 @@
       <section className="page" id="services">
         <div className="container">
           <h2>What We Offer</h2>
-        <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
+          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {SERVICES.map(s => (
               <div key={s.slug} className="card">
                 <div style={{display: "flex", gap: 10, alignItems: "center"}}>
@@ -558,7 +607,7 @@
             </div>
 
             <div className="card" style={{ marginTop:16, padding:0, overflow:"hidden" }}>
-              <div style={{ display:"flex", gap:8, justifyContent:"flex-end", padding:"10px 12px" }}>
+              <div style={{ display:"flex", gap:8, justify-content:"flex-end", padding:"10px 12px" }}>
                 <button className={mapType==="roadmap" ? "btn" : "btn out"} onClick={()=>setMapType("roadmap")}>Map</button>
                 <button className={mapType==="satellite" ? "btn" : "btn out"} onClick={()=>setMapType("satellite")}>Satellite</button>
                 <button className={mapType==="hybrid" ? "btn" : "btn out"} onClick={()=>setMapType("hybrid")}>Hybrid</button>
@@ -585,7 +634,7 @@
       const [items, setItems] = React.useState([]);
       const [error, setError] = React.useState("");
       const [lightbox, setLightbox] = React.useState(null);
-      const [visible, setVisible] = React.useState(12); // render first 12, then add in chunks
+      const [visible, setVisible] = React.useState(12);
 
       const thumbPath = (src, dpr2=false) => {
         const match = src.match(/^(.*?)(\.[^.]+)$/);
@@ -612,7 +661,6 @@
         })();
       }, []);
 
-      // Infinite scroll: when near bottom, reveal more
       React.useEffect(() => {
         const onScroll = () => {
           if (window.scrollY + window.innerHeight + 200 >= document.body.scrollHeight) {
@@ -648,7 +696,7 @@
                             srcSet={`${thumb1x} 520w, ${thumb2x} 1040w`}
                             sizes="(max-width:720px) 200px, 260px"
                             alt={caption || src}
-                            width="260" height="200"     /* reserve space for faster layout */
+                            width="260" height="200"
                             loading="lazy"
                             decoding="async"
                             onLoad={(e)=> e.currentTarget.classList.add("img-loaded")}
@@ -680,7 +728,6 @@
     const FamilyForm = () => {
       const todayStr = new Date().toISOString().slice(0,10);
 
-      // form state
       const [f, setF] = React.useState({
         first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
         why:'', skills:'',
@@ -690,7 +737,6 @@
         sign:'', sdate: todayStr
       });
 
-      // status state
       const [submitting, setSubmitting] = React.useState(false);
       const [doneMsg, setDoneMsg] = React.useState("");
       const [errMsg,  setErrMsg]  = React.useState("");
@@ -785,7 +831,6 @@ Date: ${f.sdate}
             <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
 
             <div className="form-card">
-              {/* Personal Data */}
               <div className="fieldset">
                 <div className="legend">Personal Data / Biodata</div>
                 <div className="form-grid two">
@@ -803,19 +848,16 @@ Date: ${f.sdate}
                 </div>
               </div>
 
-              {/* Reason for joining */}
               <div className="fieldset">
                 <div className="legend">Reason for joining</div>
                 <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?" />
               </div>
 
-              {/* Skills */}
               <div className="fieldset">
                 <div className="legend">Special skills / interests to contribute</div>
                 <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute" />
               </div>
 
-              {/* NOK 1 */}
               <div className="fieldset">
                 <div className="legend">Next of Kin – First Choice</div>
                 <div className="form-grid two">
@@ -827,7 +869,6 @@ Date: ${f.sdate}
                 </div>
               </div>
 
-              {/* NOK 2 */}
               <div className="fieldset">
                 <div className="legend">Next of Kin – Second Choice</div>
                 <div className="form-grid two">
@@ -839,7 +880,6 @@ Date: ${f.sdate}
                 </div>
               </div>
 
-              {/* Declaration */}
               <div className="fieldset">
                 <div className="legend">Declaration</div>
                 <div className="form-grid">
@@ -858,7 +898,6 @@ Date: ${f.sdate}
                 <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
               </div>
 
-              {/* Status messages */}
               {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
               {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
 
@@ -978,14 +1017,12 @@ Date: ${f.sdate}
       const route = (parts[0] || "").toLowerCase();
       const sub   = (parts[1] || "").toLowerCase();
 
-      // Redirect old link (#/services/camps) to new top-level route
       React.useEffect(() => {
         if (route === "services" && sub === "camps") {
           window.location.hash = "#/camps";
         }
       }, [route, sub]);
 
-      // Smoke tests
       React.useEffect(() => {
         const fails = [];
         const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
@@ -994,7 +1031,6 @@ Date: ${f.sdate}
         if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
       }, [route, sub]);
 
-      // Close dropdown after clicking a menu item
       React.useEffect(() => {
         const nav = document.querySelector("nav.khf-nav");
         if (!nav) return;
@@ -1015,7 +1051,7 @@ Date: ${f.sdate}
 
               <nav className="khf-nav" aria-label="Primary">
                 <Link to="#/about">About</Link>
-                <Link to="#/camps">Camps & Farm Visits</Link> {/* top-level */}
+                <Link to="#/camps">Camps & Farm Visits</Link>
 
                 <details>
                   <summary>Other Services ▾</summary>
