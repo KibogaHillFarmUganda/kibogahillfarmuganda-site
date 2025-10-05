@@ -25,7 +25,19 @@
     .grid{display:grid;gap:16px}
     .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+.camp-logo{
+  width:var(--size);
+  height:var(--size);
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
 
+    
     /* -------- Hero -------- */
     .hero{
       display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;
@@ -332,13 +344,16 @@
         <div className="camp-logo">
           <picture>
             <source type="image/webp" srcSet="Images/khf-logo.webp" />
-            <img
-              src="Images/khf-logo.png"              /* use lowercase path */
-              onError={(e)=>{ e.currentTarget.src = "Images/khf-logo.PNG"; }} /* fallback if server has .PNG */
-              alt="Kiboga Hill Farm logo"
-              width="512" height="512"
-              loading="lazy" decoding="async"
-            />
+           <img
+  src="Images/khf-logo.png"
+  onError={(e) => { e.currentTarget.src = "Images/khf-logo.PNG"; }}
+  alt="Kiboga Hill Farm logo"
+  width="512"
+  height="512"
+  loading="lazy"
+  decoding="async"
+/>
+
           </picture>
           <span className="camp-tag" aria-label="November Camp">Nov 29–30</span>
         </div>
@@ -1114,5 +1129,6 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
