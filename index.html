@@ -313,7 +313,7 @@
     };
 
     /* ---------------- Tiny hash router ---------------- */
-    function useHashRoute(){
+   function useHashRouteKHF(){
       const [hash, setHash] = useState(() => window.location.hash || "#/");
       useEffect(() => {
         const onChange = () => setHash(window.location.hash || "#/");
@@ -874,10 +874,10 @@ Date: ${f.sdate}`.trim();
     };
 
     /* ---------------- App ---------------- */
-    function useHashRoute(){ const [hash,setHash]=useState(()=>window.location.hash||"#/"); useEffect(()=>{ const onChange=()=>setHash(window.location.hash||"#/"); window.addEventListener("hashchange",onChange); return()=>window.removeEventListener("hashchange",onChange);},[]); const parts=useMemo(()=>hash.replace(/^#/,"").split("/").filter(Boolean),[hash]); return {parts}; }
+    function useHashRouteKHF(){ const [hash,setHash]=useState(()=>window.location.hash||"#/"); useEffect(()=>{ const onChange=()=>setHash(window.location.hash||"#/"); window.addEventListener("hashchange",onChange); return()=>window.removeEventListener("hashchange",onChange);},[]); const parts=useMemo(()=>hash.replace(/^#/,"").split("/").filter(Boolean),[hash]); return {parts}; }
 
     function App(){
-      const { parts } = useHashRoute();
+      const { parts } = useHashRouteKHF();
       const route = (parts[0] || "").toLowerCase();
       const sub   = (parts[1] || "").toLowerCase();
 
@@ -962,5 +962,6 @@ Date: ${f.sdate}`.trim();
   </noscript>
 </body>
 </html>
+
 
 
