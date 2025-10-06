@@ -834,51 +834,55 @@ Date: ${f.sdate}
       );
     };
 // --- Simple Gallery (safe sources + blur-up) ---
+// --- Gallery: Farm Photos (thumbs in /Images/thumbs) ---
 const Gallery = () => {
-  // Use only files that exist in /Images/
-  const items = [
-    { srcs: ["Images/camp-poster.avif","Images/camp-poster.webp","Images/camp-poster.png"], cap: "Kiboga Hill Farm Camp" },
-    { srcs: ["Images/khf-logo.webp","Images/khf-logo.png","Images/khf-logo.PNG"], cap: "KHFU Logo" },
+  // Keep base names EXACTLY as your files are named
+  const photos = [
+    { base: "Coffee_Spread",  cap: "Coffee spread" },
+    { base: "Education_Tours",cap: "Education tours" },
+    { base: "Faithwithbby",   cap: "Faith with baby goat" }, // use your exact spelling
+    { base: "First_Camp",     cap: "First camp highlights" },
+    { base: "Goats_Rest",     cap: "Goats at rest" },
+    { base: "Goats_sold",     cap: "Farm-gate goat sales" },
+    { base: "Mtn_Hiking",     cap: "Mountain hiking" },
+    { base: "camp-poster",    cap: "Camp poster" },          // this one’s kebab-case in your repo
   ];
 
-  // Progressive image that falls back through srcs[] on error
+  // Progressive image with fallback chain
   const SmartImg = ({ srcs, alt }) => {
-    const [idx, setIdx] = React.useState(0);
-    const [hidden, setHidden] = React.useState(false);
-    if (hidden) return null;
+    const [i, setI] = React.useState(0);
+    const [hide, setHide] = React.useState(false);
+    if (hide) return null;
 
-    const onError = () => {
-      if (idx < srcs.length - 1) setIdx(idx + 1);
-      else setHidden(true);
-    };
+    const onError = () => (i < srcs.length - 1 ? setI(i + 1) : setHide(true));
+    const onLoad  = (e) => e.currentTarget.classList.add("img-loaded");
 
-    const onLoad = (e) => e.currentTarget.classList.add("img-loaded");
-
-    return (
-      <img
-        src={srcs[idx]}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        onError={onError}
-        onLoad={onLoad}
-      />
-    );
+    return <img src={srcs[i]} alt={alt} loading="lazy" decoding="async" onError={onError} onLoad={onLoad} />;
   };
 
   return (
     <section className="page" id="gallery">
       <div className="container">
-        <h2>Gallery</h2>
-        <p className="muted">Photos from Kiboga Hill Farm Uganda.</p>
+        <h2>Farm Photos</h2>
+        <p className="muted">A look into daily life at Kiboga Hill Farm Uganda.</p>
 
         <div className="gallery-grid">
-          {items.map((it, i) => (
-            <figure key={i} className="gallery-tile">
-              <SmartImg srcs={it.srcs} alt={it.cap} />
-              <figcaption className="gallery-caption">{it.cap}</figcaption>
-            </figure>
-          ))}
+          {photos.map(({ base, cap }) => {
+            const thumb520 = `Images/thumbs/${base}-520.webp`;
+            const large1040 = `Images/thumbs/${base}-1040.webp`;
+            // jpg/png fallbacks in /Images/
+            const fallbackJpg = `Images/${base}.jpg`;
+            const fallbackPng = `Images/${base}.png`;
+
+            return (
+              <figure key={base} className="gallery-tile">
+                <a href={large1040} target="_blank" rel="noopener noreferrer" title="Open larger photo">
+                  <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} />
+                </a>
+                <figcaption className="gallery-caption">{cap}</figcaption>
+              </figure>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -946,11 +950,11 @@ function NewsSpotlight(){
   const [idx, setIdx] = React.useState(0);
   const [ready, setReady] = React.useState(false);
 
-  // rotate every ~20s, pause on hover via a flag
+  // rotate every ~3s, pause on hover via a flag
   const [paused, setPaused] = React.useState(false);
   React.useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setIdx(i => (i + 1) % items.length), 20000);
+    const t = setInterval(() => setIdx(i => (i + 1) % items.length), 3000);
     return () => clearInterval(t);
   }, [paused, items.length]);
 
@@ -1071,6 +1075,7 @@ function NewsSpotlight(){
   </noscript>
 </body>
 </html>
+
 
 
 
