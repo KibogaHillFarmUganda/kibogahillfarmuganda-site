@@ -5,7 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kiboga Hill Farm Uganda</title>
   <meta name="description" content="Kiboga Hill Farm Uganda – Goats, cattle, bananas & coffee, with climate-smart advisory." />
-  <style>
+
+	<meta name="theme-color" content="#10b981">
+<link rel="icon" href="Images/khf-logo.png">
+<link rel="manifest" href="Images/manifest.json">
+
+<!-- Open Graph / Twitter cards -->
+<meta property="og:title" content="Kiboga Hill Farm Uganda">
+<meta property="og:description" content="Goats, cattle, bananas & coffee — with weather-smart advisory.">
+<meta property="og:image" content="Images/camp-poster.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kibogahillfarmuganda.co.ug/">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- LocalBusiness / Farm structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Farm",
+  "name":"Kiboga Hill Farm Uganda",
+  "image":"https://kibogahillfarmuganda.co.ug/Images/khf-logo.png",
+  "telephone":"+256763081880",
+  "email":"info@kibogahillfarmuganda.co.ug",
+  "address":{
+    "@type":"PostalAddress",
+    "addressCountry":"UG",
+    "addressRegion":"Kiboga District",
+    "streetAddress":"3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kyomya S/C"
+  },
+  "geo":{"@type":"GeoCoordinates","latitude":0.716167,"longitude":32.0245},
+  "url":"https://kibogahillfarmuganda.co.ug/",
+  "sameAs":[
+    "https://www.tiktok.com/@kiboga_hill_farm.ug",
+    "https://www.instagram.com/kibogahillfarmuganda/",
+    "https://www.youtube.com/@Kibogahillfarm.ug1",
+    "https://web.facebook.com/profile.php?id=61581757133392"
+  ]
+}
+</script>
+
+	
+	<style>
     :root{ --ink:#1f2937; --muted:#556070; --brand:#10b981; --amber:#f59e0b; --orange:#fb923c; --card:#ffffff; --shadow:0 10px 25px rgba(0,0,0,.08); --r:18px }
     *{box-sizing:border-box}
     body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"}
@@ -136,11 +176,12 @@
   </style>
 </head>
 <body>
+  <a href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
   <div id="root"></div>
 
   <!-- React (UMD) + Babel for in-browser JSX -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" defer></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" defer></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <!-- Supabase (UMD) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -308,9 +349,10 @@ if (window.supabase?.createClient) {
             <a href="#/about" className="btn" style={{ background: "var(--brand)", color: "white" }}>
               Explore Our Farm
             </a>
-            <a href="#/family" className="btn" style={{ background: "white", color: "var(--ink)", boxShadow: "var(--shadow)" }}>
-              Join Our Family — Never to Regret
-            </a>
+            <a href="#/family" className="btn out">
+ 			 Join the Family Project
+			</a>
+
           </div>
         </div>
 
@@ -450,15 +492,14 @@ if (window.supabase?.createClient) {
     const Advisory = () => (
       <section className="page" id="advisory">
         <div className="container">
-          <h2>Weather-Smart Advisory</h2>
-          <p className="muted"><p className="muted">
-  We use and share with fellow farmers in our community actionable advisories for crop and livestock production,
-  including water Stress and disease-risk management. We translate official
-  weather & climate forecasts into simple actions of like when to plant, when to vaccinate,
-  and how to manage heat and rainfall. This is used at our farm and in the local community.
-  Visit our social media platforms for regular tips.
+<h2>Weather-Smart Advisory</h2>
+<p className="muted">
+  We use and share with our community members actionable advisories for crop and livestock production, including water stress and
+  disease-risk management. We translate official weather & climate forecasts into simple actions like
+  when to plant, when to vaccinate, and how to manage heat and rainfall at our farm and by the community.
+  Visit our social channels for regular tips.
 </p>
-.</p>
+
           <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {[
               { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
@@ -477,7 +518,7 @@ if (window.supabase?.createClient) {
     );
 
     /* -------- Email helpers -------- */
-    const EMAIL_PRIMARY = "khf@kibogahillfarmuganda.co.ug";
+    const EMAIL_PRIMARY = "info@kibogahillfarmuganda.co.ug";
     const MAIL_SUBJECT  = encodeURIComponent("Inquiry from Kiboga Hill Farm website");
     const MAIL_BODY     = encodeURIComponent("Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,");
 
@@ -492,16 +533,17 @@ if (window.supabase?.createClient) {
             <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
               <div className="card">
                 <b>Phone & WhatsApp</b>
-                <div className="muted">+256 (0) 763 081 880</div>
+                <div className="muted"><a href="tel:+256763081880">+256 (0) 763 081 880</a></div>
               </div>
 
               <div className="card">
                 <b>Email</b>
-                <p><a href="mailto:info@kibogahillfarmuganda.co.ug">info@kibogahillfarmuganda.co.ug</a></p>
-                <a className="btn"
-                   href={"mailto:info@kibogahillfarmuganda.co.ug?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____"}>
-                  Email Us
-                </a>
+				  <p><a href={`mailto:${EMAIL_PRIMARY}`}>{EMAIL_PRIMARY}</a></p>
+				  <a className="btn"
+   				  href={`mailto:${EMAIL_PRIMARY}?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____`}>
+  					Email Us
+				</a>
+
               </div>
 
               <div className="card">
@@ -613,7 +655,7 @@ Date: ${f.sdate}
       const sendEmail = () => {
         const body = encodeURIComponent(asText());
         const subject = encodeURIComponent("Family Membership Application");
-        window.location.href = `mailto:info@kibogahillfarmuganda.co.ug?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${EMAIL_PRIMARY}?subject=${subject}&body=${body}`;
       };
 
       const downloadTxt = () => {
@@ -879,7 +921,7 @@ const Gallery = () => {
             return (
               <figure key={base} className="gallery-tile">
                 <a href={large1040} target="_blank" rel="noopener noreferrer" title="Open larger photo">
-                  <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} />
+                 <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} width={260} height={200} />
                 </a>
                 <figcaption className="gallery-caption">{cap}</figcaption>
               </figure>
@@ -944,7 +986,10 @@ function NewsSpotlight(){
         onLoad={onLoad}
         loading="eager"
         decoding="async"
-        style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }}
+        width={640}
+		height={640}
+		style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }}
+
       />
     );
   };
@@ -1017,7 +1062,7 @@ function NewsSpotlight(){
       }, [route, sub]);
 
       return (
-        <div className="khf-root">
+  		<div className="khf-root" id="main" role="main">
           <header className="khf-header">
             <div className="container row">
               <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
@@ -1068,8 +1113,12 @@ function NewsSpotlight(){
 <footer>
   <div className="container" style={{textAlign: "center"}}>
     © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+    <div style={{fontSize:12, color:"#6b7280", marginTop:6}}>
+      3Km from Kikuubo, Bukomero T.C., Kyomya S/C, Kiboga • WhatsApp: <a href="tel:+256763081880">+256 763 081 880</a>
+    </div>
   </div>
 </footer>
+
         </div>
       );
     }
@@ -1082,8 +1131,13 @@ function NewsSpotlight(){
       JavaScript is required to view this site. Please enable it and refresh.
     </div>
   </noscript>
+
+	<script defer data-domain="kibogahillfarmuganda.co.ug" src="https://plausible.io/js/script.js">
+		</script>
+
 </body>
 </html>
+
 
 
 
