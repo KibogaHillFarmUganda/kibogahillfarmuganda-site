@@ -236,7 +236,7 @@
 
     /* ---------------- Home ---------------- */
     const Home = () => (
-      <section className="hero">
+     <section className="hero">
         <div className="hero-text">
           <h1>
             Fresh.<br />
@@ -255,33 +255,44 @@
               Explore Our Farm
             </a>
             <a href="#/family" className="btn" style={{ background: "white", color: "var(--ink)", boxShadow: "var(--shadow)" }}>
-              Join as a Family Member — you will never regret
+              Join Our Family — Never to Regret
             </a>
           </div>
         </div>
 
-        <div className="hero-image">
+ <div className="hero-image">
           <div className="hero-frame">
-            <img src="Images/camp-poster.png" alt="Kiboga Hill Farm Camp" />
+            <picture>
+              <source type="image/avif" srcSet="Images/camp-poster.avif" />
+              <source type="image/webp" srcSet="Images/camp-poster.webp" />
+              <img
+                src="Images/camp-poster.png"
+                alt="Kiboga Hill Farm Camp"
+                width={700}
+                height={700}
+                loading="eager"
+                decoding="async"
+                style={{ maxWidth: "100%", height: "100%", display: "block" }}
+              />
+            </picture>
           </div>
 
       <div className="ticker" aria-label="Upcoming camp details">
-          <div className="ticker-track">
-              <span className="ticker-bullet">•</span> 29–30 Nov 2025
-              <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
-              <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
-              <span className="ticker-bullet">•</span> Exciting Campfire
-              <span className="ticker-bullet">•</span> Networking
-
-              {/* duplicate once for seamless loop */}   {/* ✅ JSX comment */}
-              <span className="ticker-bullet">•</span> 29–30 Nov 2025
-              <span className="ticker-bullet">•</span> Goat BBQ / Goat Choma
-              <span className="ticker-bullet">•</span> Practical Livestock & Crop Training
-              <span className="ticker-bullet">•</span> Exciting Campfire
-              <span className="ticker-bullet">•</span> Networking
+            <div className="ticker-track">
+              <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
+              <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
+              <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
+              <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
+              <span className="ticker-bullet" aria-hidden="true">•</span> Social Networking
+              <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
+              <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
+              <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
+              <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
+              <span className="ticker-bullet" aria-hidden="true">•</span> Networking
             </div>
+          </div>
+		  <CampLogoBadge />
         </div>
-      </div>
       </section>
     );
 
@@ -390,9 +401,10 @@
 
           <div className="grid cards" style={{marginTop:16, gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
             {[
-              { title: "Starter Pack", pts: ["Breeding guidance", "Housing designs", "Health schedule"] },
-              { title: "Climate Edge", pts: ["Seasonal outlooks", "Rain alerts", "Heat stress tips"] },
-              { title: "Market Link", pts: ["Collective sales", "Quality standards", "Fair pricing"] },
+              { title: "Jump Start",            pts: ["Dream Big", "Motivate One Another", "Grow Passion", "Learn"] },
+              { title: "Social Network",        pts: ["Meet and Make many Friends", "Keep True Friends", "Teamwork"] },
+              { title: "Project Management",    pts: ["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"] },
+              { title: "Collective Marketing",  pts: ["Collective Advertising", "Quality Standards & Assurance"] },
             ].map((b) => (
               <div key={b.title} className="card">
                 <b>{b.title}</b>
@@ -414,12 +426,13 @@
       <section className="page" id="advisory">
         <div className="container">
           <h2>Weather-Smart Advisory</h2>
-          <p className="muted">We translate forecasts into simple actions: when to plant, when to vaccinate, and how to manage heat and rainfall. Join our WhatsApp broadcast to get weekly tips.</p>
+          <p className="muted">We translate government issued weather and climate forecasts into simple actions esp. when to plant, when to vaccinate, and how to manage heat and rainfall. This is used at our farm and local community. Visit our social media platforms for regular tips.</p>
           <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
             {[
-              { title: "Planting Windows", text: "Use onset signals to time sowing for better germination." },
+              { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
+              { title: "Harvest & Post-Harvest", text: "When to harvest, Dry spells and rain risk  timing for safe drying and storage plans." },
               { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease risk updates." },
-              { title: "Harvest & Post-Harvest", text: "Dry spells for safe drying; rain risk for storage plans." },
+              { title: "Livestock Farm Start", text: "Advise on Housing designs, Breeding guidance, Health schedule." },
             ].map((a) => (
               <div key={a.title} className="card">
                 <b>{a.title}</b>
@@ -447,7 +460,7 @@
             <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
               <div className="card">
                 <b>Phone & WhatsApp</b>
-                <div className="muted">+256 (0) 703 663 616</div>
+                <div className="muted">+256 (0) 763 081 880</div>
               </div>
 
               <div className="card">
@@ -500,95 +513,13 @@
             </div>
           </div>
         </section>
-      );
-    };
-
-    /* -------- Gallery (thumbs + blur-up) -------- */
-    const Gallery = () => {
-      const [items, setItems] = React.useState([]);
-      const [error, setError] = React.useState("");
-      const [lightbox, setLightbox] = React.useState(null);
-
-      const thumbPath = (src, dpr2=false) => {
-        const match = src.match(/^(.*?)(\.[^.]+)$/);
-        const base = match ? match[1] : src;
-        const w = dpr2 ? "1040" : "520";
-        return `Images/thumbs/${base}-${w}.webp`;
-      };
-
-      React.useEffect(() => {
-        (async () => {
-          try {
-            const res = await fetch("Images/manifest.json");
-            if (!res.ok) throw new Error("manifest.json not found");
-            const data = await res.json();
-            const normalized = (Array.isArray(data) ? data : [])
-              .map((x) => typeof x === "string" ? { src: x, caption: "" } :
-                           (x && typeof x === "object" ? { src: x.src || "", caption: x.caption || "" } : null))
-              .filter(Boolean).filter(x => x.src);
-            setItems(normalized);
-          } catch (e) {
-            console.error(e);
-            setError("Could not load Images/manifest.json. Ensure it exists and contains valid JSON.");
-          }
-        })();
-      }, []);
-
-      return (
-        <section className="page" id="gallery">
-          <div className="container">
-            <h2>Farm Gallery</h2>
-            {error && <div className="card" style={{color:"#9a3412", background:"#fff7ed"}}>{error}</div>}
-
-            <div className="card" style={{padding:12}}>
-              {items.length === 0 ? (
-                <div className="muted">No images listed yet.</div>
-              ) : (
-                <div className="gallery-grid">
-                  {items.map(({ src, caption }, i) => {
-                    const thumb1x = thumbPath(src, false);
-                    const thumb2x = thumbPath(src, true);
-                    const full = `Images/${src}`;
-                    return (
-                      <figure key={i} className="card gallery-tile" style={{padding:0, margin:0}}>
-                        <button onClick={() => setLightbox({ src: full, caption })}
-                                aria-label={`Open ${caption || src}`}
-                                style={{display:"block", padding:0, border:0, background:"transparent", cursor:"zoom-in"}}>
-                          <img
-                            src={thumb1x}
-                            srcSet={`${thumb1x} 520w, ${thumb2x} 1040w`}
-                            sizes="(max-width:720px) 200px, 260px"
-                            alt={caption || src}
-                            loading="lazy"
-                            decoding="async"
-                            onLoad={(e)=> e.currentTarget.classList.add("img-loaded")}
-                            onError={(e)=> { e.currentTarget.src = full; e.currentTarget.removeAttribute('srcset'); }}
-                          />
-                        </button>
-                        {caption ? <figcaption className="gallery-caption">{caption}</figcaption> : null}
-                      </figure>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {lightbox && (
-              <div className="lightbox" onClick={()=>setLightbox(null)} role="dialog" aria-label="Image preview">
-                <div style={{textAlign:"center"}}>
-                  <img src={lightbox.src} alt={lightbox.caption || "Preview"} />
-                  {lightbox.caption ? <div className="lightbox-caption">{lightbox.caption}</div> : null}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      );
+       );
     };
 
     /* ---------------- Family Application ---------------- */
     const FamilyForm = () => {
       const todayStr = new Date().toISOString().slice(0,10);
+
       const [f, setF] = React.useState({
         first:'', middle:'', last:'', dob:'', email:'', phone:'', nin:'', addr:'', role:'', inst:'', instAddr:'',
         why:'', skills:'',
@@ -598,7 +529,11 @@
         sign:'', sdate: todayStr
       });
 
-      const change = e=>{
+      const [submitting, setSubmitting] = React.useState(false);
+      const [doneMsg, setDoneMsg] = React.useState("");
+      const [errMsg,  setErrMsg]  = React.useState("");
+
+      const change = (e) => {
         const {name,type,checked,value} = e.target;
         setF(s => ({...s, [name]: type==='checkbox' ? checked : value}));
       };
@@ -636,7 +571,7 @@ DECLARATION (checked = agreed)
 1) Info true/accurate: ${f.agree1 ? '✓' : '—'}
 2) Abide by meeting resolutions: ${f.agree2 ? '✓' : '—'}
 3) Right to withdraw; 2-month settlement: ${f.agree3 ? '✓' : '—'}
-4) Misconduct may lead to removal; 2-month settlement: ${f.agree4 ? '✓' : '—'}
+4) Misconduct can lead to removal; 2-month settlement: ${f.agree4 ? '✓' : '—'}
 5) Late contribution penalties: ${f.agree5 ? '✓' : '—'}
 
 Signature (typed): ${f.sign}
@@ -658,12 +593,33 @@ Date: ${f.sdate}
         URL.revokeObjectURL(url);
       };
 
+      const submitToDB = async () => {
+        setSubmitting(true);
+        setDoneMsg(""); setErrMsg("");
+
+        const payload = {
+          first: f.first, middle: f.middle, last: f.last,
+          dob: f.dob || null,
+          email: f.email, phone: f.phone, nin: f.nin, addr: f.addr,
+          role: f.role, inst: f.inst, instAddr: f.instAddr,
+          why: f.why, skills: f.skills,
+          k1first: f.k1first, k1middle: f.k1middle, k1last: f.k1last, k1addr: f.k1addr, k1tel: f.k1tel,
+          k2first: f.k2first, k2middle: f.k2middle, k2last: f.k2last, k2addr: f.k2addr, k2tel: f.k2tel,
+          sign: f.sign, sdate: f.sdate || null
+        };
+
+        const { error } = await supa.from("family_applications").insert(payload);
+        if (error) setErrMsg(error.message || "Could not submit. Please try again.");
+        else      setDoneMsg("Application submitted privately. Thank you!");
+        setSubmitting(false);
+      };
+
       const allAgreed = f.agree1 && f.agree2 && f.agree3 && f.agree4 && f.agree5 && f.sign;
 
       return (
         <section className="page" id="family-join">
           <div className="container">
-            <h2>Join the Kiboga Hill Farm Family</h2>
+            <h2>Join Kiboga Hill Farm Family Project</h2>
             <p className="muted">Fill out the application below. You can send it by email or download a copy.</p>
 
             <div className="form-card">
@@ -681,38 +637,38 @@ Date: ${f.sdate}
                   <div><label>Designation</label><input name="role" value={f.role} onChange={change}/></div>
                   <div><label>Institution</label><input name="inst" value={f.inst} onChange={change}/></div>
                   <div className="two" style={{gridColumn:'1 / -1'}}><label>Institution Address</label><input name="instAddr" value={f.instAddr} onChange={change}/></div>
-                </div>
+                </div> 
               </div>
 
               <div className="fieldset">
                 <div className="legend">Reason for joining</div>
-                <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?"></textarea>
+                <textarea name="why" value={f.why} onChange={change} placeholder="Why are you interested in joining this family project?" />
               </div>
 
               <div className="fieldset">
                 <div className="legend">Special skills / interests to contribute</div>
-                <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute"></textarea>
+                <textarea name="skills" value={f.skills} onChange={change} placeholder="List any skills or interests you would like to contribute" />
               </div>
 
               <div className="fieldset">
                 <div className="legend">Next of Kin – First Choice</div>
                 <div className="form-grid two">
-                  <div><label>First Name</label><input name="k1first" value={f.k1first} onChange={change}/></div>
-                  <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change}/></div>
-                  <div><label>Last Name</label><input name="k1last" value={f.k1last} onChange={change}/></div>
-                  <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change}/></div>
-                  <div><label>Telephone</label><input name="k1tel" value={f.k1tel} onChange={change}/></div>
+                  <div><label>First Name</label><input name="k1first"  value={f.k1first}  onChange={change} /></div>
+                  <div><label>Middle Name</label><input name="k1middle" value={f.k1middle} onChange={change} /></div>
+                  <div><label>Last Name</label><input name="k1last"   value={f.k1last}   onChange={change} /></div>
+                  <div><label>Permanent Residence</label><input name="k1addr" value={f.k1addr} onChange={change} /></div>
+                  <div><label>Telephone</label><input name="k1tel"    value={f.k1tel}    onChange={change} /></div>
                 </div>
               </div>
 
               <div className="fieldset">
                 <div className="legend">Next of Kin – Second Choice</div>
                 <div className="form-grid two">
-                  <div><label>First Name</label><input name="k2first" value={f.k2first} onChange={change}/></div>
-                  <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change}/></div>
-                  <div><label>Last Name</label><input name="k2last" value={f.k2last} onChange={change}/></div>
-                  <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change}/></div>
-                  <div><label>Telephone</label><input name="k2tel" value={f.k2tel} onChange={change}/></div>
+                  <div><label>First Name</label><input name="k2first"  value={f.k2first}  onChange={change} /></div>
+                  <div><label>Middle Name</label><input name="k2middle" value={f.k2middle} onChange={change} /></div>
+                  <div><label>Last Name</label><input name="k2last"   value={f.k2last}   onChange={change} /></div>
+                  <div><label>Permanent Residence</label><input name="k2addr" value={f.k2addr} onChange={change} /></div>
+                  <div><label>Telephone</label><input name="k2tel"    value={f.k2tel}    onChange={change} /></div>
                 </div>
               </div>
 
@@ -722,18 +678,26 @@ Date: ${f.sdate}
                   <label><input type="checkbox" name="agree1" checked={f.agree1} onChange={change}/> The information provided is true and accurate.</label>
                   <label><input type="checkbox" name="agree2" checked={f.agree2} onChange={change}/> I will abide by family meeting resolutions.</label>
                   <label><input type="checkbox" name="agree3" checked={f.agree3} onChange={change}/> I may withdraw; contributions/benefits payable after 2 months.</label>
-                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; contributions/benefits after 2 months.</label>
+                  <label><input type="checkbox" name="agree4" checked={f.agree4} onChange={change}/> Misconduct can lead to removal; 2-month settlement.</label>
                   <label><input type="checkbox" name="agree5" checked={f.agree5} onChange={change}/> Late contributions may attract penalties.</label>
                 </div>
+
                 <div className="form-grid two" style={{marginTop:8}}>
                   <div><label>Signature (type your full name)</label><input name="sign" value={f.sign} onChange={change} required/></div>
                   <div><label>Date</label><input type="date" name="sdate" value={f.sdate} onChange={change} required/></div>
                 </div>
+
                 <div className="helper">Admin approval is done later by the Chairperson/Director.</div>
               </div>
 
+              {doneMsg && <div className="card" style={{background:"#ecfdf5", color:"#065f46"}}>{doneMsg}</div>}
+              {errMsg  && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{errMsg}</div>}
+
               <div className="actions">
-                <button type="button" className="btn" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
+                <button type="button" className="btn" onClick={submitToDB} disabled={!allAgreed || submitting}>
+                  {submitting ? "Submitting…" : "Submit (private)"}
+                </button>
+                <button type="button" className="btn out" onClick={sendEmail} disabled={!allAgreed}>Send by Email</button>
                 <button type="button" className="btn out" onClick={downloadTxt}>Download Application (.txt)</button>
               </div>
             </div>
@@ -741,114 +705,201 @@ Date: ${f.sdate}
         </section>
       );
     };
-    
-function App(){
-  const { parts } = useHashRoute();
-  const route = (parts[0] || "").toLowerCase();
-  const sub   = (parts[1] || "").toLowerCase();
 
-  // Redirect old link (#/services/camps) to new top-level route
-  React.useEffect(() => {
-    if (route === "services" && sub === "camps") {
-      window.location.hash = "#/camps";
-    }
-  }, [route, sub]);
+    const Admin = () => {
+      const [session, setSession] = useState(null);
+      const [rows, setRows] = useState([]);
+      const [loading, setLoading] = useState(false);
+      const [err, setErr] = useState("");
 
-  // Smoke tests
-  React.useEffect(() => {
-    const fails = [];
-    const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
-    assert("Nav exists", !!document.querySelector("nav.khf-nav"));
-    assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
-    if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
-  }, [route, sub]);
+      useEffect(() => {
+        supa.auth.getSession().then(({ data }) => setSession(data.session || null));
+        const { data: sub } = supa.auth.onAuthStateChange((_event, sess) => setSession(sess));
+        return () => sub?.subscription?.unsubscribe();
+      }, []);
 
-  // Close dropdown after clicking a menu item
-  React.useEffect(() => {
-    const nav = document.querySelector("nav.khf-nav");
-    if (!nav) return;
-    const closeOnClick = (e) => {
-      const d = e.target.closest("details");
-      if (d) d.open = false;
-    };
-    const links = nav.querySelectorAll(".menu a");
-    links.forEach(a => a.addEventListener("click", closeOnClick));
-    return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
-  }, [route, sub]);
+      useEffect(() => {
+        if (!session) return;
+        setLoading(true); setErr("");
+        supa.from("family_applications").select("*").order("created_at", { ascending: false })
+          .then(({ data, error }) => {
+            if (error) setErr(error.message);
+            else setRows(data || []);
+          })
+          .finally(() => setLoading(false));
+      }, [session]);
 
-  return (
-    <div className="khf-root">
-      <header className="khf-header">
-        <div className="container row">
-          <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+      const onSignIn = async (e) => {
+        e.preventDefault();
+        setErr("");
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const { error } = await supa.auth.signInWithPassword({ email, password });
+        if (error) setErr(error.message);
+      };
 
-          <nav className="khf-nav" aria-label="Primary">
-            <Link to="#/about">About</Link>
-            <Link to="#/camps">Camps & Farm Visits</Link> {/* top-level */}
+      const onSignOut = async () => {
+        await supa.auth.signOut();
+        setRows([]);
+      };
 
-            <details>
-              <summary>Other Services ▾</summary>        {/* renamed */}
-              <div className="menu" role="menu">
-                <div className="menu-label">Livestock & Crops</div>
-                <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+      if (!session) {
+        return (
+          <section className="page" id="admin">
+            <div className="container">
+              <h2>Admin — Members List</h2>
+              <p className="muted">Sign in to view applications.</p>
+              {err && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{err}</div>}
+              <form className="card" onSubmit={onSignIn} style={{maxWidth:420}}>
+                <div><label>Email</label><input name="email" type="email" required /></div>
+                <div style={{marginTop:8}}><label>Password</label><input name="password" type="password" required /></div>
+                <div style={{marginTop:12}}><button className="btn" type="submit">Sign in</button></div>
+              </form>
+            </div>
+          </section>
+        );
+      }
 
-                <div className="menu-sep"></div>
+      return (
+        <section className="page" id="admin">
+          <div className="container">
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+              <h2>Members (Private)</h2>
+              <button className="btn out" onClick={onSignOut}>Sign out</button>
+            </div>
 
-                <div className="menu-label">Our Services</div>
-                <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
-                <Link to="#/services/climate" role="menuitem">Climate Services</Link>
-
-                <div className="menu-sep"></div>
-
-                <div className="menu-label">Advisory</div>
-                <Link to="#/advisory" role="menuitem">Overview</Link>
-                <Link to="#/advisory/planting" role="menuitem">Planting Windows</Link>
-                <Link to="#/advisory/livestock" role="menuitem">Livestock Care</Link>
-                <Link to="#/advisory/harvest" role="menuitem">Harvest & Post-Harvest</Link>
+            {err && <div className="card" style={{background:"#fef2f2", color:"#991b1b"}}>{err}</div>}
+            {loading ? <div className="card">Loading…</div> : (
+              <div className="card" style={{overflowX:"auto"}}>
+                {rows.length === 0 ? (
+                  <div className="muted">No applications yet.</div>
+                ) : (
+                  <table style={{width:"100%", borderCollapse:"collapse"}}>
+                    <thead>
+                      <tr>
+                        <th style={{textAlign:"left", padding:"8px"}}>Date</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Name</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Phone</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Email</th>
+                        <th style={{textAlign:"left", padding:"8px"}}>Why Join</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rows.map(r => (
+                        <tr key={r.id} style={{borderTop:"1px solid #eee"}}>
+                          <td style={{padding:"8px"}}>{new Date(r.created_at).toLocaleString()}</td>
+                          <td style={{padding:"8px"}}>{[r.first, r.middle, r.last].filter(Boolean).join(" ")}</td>
+                          <td style={{padding:"8px"}}>{r.phone}</td>
+                          <td style={{padding:"8px"}}>{r.email}</td>
+                          <td style={{padding:"8px", maxWidth:360, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap"}}>{r.why}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
-            </details>
+            )}
+          </div>
+        </section>
+      );
+    };
 
-            <Link to="#/family">Family</Link>
-            <Link to="#/gallery">Gallery</Link>
-            <Link to="#/contact">Contact</Link>
-          </nav>
+    function App(){
+      const { parts } = useHashRoute();
+      const route = (parts[0] || "").toLowerCase();
+      const sub   = (parts[1] || "").toLowerCase();
+
+      useEffect(() => {
+        if (route === "services" && sub === "camps") {
+          window.location.hash = "#/camps";
+        }
+      }, [route, sub]);
+
+      useEffect(() => {
+        const fails = [];
+        const assert = (name, cond) => { if (cond) console.log("✅", name); else { console.error("❌", name); fails.push(name); } };
+        assert("Nav exists", !!document.querySelector("nav.khf-nav"));
+        assert("Router working (page rendered)", !!document.querySelector("section.page, section.hero"));
+        if (fails.length === 0) console.log("🎉 All smoke tests passed."); else console.warn("ℹ️ Smoke tests failed:", fails);
+      }, [route, sub]);
+
+      useEffect(() => {
+        const nav = document.querySelector("nav.khf-nav");
+        if (!nav) return;
+        const closeOnClick = (e) => {
+          const d = e.target.closest("details");
+          if (d) d.open = false;
+        };
+        const links = nav.querySelectorAll(".menu a");
+        links.forEach(a => a.addEventListener("click", closeOnClick));
+        return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
+      }, [route, sub]);
+
+      return (
+        <div className="khf-root">
+          <header className="khf-header">
+            <div className="container row">
+              <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+
+              <nav className="khf-nav" aria-label="Primary">
+                <Link to="#/about">About</Link>
+                <Link to="#/camps">Camps & Farm Visits</Link>
+
+                <details>
+                  <summary>Other Services ▾</summary>
+                  <div className="menu" role="menu">
+                    <div className="menu-label">Livestock & Crops</div>
+                    <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+
+                    <div className="menu-sep"></div>
+
+                    <div className="menu-label">Our Services</div>
+                    <Link to="#/services/sales" role="menuitem">Farm-Gate Sales</Link>
+                    <Link to="#/services/climate" role="menuitem">Climate Services</Link>
+
+                    <div className="menu-sep"></div>
+                    <div className="menu-label">Advisory</div>
+                    <Link to="#/advisory" role="menuitem">Weather-Smart Advisory</Link>
+                  </div>
+                </details>
+
+                <Link to="#/family">Family</Link>
+                <Link to="#/gallery">Gallery</Link>
+                <Link to="#/contact">Contact</Link>
+              </nav>
+            </div>
+          </header>
+
+          {(!route || route === "") && <Home/>}
+          {route === "about" && <About/>}
+          {route === "camps" && <Camps/>}
+          {route === "products" && !sub && <ProductsIndex/>}
+          {route === "products" && sub && <ProductDetail slug={sub}/>}
+          {route === "services" && !sub && <ServicesIndex/>}
+          {route === "services" && sub && <ServiceDetail slug={sub}/>}
+          {route === "advisory" && <Advisory/>}
+          {route === "gallery" && <Gallery/>}
+          {route === "contact" && <Contact/>}
+          {route === "admin" && <Admin/>}
+          {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
+          {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
+
+          <footer>
+            <div className="container" style={{textAlign: "center"}}>
+              © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+            </div>
+          </footer>
         </div>
-      </header>
+      );
+    }
 
-      {(!route || route === "") && <Home/>}
-      {route === "about" && <About/>}
-      {route === "camps" && <Camps/>}                     {/* new route */}
-      {route === "products" && !sub && <ProductsIndex/>}
-      {route === "products" && sub && <ProductDetail slug={sub}/>}
-      {route === "services" && !sub && <ServicesIndex/>}
-      {route === "services" && sub && <ServiceDetail slug={sub}/>}
-      {route === "advisory" && <Advisory/>}
-      {route === "gallery" && <Gallery/>}
-      {route === "contact" && <Contact/>}
-      {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
-      {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps"].includes(route)) && <NotFound/>}
-
-      <footer>
-        <div className="container" style={{textAlign: "center"}}>
-          © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-      ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
   </script>
+
+  <noscript>
+    <div style="max-width:760px;margin:24px auto;padding:16px;border:1px solid #e5e7eb;border-radius:12px;font-family:system-ui">
+      JavaScript is required to view this site. Please enable it and refresh.
+    </div>
+  </noscript>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
