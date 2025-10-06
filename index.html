@@ -534,9 +534,9 @@
               </div>
             </div>
 
-            <div className="card" style={{ marginTop:16, padding:0, overflow:"hidden" }}>
-              <!-- FIXED: justifyContent (camelCase) -->
-              <div style={{ display:"flex", gap:8, justifyContent:"flex-end", padding:"10px 12px" }}>
+           <div className="card" style={{ marginTop:16, padding:0, overflow:"hidden" }}>
+          {/* FIXED: justifyContent (camelCase) */}
+                <div style={{ display:"flex", gap:8, justifyContent:"flex-end", padding:"10px 12px" }}>
                 <button className={mapType==="roadmap" ? "btn" : "btn out"} onClick={()=>setMapType("roadmap")}>Map</button>
                 <button className={mapType==="satellite" ? "btn" : "btn out"} onClick={()=>setMapType("satellite")}>Satellite</button>
                 <button className={mapType==="hybrid" ? "btn" : "btn out"} onClick={()=>setMapType("hybrid")}>Hybrid</button>
@@ -962,4 +962,5 @@ Date: ${f.sdate}`.trim();
   </noscript>
 </body>
 </html>
+
 
