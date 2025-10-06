@@ -25,6 +25,34 @@
     .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
 
+	/* --- News / Spotlight styles --- */
+.news-spotlight{ 
+  flex:1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.news-frame{
+  width:clamp(360px,46vw,640px); aspect-ratio:1/1; background:#fff; border-radius:18px;
+  box-shadow:var(--shadow); overflow:hidden; opacity:.001; transform:translateY(8px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.news-frame.is-ready{ opacity:1; transform:none; }
+.news-caption{ 
+  width:100%; max-width:clamp(360px,46vw,640px); background:#fff; border-radius:16px; 
+  box-shadow:var(--shadow); overflow:hidden; min-height:48px; display:grid; place-items:center;
+}
+.news-caption-line{
+  padding:10px 14px; color:var(--ink); font-weight:600; text-align:center;
+  animation: captionIn .6s ease both;
+}
+@keyframes captionIn{
+  from{ opacity:0; transform:translateY(8px) }
+  to{ opacity:1; transform:none }
+}
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .news-frame{ transition:none }
+  .news-caption-line{ animation:none }
+}
+
     /* -------- Hero -------- */
     .hero{
       display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;
@@ -292,39 +320,10 @@ if (window.supabase?.createClient) {
         </div>
 
  <div className="hero-image">
-          <div className="hero-frame">
-            <picture>
-              <source type="image/avif" srcSet="Images/camp-poster.avif" />
-              <source type="image/webp" srcSet="Images/camp-poster.webp" />
-              <img
-                src="Images/camp-poster.png"
-                alt="Kiboga Hill Farm Camp"
-                width={700}
-                height={700}
-                loading="eager"
-                decoding="async"
-                style={{ maxWidth: "100%", height: "100%", display: "block" }}
-              />
-            </picture>
-          </div>
+  <NewsSpotlight/>
+</div>
 
-      <div className="ticker" aria-label="Upcoming camp details">
-            <div className="ticker-track">
-              <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
-              <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
-              <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
-              <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
-              <span className="ticker-bullet" aria-hidden="true">•</span> Social Networking
-              <span className="ticker-bullet" aria-hidden="true">•</span> 29–30 Nov 2025
-              <span className="ticker-bullet" aria-hidden="true">•</span> Goat BBQ / Goat Choma
-              <span className="ticker-bullet" aria-hidden="true">•</span> Practical Livestock & Crop Training
-              <span className="ticker-bullet" aria-hidden="true">•</span> Exciting Campfire
-              <span className="ticker-bullet" aria-hidden="true">•</span> Networking
-            </div>
-          </div>
-		  <CampLogoBadge />
-        </div>
-      </section>
+	 </section>
     );
 
     /* ---------------- Other Pages ---------------- */
@@ -909,6 +908,69 @@ const Gallery = () => {
     </div>
   );
 }
+// --- News / Spotlight (one-at-a-time, ~20s, with animated caption) ---
+function NewsSpotlight(){
+  // Order matters: logo first, then other news images
+  const items = [
+    {
+      srcs: ["Images/khf-logo.webp","Images/khf-logo.png","Images/khf-logo.PNG"],
+      alt: "Kiboga Hill Farm — Company Logo",
+      caption: "Kiboga Hill Farm Uganda — official updates & announcements",
+    },
+    {
+      srcs: ["Images/camp-poster.avif","Images/camp-poster.webp","Images/camp-poster.png"],
+      alt: "Kiboga Hill Farm Camp",
+      caption: "November Camp: training, goat choma, campfire & networking",
+    },
+    // add more items here later…
+  ];
+
+  // simple fallback-through <img> (avoids broken sources)
+  const SmartImg = ({ srcs, alt, onLoad }) => {
+    const [i, setI] = React.useState(0);
+    const [hide, setHide] = React.useState(false);
+    if (hide) return null;
+    return (
+      <img
+        src={srcs[i]}
+        alt={alt}
+        onError={() => (i < srcs.length - 1 ? setI(i+1) : setHide(true))}
+        onLoad={onLoad}
+        loading="eager"
+        decoding="async"
+        style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }}
+      />
+    );
+  };
+
+  const [idx, setIdx] = React.useState(0);
+  const [ready, setReady] = React.useState(false);
+
+  // rotate every ~20s, pause on hover via a flag
+  const [paused, setPaused] = React.useState(false);
+  React.useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIdx(i => (i + 1) % items.length), 20000);
+    return () => clearInterval(t);
+  }, [paused, items.length]);
+
+  const it = items[idx];
+
+  return (
+    <div className="news-spotlight"
+         onMouseEnter={() => setPaused(true)}
+         onMouseLeave={() => setPaused(false)}>
+
+      <div className={`news-frame ${ready ? "is-ready":""}`}>
+        <SmartImg srcs={it.srcs} alt={it.alt} onLoad={() => setReady(true)} />
+      </div>
+
+      <div className="news-caption" aria-live="polite">
+        <div key={idx} className="news-caption-line">{it.caption}</div>
+      </div>
+    </div>
+  );
+}
 
     function App(){
       const { parts } = useHashRoute();
@@ -1009,6 +1071,7 @@ const Gallery = () => {
   </noscript>
 </body>
 </html>
+
 
 
 
