@@ -649,6 +649,54 @@
         </section>
       );
     };
+const Gallery = () => {
+  // 1) Start with images you actually have in the repo
+  const items = [
+    { srcs: ["Images/camp-poster.avif","Images/camp-poster.webp","Images/camp-poster.png"], cap: "Kiboga Hill Farm Camp" },
+    { srcs: ["Images/khf-logo.webp","Images/khf-logo.png","Images/khf-logo.PNG"], cap: "KHFU Logo" },
+    // Add more after you upload them to Images/gallery/ e.g.:
+    // { srcs: ["Images/gallery/goats-1.webp","Images/gallery/goats-1.jpg"], cap: "Savanna & Galla breeding stock" },
+  ];
+
+  // 2) Utility: try multiple formats, hide tile if all fail
+  const SmartImg = ({ srcs, alt }) => {
+    const [idx, setIdx] = React.useState(0);
+    const [hidden, setHidden] = React.useState(false);
+    if (hidden) return null;
+    const onError = () => {
+      if (idx < srcs.length - 1) setIdx(idx + 1);
+      else setHidden(true); // hide tile if no source works
+    };
+    return (
+      <img
+        src={srcs[idx]}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onError={onError}
+        onLoad={(e)=>e.currentTarget.classList.add("img-loaded")}
+      />
+    );
+  };
+
+  return (
+    <section className="page" id="gallery">
+      <div className="container">
+        <h2>Gallery</h2>
+        <p className="muted">Photos from Kiboga Hill Farm Uganda.</p>
+
+        <div className="gallery-grid">
+          {items.map((it, i) => (
+            <figure key={i} className="gallery-tile">
+              <SmartImg srcs={it.srcs} alt={it.cap} />
+              <figcaption className="gallery-caption">{it.cap}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
     /* ---------------- Family Application ---------------- */
     const FamilyForm = () => {
@@ -1037,4 +1085,5 @@ Date: ${f.sdate}
   </noscript>
 </body>
 </html>
+
 
