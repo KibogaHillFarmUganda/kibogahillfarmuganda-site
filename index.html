@@ -400,10 +400,10 @@ if (window.supabase?.createClient) {
       return (
         <section className="page" id={`service-${slug}`}>
           <div className="container">
-            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", gap:12, flexWrap:"wrap"}}>
-              <h2 style={{display:"flex", alignItems:"center", gap:10}}><span className="icon" aria-hidden>{s.icon}</span>{s.title}</h2>
-              <Link className="btn out" to="#/services">← Back to Services</Link>
-            </div>
+           <h2 style={{display:"flex", alignItems:"center", gap:10}}>
+  			<span className="icon" aria-hidden>{s.icon}</span>{s.title}
+		   </h2>
+
             <p className="muted" style={{marginTop:8}}>{s.text}</p>
             <ul className="muted" style={{margin: "12px 0 0 18px"}}>
               {s.details.map(d => <li key={d}>{d}</li>)}
@@ -1084,6 +1084,7 @@ function NewsSpotlight(){
   </noscript>
 </body>
 </html>
+
 
 
 
