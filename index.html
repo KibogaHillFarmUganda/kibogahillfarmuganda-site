@@ -974,27 +974,27 @@ const Gallery = () => {
                 <Link to="#/contact">Contact</Link>
               </nav>
             </div>
-          </header>
+        </header>
 
-		  {(!route || route === "") && <Home/>}
-          {route === "about" && <About/>}
-          {route === "camps" && <Camps/>}
-          {route === "products" && !sub && <ProductsIndex/>}
-          {route === "products" && sub && <ProductDetail slug={sub}/>}
-          {route === "services" && !sub && <ServicesIndex/>}
-          {route === "services" && sub && <ServiceDetail slug={sub}/>}
-          {route === "advisory" && <Advisory/>}
-          {route === "gallery" && <Gallery/>}
-          {route === "contact" && <Contact/>}
-          {route === "admin" && <Admin/>}
-          {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
-          {(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
+{(!route || route === "") && <Home/>}
+{route === "about" && <About/>}
+{route === "camps" && <Camps/>}
+{route === "products" && !sub && <ProductsIndex/>}
+{route === "products" && sub && <ProductDetail slug={sub}/>}
+{route === "services" && !sub && <ServicesIndex/>}
+{route === "services" && sub && <ServiceDetail slug={sub}/>}
+{route === "advisory" && <Advisory/>}
+{route === "gallery" && <Gallery/>}
+{route === "contact" && <Contact/>}
+{route === "admin" && <Admin/>}
+{route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
+{(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
 
-          <footer>
-            <div className="container" style={{textAlign: "center"}}>
-              © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
-            </div>
-          </footer>
+<footer>
+  <div className="container" style={{textAlign: "center"}}>
+    © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+  </div>
+</footer>
         </div>
       );
     }
@@ -1009,5 +1009,6 @@ const Gallery = () => {
   </noscript>
 </body>
 </html>
+
 
 
