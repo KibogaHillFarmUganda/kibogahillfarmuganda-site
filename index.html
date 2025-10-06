@@ -114,10 +114,41 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- Supabase (UMD) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script type="text/babel" data-presets="env,react">
+<script type="text/babel" data-presets="env,react">
 
     const { useEffect, useMemo, useState } = React;
+
+	// --- Supabase init (safe offline fallback) ---
+const SUPABASE_URL  = "https://uieqtkdxnuqqvcpkgtiz.supabase.co";
+const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpZXF0a2R4bnVxcXZjcGtndGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2MDA4MTcsImV4cCI6MjA3NTE3NjgxN30.J5fkqIknkIgVX-As1yZfn1qbH2_vMfRPBhuvC2UxY3Y";
+
+function makeNoopSupa() {
+  const offlineErr = { message: "Supabase is not available (CDN offline/blocked)." };
+  return {
+    from() {
+      return {
+        insert: async () => ({ error: offlineErr }),
+        select: async () => ({ data: [], error: offlineErr }),
+        order() { return this; }
+      };
+    },
+    auth: {
+      getSession: async () => ({ data: { session: null } }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe(){} } } }),
+      signInWithPassword: async () => ({ error: offlineErr }),
+      signOut: async () => ({ error: null }),
+    }
+  };
+}
+
+let supa = makeNoopSupa();
+if (window.supabase?.createClient) {
+  try { supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON); }
+  catch (e) { console.warn("Supabase init failed; using offline fallback.", e); }
+}
 
     /* ---------------- Data ---------------- */
     const Camps = () => (
@@ -803,6 +834,57 @@ Date: ${f.sdate}
         </section>
       );
     };
+// --- Simple Gallery (safe sources + blur-up) ---
+const Gallery = () => {
+  // Use only files that exist in /Images/
+  const items = [
+    { srcs: ["Images/camp-poster.avif","Images/camp-poster.webp","Images/camp-poster.png"], cap: "Kiboga Hill Farm Camp" },
+    { srcs: ["Images/khf-logo.webp","Images/khf-logo.png","Images/khf-logo.PNG"], cap: "KHFU Logo" },
+  ];
+
+  // Progressive image that falls back through srcs[] on error
+  const SmartImg = ({ srcs, alt }) => {
+    const [idx, setIdx] = React.useState(0);
+    const [hidden, setHidden] = React.useState(false);
+    if (hidden) return null;
+
+    const onError = () => {
+      if (idx < srcs.length - 1) setIdx(idx + 1);
+      else setHidden(true);
+    };
+
+    const onLoad = (e) => e.currentTarget.classList.add("img-loaded");
+
+    return (
+      <img
+        src={srcs[idx]}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onError={onError}
+        onLoad={onLoad}
+      />
+    );
+  };
+
+  return (
+    <section className="page" id="gallery">
+      <div className="container">
+        <h2>Gallery</h2>
+        <p className="muted">Photos from Kiboga Hill Farm Uganda.</p>
+
+        <div className="gallery-grid">
+          {items.map((it, i) => (
+            <figure key={i} className="gallery-tile">
+              <SmartImg srcs={it.srcs} alt={it.cap} />
+              <figcaption className="gallery-caption">{it.cap}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
     function App(){
       const { parts } = useHashRoute();
@@ -869,6 +951,25 @@ Date: ${f.sdate}
               </nav>
             </div>
           </header>
+function CampLogoBadge(){
+  return (
+    <div style={{position:"absolute",left:0,right:0,top:10,display:"grid",justifyItems:"center",zIndex:4,pointerEvents:"none"}}>
+      <div style={{display:"grid",gridTemplateRows:"auto auto",justifyItems:"center",gap:8}}>
+        <div style={{width:108,height:108,borderRadius:"999px",display:"grid",placeItems:"center",background:"#fff",boxShadow:"0 10px 25px rgba(0,0,0,.08)",position:"relative",overflow:"hidden"}}>
+          <picture>
+            <source type="image/webp" srcSet="Images/khf-logo.webp" />
+            <img src="Images/khf-logo.png" onError={(e)=>{ e.currentTarget.src="Images/khf-logo.PNG"; }}
+                 alt="Kiboga Hill Farm logo" width="72" height="72" loading="lazy" decoding="async" />
+          </picture>
+          <span style={{position:"absolute",bottom:-6,right:-6,background:"linear-gradient(135deg,#10b981,#84cc16)",color:"#fff",fontWeight:900,fontSize:12,padding:"6px 10px",borderRadius:999,boxShadow:"0 10px 25px rgba(0,0,0,.08)"}}>
+            Nov 29–30
+          </span>
+        </div>
+        <div style={{fontSize:".95rem",color:"var(--ink)",textAlign:"center"}}>What we have at Kiboga Hill Farm.</div>
+      </div>
+    </div>
+  );
+}
 
           {(!route || route === "") && <Home/>}
           {route === "about" && <About/>}
@@ -903,3 +1004,4 @@ Date: ${f.sdate}
   </noscript>
 </body>
 </html>
+
