@@ -886,6 +886,30 @@ const Gallery = () => {
   );
 };
 
+	function CampLogoBadge(){
+  return (
+    <div style={{position:"absolute",left:0,right:0,top:10,display:"grid",justifyItems:"center",zIndex:4,pointerEvents:"none"}}>
+      <div style={{display:"grid",gridTemplateRows:"auto auto",justifyItems:"center",gap:8}}>
+        <div style={{width:108,height:108,borderRadius:"999px",display:"grid",placeItems:"center",background:"#fff",boxShadow:"0 10px 25px rgba(0,0,0,.08)",position:"relative",overflow:"hidden"}}>
+          <picture>
+            <source type="image/webp" srcSet="Images/khf-logo.webp" />
+            <img
+              src="Images/khf-logo.png"
+              onError={(e)=>{ e.currentTarget.src="Images/khf-logo.PNG"; }}
+              alt="Kiboga Hill Farm logo"
+              width="72" height="72" loading="lazy" decoding="async"
+            />
+          </picture>
+          <span style={{position:"absolute",bottom:-6,right:-6,background:"linear-gradient(135deg,#10b981,#84cc16)",color:"#fff",fontWeight:900,fontSize:12,padding:"6px 10px",borderRadius:999,boxShadow:"0 10px 25px rgba(0,0,0,.08)"}}>
+            Nov 29–30
+          </span>
+        </div>
+        <div style={{fontSize:".95rem",color:"var(--ink)",textAlign:"center"}}>What we have at Kiboga Hill Farm.</div>
+      </div>
+    </div>
+  );
+}
+
     function App(){
       const { parts } = useHashRoute();
       const route = (parts[0] || "").toLowerCase();
@@ -951,27 +975,8 @@ const Gallery = () => {
               </nav>
             </div>
           </header>
-function CampLogoBadge(){
-  return (
-    <div style={{position:"absolute",left:0,right:0,top:10,display:"grid",justifyItems:"center",zIndex:4,pointerEvents:"none"}}>
-      <div style={{display:"grid",gridTemplateRows:"auto auto",justifyItems:"center",gap:8}}>
-        <div style={{width:108,height:108,borderRadius:"999px",display:"grid",placeItems:"center",background:"#fff",boxShadow:"0 10px 25px rgba(0,0,0,.08)",position:"relative",overflow:"hidden"}}>
-          <picture>
-            <source type="image/webp" srcSet="Images/khf-logo.webp" />
-            <img src="Images/khf-logo.png" onError={(e)=>{ e.currentTarget.src="Images/khf-logo.PNG"; }}
-                 alt="Kiboga Hill Farm logo" width="72" height="72" loading="lazy" decoding="async" />
-          </picture>
-          <span style={{position:"absolute",bottom:-6,right:-6,background:"linear-gradient(135deg,#10b981,#84cc16)",color:"#fff",fontWeight:900,fontSize:12,padding:"6px 10px",borderRadius:999,boxShadow:"0 10px 25px rgba(0,0,0,.08)"}}>
-            Nov 29–30
-          </span>
-        </div>
-        <div style={{fontSize:".95rem",color:"var(--ink)",textAlign:"center"}}>What we have at Kiboga Hill Farm.</div>
-      </div>
-    </div>
-  );
-}
 
-          {(!route || route === "") && <Home/>}
+		  {(!route || route === "") && <Home/>}
           {route === "about" && <About/>}
           {route === "camps" && <Camps/>}
           {route === "products" && !sub && <ProductsIndex/>}
@@ -1004,4 +1009,5 @@ function CampLogoBadge(){
   </noscript>
 </body>
 </html>
+
 
