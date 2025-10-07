@@ -971,6 +971,16 @@ Date: ${f.sdate}
       );
     };
 
+	// ---- 
+	// put this anywhere above Advertise (e.g., near other small components)
+const AdBanner = ({ src, href = "#", alt = "Sponsor" }) => (
+  <div style={{ textAlign:"center", margin:"16px 0" }}>
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      <img src={src} alt={alt} style={{ maxWidth:"100%", height:"auto", borderRadius:12, boxShadow:"0 8px 24px rgba(0,0,0,.08)" }} />
+    </a>
+  </div>
+);
+
 // ----Advertize -----
 const Advertise = () => (
   <section className="page" id="advertise">
@@ -1380,11 +1390,12 @@ const FamilyBackground = () => (
 {route === "services" && !sub && <ServicesIndex/>}
 {route === "services" && sub && <ServiceDetail slug={sub}/>}
 {route === "advisory" && <Advisory/>}
+{route === "advertise" && <Advertise/>}
 {route === "gallery" && <Gallery/>}
 {route === "contact" && <Contact/>}
 {route === "admin" && <Admin/>}
 {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
-{(!["", "about", "products", "services", "family", "advisory", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
+{(!["", "about", "products", "services", "family", "advisory", "advertise", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
 
 <footer>
   <div className="container" style={{textAlign: "center"}}>
@@ -1413,6 +1424,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
