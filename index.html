@@ -985,7 +985,7 @@ const Gallery = () => {
     { base: "camp-poster",    cap: "Camp poster" },          // this one’s kebab-case in your repo
   ];
 
-  // Progressive image with fallback chain
+  // Progressive image with fallback chain (unchanged)
   const SmartImg = ({ srcs, alt }) => {
     const [i, setI] = React.useState(0);
     const [hide, setHide] = React.useState(false);
@@ -997,6 +997,16 @@ const Gallery = () => {
     return <img src={srcs[i]} alt={alt} loading="lazy" decoding="async" onError={onError} onLoad={onLoad} />;
   };
 
+  // --- Lightbox state ---
+  const [lightbox, setLightbox] = React.useState(null); // {src, cap} or null
+
+  // Close on ESC
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setLightbox(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <section className="page" id="gallery">
       <div className="container">
@@ -1005,26 +1015,71 @@ const Gallery = () => {
 
         <div className="gallery-grid">
           {photos.map(({ base, cap }) => {
-            const thumb520 = `Images/thumbs/${base}-520.webp`;
-            const large1040 = `Images/thumbs/${base}-1040.webp`;
-            // jpg/png fallbacks in /Images/
-            const fallbackJpg = `Images/${base}.jpg`;
-            const fallbackPng = `Images/${base}.png`;
+            const thumb520   = `Images/thumbs/${base}-520.webp`;
+            const large1040  = `Images/thumbs/${base}-1040.webp`;   // use this for zoomed view
+            const fallbackJpg= `Images/${base}.jpg`;
+            const fallbackPng= `Images/${base}.png`;
+
+            // When thumb is clicked, open lightbox with the large version
+            const openLightbox = () => setLightbox({ src: large1040, cap });
 
             return (
-              <figure key={base} className="gallery-tile">
-                <a href={large1040} target="_blank" rel="noopener noreferrer" title="Open larger photo">
-                 <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} width={260} height={200} />
-                </a>
+              <figure key={base} className="gallery-tile" onClick={openLightbox} style={{cursor:"zoom-in"}}>
+                {/* removed <a target="_blank"> so it won't open a new tab */}
+                <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} width={260} height={200} />
                 <figcaption className="gallery-caption">{cap}</figcaption>
               </figure>
             );
           })}
         </div>
       </div>
+
+      {/* ---- Lightbox overlay ---- */}
+      {lightbox && (
+        <div
+          onClick={() => setLightbox(null)}
+          style={{
+            position:"fixed", inset:0, background:"rgba(0,0,0,.86)",
+            display:"flex", alignItems:"center", justifyContent:"center",
+            zIndex:60, padding:"24px", cursor:"zoom-out"
+          }}
+          aria-modal="true" role="dialog"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking the image itself
+            style={{ textAlign:"center", maxWidth:"96vw" }}
+          >
+            <img
+              src={lightbox.src}
+              alt={lightbox.cap}
+              style={{
+                maxWidth:"92vw", maxHeight:"80vh",
+                borderRadius:12, boxShadow:"0 20px 60px rgba(0,0,0,.45)",
+                transition:"transform .2s ease", transform:"scale(1)"
+              }}
+            />
+            <div style={{ color:"#fff", marginTop:10, fontWeight:600 }}>{lightbox.cap}</div>
+          </div>
+
+          {/* close button */}
+          <button
+            onClick={() => setLightbox(null)}
+            aria-label="Close"
+            style={{
+              position:"fixed", top:14, right:18,
+              background:"rgba(255,255,255,.12)", color:"#fff",
+              border:"0", borderRadius:10, padding:"8px 10px",
+              fontWeight:800, cursor:"pointer"
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </section>
   );
 };
+
 
 	function CampLogoBadge(){
   return (
@@ -1295,6 +1350,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
