@@ -455,78 +455,130 @@ if (window.supabase?.createClient) {
       );
     };
 
-const Family = () => (
-  <section className="page" id="family">
-    <div className="container">
+const Family = () => {
+  // Small helper component for collapsible objective groups
+  const Objective = ({ icon = "🌿", title, items }) => {
+    const prefersOpen = (typeof window !== "undefined" ? window.innerWidth >= 760 : true);
+    const [open, setOpen] = React.useState(prefersOpen);
+    const [hover, setHover] = React.useState(false);
 
-      {/* Background / Story */}
-      <FamilyBackground />
+    const cardStyle = {
+      background: "rgba(255,255,255,.92)",
+      border: "1px solid #e5e7eb",
+      borderRadius: 14,
+      padding: 12,
+      margin: "10px 0",
+      boxShadow: hover ? "0 12px 28px rgba(0,0,0,.10)" : "0 6px 18px rgba(0,0,0,.06)",
+      transform: hover ? "translateY(-1px)" : "none",
+      transition: "box-shadow .25s ease, transform .25s ease, background .25s ease"
+    };
 
-      {/* Family Project – header */}
-      <div
-        style={{
-          background: "linear-gradient(90deg,#34d399,#fbbf24)",
-          padding: "20px 24px",
-          borderRadius: "16px",
-          marginBottom: 20
-        }}
+    const sumStyle = {
+      listStyle: "none",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      fontWeight: 800,
+      color: "#2f7d32",
+      padding: "4px 2px",
+      userSelect: "none"
+    };
+
+    return (
+      <details
+        open={open}
+        onToggle={e => setOpen(e.currentTarget.open)}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        style={cardStyle}
       >
-        <h2 style={{ margin: 0 }}>Family Project</h2>
-        <p style={{ marginTop: 8 }}>
-          <b>Goal:</b> To support and encourage our high farming passionate and loving
-          members towards starting small but with a future dream of reaping big from
-          Agriculture.
-        </p>
+        <summary style={sumStyle}>
+          <span aria-hidden style={{
+            width: 28, height: 28, borderRadius: 10, display: "grid", placeItems: "center",
+            background: "linear-gradient(135deg,#22c55e,#84cc16)", color: "#fff", fontSize: 16, fontWeight: 900
+          }}>
+            {icon}
+          </span>
+          {title}
+          <span className="muted" style={{ marginLeft: 8, fontWeight: 600, fontSize: 13 }}>
+            {open ? "— tap to collapse" : "— tap to expand"}
+          </span>
+        </summary>
+
+        <ul className="muted" style={{ margin: "8px 0 0 22px" }}>
+          {items.map((p) => <li key={p}>{p}</li>)}
+        </ul>
+      </details>
+    );
+  };
+
+  return (
+    <section className="page" id="family">
+      <div className="container">
+
+        {/* Background / Story */}
+        <FamilyBackground />
+
+        {/* Family Project – goal */}
+        <div
+          style={{
+            background: "linear-gradient(90deg,#34d399,#fbbf24)",
+            padding: "20px 24px",
+            borderRadius: "16px",
+            marginBottom: 20
+          }}
+        >
+          <h2 style={{ margin: 0 }}>Family Project</h2>
+          <p style={{ marginTop: 8 }}>
+            <b>Goal:</b> To support and encourage our high farming passionate and loving
+            members towards starting small but with a future dream of reaping big from
+            Agriculture.
+          </p>
+        </div>
+
+        {/* Objectives (collapsible with icons) */}
+        <div
+          style={{
+            background: "linear-gradient(90deg,#34d399,#fbbf24)",
+            padding: "20px 24px",
+            borderRadius: "16px",
+            marginBottom: 20
+          }}
+        >
+          <h2 style={{ marginTop: 0 }}>Family Project Objectives</h2>
+
+          <Objective
+            icon="✅"
+            title="Jump Start"
+            items={["Dream Big", "Motivate One Another", "Grow Passion", "Learn"]}
+          />
+          <Objective
+            icon="🤝"
+            title="Social Network"
+            items={["Meet and Make many Friends", "Keep True Friends", "Teamwork"]}
+          />
+          <Objective
+            icon="📋"
+            title="Project Management"
+            items={["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"]}
+          />
+          <Objective
+            icon="📈"
+            title="Collective Marketing"
+            items={["Collective Advertising", "Quality Standards & Assurance"]}
+          />
+        </div>
+
+        {/* Apply button */}
+        <div style={{ marginTop: 12 }}>
+          <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
+        </div>
       </div>
+    </section>
+  );
+};
 
-      {/* Family Project Objectives – moved the 4 blocks here */}
-      <div
-        style={{
-          background: "linear-gradient(90deg,#34d399,#fbbf24)",
-          padding: "20px 24px",
-          borderRadius: "16px",
-          marginBottom: 20
-        }}
-      >
-        <h2 style={{ marginTop: 0 }}>Family Project Objectives</h2>
-
-        <h3 style={{ margin: "12px 0 6px" }}>Jump Start</h3>
-        <ul className="muted" style={{ margin: "0 0 10px 18px" }}>
-          <li>Dream Big</li>
-          <li>Motivate One Another</li>
-          <li>Grow Passion</li>
-          <li>Learn</li>
-        </ul>
-
-        <h3 style={{ margin: "12px 0 6px" }}>Social Network</h3>
-        <ul className="muted" style={{ margin: "0 0 10px 18px" }}>
-          <li>Meet and Make many Friends</li>
-          <li>Keep True Friends</li>
-          <li>Teamwork</li>
-        </ul>
-
-        <h3 style={{ margin: "12px 0 6px" }}>Project Management</h3>
-        <ul className="muted" style={{ margin: "0 0 10px 18px" }}>
-          <li>Choice of Enterprise</li>
-          <li>Project Direction</li>
-          <li>Collective Decisions</li>
-          <li>3-month Camps</li>
-        </ul>
-
-        <h3 style={{ margin: "12px 0 6px" }}>Collective Marketing</h3>
-        <ul className="muted" style={{ margin: "0 0 0 18px" }}>
-          <li>Collective Advertising</li>
-          <li>Quality Standards &amp; Assurance</li>
-        </ul>
-      </div>
-
-      {/* Apply button */}
-      <div style={{ marginTop: 12 }}>
-        <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
-      </div>
-    </div>
-  </section>
-);
 
 
 
@@ -1243,6 +1295,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
