@@ -977,12 +977,12 @@ const Gallery = () => {
   const photos = [
     { base: "Coffee_Spread",  cap: "Coffee spread" },
     { base: "Education_Tours",cap: "Education tours" },
-    { base: "Faithwithbby",   cap: "Faith with baby goat" }, // use your exact spelling
+    { base: "Faithwithbby",   cap: "Faith with baby goat" },
     { base: "First_Camp",     cap: "First camp highlights" },
     { base: "Goats_Rest",     cap: "Goats at rest" },
     { base: "Goats_sold",     cap: "Farm-gate goat sales" },
     { base: "Mtn_Hiking",     cap: "Mountain hiking" },
-    { base: "camp-poster",    cap: "Camp poster" },          // this one’s kebab-case in your repo
+    { base: "camp-poster",    cap: "Camp poster" },
   ];
 
   // Progressive image with fallback chain (unchanged)
@@ -990,22 +990,37 @@ const Gallery = () => {
     const [i, setI] = React.useState(0);
     const [hide, setHide] = React.useState(false);
     if (hide) return null;
-
     const onError = () => (i < srcs.length - 1 ? setI(i + 1) : setHide(true));
     const onLoad  = (e) => e.currentTarget.classList.add("img-loaded");
-
     return <img src={srcs[i]} alt={alt} loading="lazy" decoding="async" onError={onError} onLoad={onLoad} />;
   };
 
-  // --- Lightbox state ---
-  const [lightbox, setLightbox] = React.useState(null); // {src, cap} or null
+  // --- Lightbox state (index of selected photo, or -1 when closed) ---
+  const [idx, setIdx] = React.useState(-1);
+  const isOpen = idx >= 0;
 
-  // Close on ESC
+  const open = (i) => setIdx(i);
+  const close = () => setIdx(-1);
+
+  const next = React.useCallback(() => {
+    setIdx((i) => (i + 1) % photos.length);
+  }, [photos.length]);
+
+  const prev = React.useCallback(() => {
+    setIdx((i) => (i - 1 + photos.length) % photos.length);
+  }, [photos.length]);
+
+  // Keyboard handlers: Esc to close, ArrowLeft/Right to navigate
   React.useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") setLightbox(null); };
+    if (!isOpen) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [isOpen, next, prev]);
 
   return (
     <section className="page" id="gallery">
@@ -1014,18 +1029,14 @@ const Gallery = () => {
         <p className="muted">A look into daily life at Kiboga Hill Farm Uganda.</p>
 
         <div className="gallery-grid">
-          {photos.map(({ base, cap }) => {
+          {photos.map(({ base, cap }, i) => {
             const thumb520   = `Images/thumbs/${base}-520.webp`;
-            const large1040  = `Images/thumbs/${base}-1040.webp`;   // use this for zoomed view
+            const large1040  = `Images/thumbs/${base}-1040.webp`;
             const fallbackJpg= `Images/${base}.jpg`;
             const fallbackPng= `Images/${base}.png`;
 
-            // When thumb is clicked, open lightbox with the large version
-            const openLightbox = () => setLightbox({ src: large1040, cap });
-
             return (
-              <figure key={base} className="gallery-tile" onClick={openLightbox} style={{cursor:"zoom-in"}}>
-                {/* removed <a target="_blank"> so it won't open a new tab */}
+              <figure key={base} className="gallery-tile" onClick={() => open(i)} style={{cursor:"zoom-in"}}>
                 <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} width={260} height={200} />
                 <figcaption className="gallery-caption">{cap}</figcaption>
               </figure>
@@ -1034,10 +1045,10 @@ const Gallery = () => {
         </div>
       </div>
 
-      {/* ---- Lightbox overlay ---- */}
-      {lightbox && (
+      {/* ---- Lightbox overlay with arrows ---- */}
+      {isOpen && (
         <div
-          onClick={() => setLightbox(null)}
+          onClick={close}
           style={{
             position:"fixed", inset:0, background:"rgba(0,0,0,.86)",
             display:"flex", alignItems:"center", justifyContent:"center",
@@ -1045,40 +1056,56 @@ const Gallery = () => {
           }}
           aria-modal="true" role="dialog"
         >
-          <div
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking the image itself
-            style={{ textAlign:"center", maxWidth:"96vw" }}
-          >
+          {/* inner container to stop propagation */}
+          <div onClick={(e)=>e.stopPropagation()} style={{position:"relative", maxWidth:"96vw", textAlign:"center", cursor:"default"}}>
             <img
-              src={lightbox.src}
-              alt={lightbox.cap}
+              src={`Images/thumbs/${photos[idx].base}-1040.webp`}
+              alt={photos[idx].cap}
               style={{
                 maxWidth:"92vw", maxHeight:"80vh",
-                borderRadius:12, boxShadow:"0 20px 60px rgba(0,0,0,.45)",
-                transition:"transform .2s ease", transform:"scale(1)"
+                borderRadius:12, boxShadow:"0 20px 60px rgba(0,0,0,.45)"
               }}
             />
-            <div style={{ color:"#fff", marginTop:10, fontWeight:600 }}>{lightbox.cap}</div>
-          </div>
+            <div style={{ color:"#fff", marginTop:10, fontWeight:600 }}>{photos[idx].cap}</div>
 
-          {/* close button */}
-          <button
-            onClick={() => setLightbox(null)}
-            aria-label="Close"
-            style={{
-              position:"fixed", top:14, right:18,
-              background:"rgba(255,255,255,.12)", color:"#fff",
-              border:"0", borderRadius:10, padding:"8px 10px",
-              fontWeight:800, cursor:"pointer"
-            }}
-          >
-            ✕
-          </button>
+            {/* Prev / Next buttons */}
+            <button
+              onClick={prev}
+              aria-label="Previous photo"
+              style={{
+                position:"absolute", left:-8, top:"50%", transform:"translateY(-50%)",
+                background:"rgba(255,255,255,.14)", color:"#fff",
+                border:"0", borderRadius:12, padding:"10px 12px", fontSize:20, fontWeight:900, cursor:"pointer"
+              }}
+            >‹</button>
+
+            <button
+              onClick={next}
+              aria-label="Next photo"
+              style={{
+                position:"absolute", right:-8, top:"50%", transform:"translateY(-50%)",
+                background:"rgba(255,255,255,.14)", color:"#fff",
+                border:"0", borderRadius:12, padding:"10px 12px", fontSize:20, fontWeight:900, cursor:"pointer"
+              }}
+            >›</button>
+
+            {/* Close (X) */}
+            <button
+              onClick={close}
+              aria-label="Close"
+              style={{
+                position:"absolute", top:-8, right:-8,
+                background:"rgba(255,255,255,.14)", color:"#fff",
+                border:"0", borderRadius:12, padding:"8px 10px", fontWeight:900, cursor:"pointer"
+              }}
+            >✕</button>
+          </div>
         </div>
       )}
     </section>
   );
 };
+
 
 
 	function CampLogoBadge(){
@@ -1350,6 +1377,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
