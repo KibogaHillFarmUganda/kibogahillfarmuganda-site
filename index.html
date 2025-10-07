@@ -479,7 +479,7 @@ const Family = () => (
         </p>
       </div>
 
-      {/* NEW: Family Project Objectives */}
+      {/* Family Project Objectives – moved the 4 blocks here */}
       <div
         style={{
           background: "linear-gradient(90deg,#34d399,#fbbf24)",
@@ -489,41 +489,45 @@ const Family = () => (
         }}
       >
         <h2 style={{ marginTop: 0 }}>Family Project Objectives</h2>
-        <ul className="muted" style={{ margin: "8px 0 0 18px" }}>
-          <li>Reach and retain <b>100 active members</b> aligned with our routine programs.</li>
-          <li>Run a pilot contribution of <b>UGX 50,000/month</b> (Sep–Dec 2025) and refine SOPs.</li>
-          <li>Invest collectively in <b>goats, cattle, poultry</b> or other enterprises by majority decision.</li>
-          <li>Share sales proceeds <b>equally</b> among all contributing members.</li>
-          <li>Hold <b>quarterly farm camps</b> to monitor progress, learn, and solve challenges together.</li>
-          <li>Maintain <b>transparent records</b>, clear SOPs, and responsible stewardship.</li>
-          <li>Promote <b>inclusivity</b> (youth, women, PWD) and invite <b>agri-professionals & veterinarians</b> as we grow.</li>
-          <li>Advance <b>climate-smart production</b> and stronger <b>market access</b>.</li>
+
+        <h3 style={{ margin: "12px 0 6px" }}>Jump Start</h3>
+        <ul className="muted" style={{ margin: "0 0 10px 18px" }}>
+          <li>Dream Big</li>
+          <li>Motivate One Another</li>
+          <li>Grow Passion</li>
+          <li>Learn</li>
+        </ul>
+
+        <h3 style={{ margin: "12px 0 6px" }}>Social Network</h3>
+        <ul className="muted" style={{ margin: "0 0 10px 18px" }}>
+          <li>Meet and Make many Friends</li>
+          <li>Keep True Friends</li>
+          <li>Teamwork</li>
+        </ul>
+
+        <h3 style={{ margin: "12px 0 6px" }}>Project Management</h3>
+        <ul className="muted" style={{ margin: "0 0 10px 18px" }}>
+          <li>Choice of Enterprise</li>
+          <li>Project Direction</li>
+          <li>Collective Decisions</li>
+          <li>3-month Camps</li>
+        </ul>
+
+        <h3 style={{ margin: "12px 0 6px" }}>Collective Marketing</h3>
+        <ul className="muted" style={{ margin: "0 0 0 18px" }}>
+          <li>Collective Advertising</li>
+          <li>Quality Standards &amp; Assurance</li>
         </ul>
       </div>
 
-      {/* Pillars / cards */}
-      <div className="grid cards" style={{ marginTop: 16, gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
-        {[
-          { title: "Jump Start",            pts: ["Dream Big", "Motivate One Another", "Grow Passion", "Learn"] },
-          { title: "Social Network",        pts: ["Meet and Make many Friends", "Keep True Friends", "Teamwork"] },
-          { title: "Project Management",    pts: ["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"] },
-          { title: "Collective Marketing",  pts: ["Collective Advertising", "Quality Standards & Assurance"] },
-        ].map((b) => (
-          <div key={b.title} className="card">
-            <b>{b.title}</b>
-            <ul className="muted" style={{ margin: "8px 0 0 16px" }}>
-              {b.pts.map(p => <li key={p}>{p}</li>)}
-            </ul>
-          </div>
-        ))}
-      </div>
-
+      {/* Apply button */}
       <div style={{ marginTop: 12 }}>
         <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
       </div>
     </div>
   </section>
 );
+
 
 
     const Advisory = () => (
@@ -1239,6 +1243,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
