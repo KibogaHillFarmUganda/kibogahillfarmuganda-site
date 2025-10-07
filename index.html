@@ -970,7 +970,42 @@ Date: ${f.sdate}
         </section>
       );
     };
-// --- Simple Gallery (safe sources + blur-up) ---
+
+// ----Advertize -----
+const Advertise = () => (
+  <section className="page" id="advertise">
+    <div className="container">
+      <h2>Advertise With Kiboga Hill Farm Uganda</h2>
+      <p className="muted">Partner with us to reach farmers, youth, and agricultural professionals across Uganda and beyond.</p>
+
+      <h3>Why Advertise With Us?</h3>
+      <ul>
+        <li>Targeted reach in the agriculture and climate-smart community</li>
+        <li>Affordable local rates and flexible packages</li>
+        <li>Multi-channel visibility – web, TikTok, and WhatsApp groups</li>
+      </ul>
+
+      <h3>Available Placements</h3>
+      <AdBanner src="/ads/ad-sample.webp" href="#" alt="Sample Ad" />
+      <table className="muted">
+        <thead>
+          <tr><th>Placement</th><th>Description</th><th>Rate (UGX)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Homepage Banner</td><td>Top of all pages</td><td>150,000</td></tr>
+          <tr><td>Sidebar Ad</td><td>Visible on all pages</td><td>100,000</td></tr>
+          <tr><td>Footer Logo</td><td>Sitewide</td><td>80,000</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Contact Us</h3>
+      <p>Email: <a href="mailto:info@kibogahillfarmuganda.co.ug">info@kibogahillfarmuganda.co.ug</a></p>
+      <p>Phone / WhatsApp: +256 703 663 616</p>
+    </div>
+  </section>
+);
+
+	
 // --- Gallery: Farm Photos (thumbs in /Images/thumbs) ---
 const Gallery = () => {
   // Keep base names EXACTLY as your files are named
@@ -1310,6 +1345,7 @@ const FamilyBackground = () => (
               <nav className="khf-nav" aria-label="Primary">
                 <Link to="#/about">About</Link>
                 <Link to="#/camps">Camps & Farm Visits</Link>
+				<Link to="#/advertise">Advertise</Link>
 
                 <details>
                   <summary>Core Services ▾</summary>
@@ -1377,6 +1413,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
