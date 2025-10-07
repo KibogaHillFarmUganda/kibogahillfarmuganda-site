@@ -456,16 +456,42 @@ if (window.supabase?.createClient) {
     };
 
     const Family = () => (
-      <section className="page" id="family">
-        <div className="container">
-          <div className="banner">
-            <h2 style={{margin:0}}>Family Project</h2>
-            <p style={{margin:".3rem 0 0"}}>
-              <b>Goal:</b> To support and encourage our high farming passioned and loving members towards starting small but with a future dream
-               of reaping big from Agriculture.
-            </p>
-          </div>
+<section className="page" id="family">
+  <div className="container">
 
+    {/* New background block */}
+    <FamilyBackground />
+
+    {/* Existing Family Project header stays below */}
+    <div
+      style={{
+        background: "linear-gradient(90deg,#34d399,#fbbf24)",
+        padding: "20px 24px",
+        borderRadius: "16px",
+        marginBottom: 20
+      }}
+    >
+      <h2 style={{ margin: 0 }}>Family Project</h2>
+      <p style={{ marginTop: 8 }}>
+        <b>Goal:</b> To support and encourage our high farming passionate and loving
+        members towards starting small but with a future dream of reaping big from
+        Agriculture.
+      </p>
+    </div>
+
+    {/* === Existing Family Project Section === */}
+    <div style={{
+      background: "linear-gradient(90deg, #34d399, #fbbf24)",
+      padding: "20px 24px",
+      borderRadius: "16px",
+      marginBottom: "20px"
+    }}>
+      <h2 style={{marginTop: 0}}>Family Project</h2>
+      <p><b>Goal:</b> To support and encourage our high farming passionate and loving members towards starting small
+      but with a future dream of reaping big from Agriculture.</p>
+    </div>
+	
+      
           <div className="grid cards" style={{marginTop:16, gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
             {[
               { title: "Jump Start",            pts: ["Dream Big", "Motivate One Another", "Grow Passion", "Learn"] },
@@ -1022,6 +1048,71 @@ function NewsSpotlight(){
     </div>
   );
 }
+// === Family Background (place above function App) ===
+const FamilyBackground = () => (
+  <div
+    style={{
+      background: "linear-gradient(90deg,#d1fae5,#fef3c7)",
+      padding: "22px 24px",
+      borderRadius: "16px",
+      marginBottom: 20,
+      boxShadow: "0 10px 25px rgba(0,0,0,.06)"
+    }}
+  >
+    <h2 style={{ margin: 0 }}>Background to Kiboga Hill Farm Family</h2>
+    <p className="muted" style={{ marginTop: 10 }}>
+      The <b>Kiboga Hill Farm Family</b> began in <b>February 2025</b> from TikTok Lives,
+      where interested viewers shared WhatsApp numbers to join our group. As of
+      <b> 8 October 2025</b> we are <b>85</b> voluntary members. We’ll keep the door open
+      until we reach <b>100</b> highly active members aligned to our routine programs.
+      After 100, new admissions will prioritize owners of large farm enterprises,
+      agricultural professionals, and veterinary experts.
+    </p>
+
+    <h3 style={{ margin: "16px 0 8px" }}>Family Project Vision</h3>
+    <p className="muted">
+      Our goal is a jointly owned project where members contribute equally and
+      share equal rights. In <b>April 2025</b>, members began buying <b>goats</b> and
+      <b> cattle</b> managed at Kiboga Hill Farm. <b>Princess Sharifah</b> bought the
+      first goat and mobilized friends—<b>SwtRema</b>, <b>Tricia Tricia</b>, <b>Faluwa</b>.
+      Another circle by <b>Tracy United</b> with <b>Agie Amazing</b> and <b>Lilly Nshuti</b>
+      contributed monthly. Animals were selected over WhatsApp video calls.
+      In <b>June 2025</b> we paused individual purchases to draft SOPs.
+    </p>
+
+    <h3 style={{ margin: "16px 0 8px" }}>Launch of the Family Project</h3>
+    <p className="muted">
+      On <b>7 July 2025</b>, <b>Bruno Ahimbisibwe (BRUMAX UG)</b> proposed immediately
+      starting the project to reduce member uncertainty. Members agreed to begin
+      from <b>September–December 2025</b> with a monthly contribution of
+      <b> UGX 50,000</b>. Funds are invested (goats, cattle, poultry, or other) by
+      majority decision. After sales, proceeds are shared equally among
+      contributors.
+    </p>
+
+    <h3 style={{ margin: "16px 0 8px" }}>Accountability & Participation</h3>
+    <p className="muted">
+      We camp at the farm <b>every three months</b> to review progress and solve
+      challenges. Anyone can join the Family; to join the <b>Family Project</b> you
+      sign a membership form and provide a <b>next of kin</b>.
+    </p>
+
+    <h3 style={{ margin: "16px 0 8px" }}>Interim Committee (Jun–Dec 2025)</h3>
+    <ul className="muted" style={{ margin: "8px 0 0 18px" }}>
+      <li><b>Chairperson:</b> Mr. Kalema Abubakar (Kiboga Hill Farm Uganda)</li>
+      <li><b>Vice Chairperson:</b> Mr. Derek Danielz</li>
+      <li><b>General Secretary:</b> Ms. Suzie Savior</li>
+      <li><b>Publicity:</b> Sky Rich &amp; Princess Sharifah</li>
+      <li><b>Mobilizers / Disciplinary:</b> Dota wa Kiboga, Swt Rema,
+          Tricia Tricia, Tracy United, Amutex, Fr. Ignatius (Ewacu Heza)
+      </li>
+    </ul>
+    <p className="muted" style={{ marginTop: 8 }}>
+      Elections for the next term will be held in <b>December 2025</b> for
+      <b> January–December 2026</b>.
+    </p>
+  </div>
+);
 
     function App(){
       const { parts } = useHashRoute();
@@ -1137,6 +1228,7 @@ function NewsSpotlight(){
 
 </body>
 </html>
+
 
 
 
