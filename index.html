@@ -598,36 +598,145 @@ const Family = () => {
   );
 };
 
+/* ---- Weather updates (add new rows over time) ---- */
+const WEATHER_UPDATES = [
+  {
+    id: "2025-10",
+    title: "Weather Update — October 2025",
+    date: "2025-10-09",
+    // keep this brief; you can edit later
+    summary:
+      "Peak of the SOND 2025 rainy season expected in October. Enhanced rainfall likely over most of Uganda. Areas near Lake Victoria and parts of western, which had intermittent rainfall, are expected to receive enhanced rainfall during October.",
+    // put your signed PDF and (optional) image into the repo and point to them:
+    pdf: "docs/Weather-Update-October-2025-SIGNED.pdf",
+    image: "Images/updates/oct-2025-rainfall-outlook.png" // optional preview image
+  }
+  // add the next months here…
+];
 
 
 
-    const Advisory = () => (
-      <section className="page" id="advisory">
-        <div className="container">
-<h2>Weather-Smart Advisory</h2>
-<p className="muted">
-  We use and share with our community members actionable advisories for crop and livestock production, including water stress and
-  disease-risk management. We translate official weather & climate forecasts into simple actions like
-  when to plant, when to vaccinate, and how to manage heat and rainfall at our farm and by the community.
-  Visit our social channels for regular tips.
-</p>
+  const Advisory = () => {
+  const [openId, setOpenId] = React.useState(null); // which update is expanded
 
-          <div className="grid cards" style={{gridTemplateColumns: "repeat(1,minmax(0,1fr))"}}>
-            {[
-              { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
-              { title: "Harvest & Post-Harvest", text: "When to harvest, Dry spells and rain risk  timing for safe drying and storage plans." },
-              { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease risk updates." },
-              { title: "Livestock Farm Start", text: "Advise on Housing designs, Breeding guidance, Health schedule." },
-            ].map((a) => (
-              <div key={a.title} className="card">
-                <b>{a.title}</b>
-                <p className="muted" style={{marginTop: 8}}>{a.text}</p>
-              </div>
-            ))}
+  return (
+    <section className="page" id="advisory">
+      <div className="container">
+        <h2>Weather-Smart Advisory</h2>
+        <p className="muted">
+          We use and share with our community members actionable advisories for crop and
+          livestock production, including water-stress and disease-risk management. We
+          translate official weather & climate forecasts into simple actions like when to
+          plant, vaccinate, and manage heat or rainfall. Visit our social channels for tips.
+        </p>
+
+        {/* ---- Latest Weather Updates ---- */}
+        <div className="card" style={{ margin: "18px 0" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            <h3 style={{ margin: 0 }}>Latest Weather Updates</h3>
+            <a className="btn out" href="#/advisory">Refresh</a>
           </div>
+
+          {WEATHER_UPDATES.length === 0 ? (
+            <div className="muted" style={{ marginTop: 8 }}>No updates posted yet.</div>
+          ) : (
+            <div className="grid" style={{ marginTop: 12, gap: 12 }}>
+              {WEATHER_UPDATES.map(u => (
+                <article key={u.id} className="card" style={{ padding: 14 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+                    <div>
+                      <b style={{ display: "block" }}>{u.title}</b>
+                      <span className="muted" style={{ fontSize: 13 }}>
+                        Posted {new Date(u.date).toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" })}
+                      </span>
+                    </div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <a
+                        className="btn"
+                        href={u.pdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-ga-event="weather_pdf_view"
+                        data-ga-label={u.title}
+                      >
+                        View Issued/Signed PDF
+                      </a>
+                      <a
+                        className="btn out"
+                        href={u.pdf}
+                        download
+                        data-ga-event="weather_pdf_download"
+                        data-ga-label={u.title}
+                      >
+                        Download
+                      </a>
+                      <button
+                        className="btn out"
+                        onClick={() => setOpenId(openId === u.id ? null : u.id)}
+                      >
+                        {openId === u.id ? "Hide Summary" : "Read Summary"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {openId === u.id && (
+                    <div style={{ marginTop: 10 }}>
+                      <p className="muted" style={{ marginTop: 8 }}>{u.summary}</p>
+
+                      {u.image && (
+                        <figure style={{ margin: 0, marginTop: 8 }}>
+                          <img
+                            src={u.image}
+                            alt={`${u.title} — Rainfall outlook map`}
+                            loading="lazy"
+                            style={{ maxWidth: "100%", height: "auto", borderRadius: 12, boxShadow: "0 8px 24px rgba(0,0,0,.06)" }}
+                          />
+                          <figcaption className="muted" style={{ fontSize: 12, marginTop: 6 }}>
+                            October 2025 rainfall outlook map (source: official release).
+                          </figcaption>
+                        </figure>
+                      )}
+
+                      {/* Inline viewer (optional). Comment out if not needed. */}
+                      <details style={{ marginTop: 10 }}>
+                        <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--ink)" }}>
+                          Quick Preview (embedded PDF)
+                        </summary>
+                        <div style={{ position: "relative", width: "100%", paddingBottom: "62%", marginTop: 8, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 24px rgba(0,0,0,.06)" }}>
+                          <iframe
+                            src={u.pdf}
+                            title={`${u.title} — PDF`}
+                            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                            loading="lazy"
+                          ></iframe>
+                        </div>
+                      </details>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
         </div>
-      </section>
-    );
+
+        {/* ---- Your existing advisory tiles ---- */}
+        <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
+          {[
+            { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
+            { title: "Harvest & Post-Harvest", text: "When to harvest; dry-spell & rain-risk timing for safe drying and storage plans." },
+            { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease-risk updates." },
+            { title: "Livestock Farm Start", text: "Housing designs, breeding guidance, and health schedules." },
+          ].map(a => (
+            <div key={a.title} className="card">
+              <b>{a.title}</b>
+              <p className="muted" style={{ marginTop: 8 }}>{a.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
     /* -------- Email helpers -------- */
     const EMAIL_PRIMARY = "info@kibogahillfarmuganda.co.ug";
@@ -1534,6 +1643,7 @@ useEffect(() => {
 </script>
 </body>
 </html>
+
 
 
 
