@@ -6,6 +6,20 @@
   <title>Kiboga Hill Farm Uganda</title>
   <meta name="description" content="Kiboga Hill Farm Uganda – Goats, cattle, bananas & coffee, with climate-smart advisory." />
 
+	  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7B25Y1NGY"></script>
+  <script>
+    // GA4 base
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+
+    // For single-page apps, we'll send page_view manually
+    gtag('js', new Date());
+    gtag('config', 'G-C7B25Y1NGY', { send_page_view: false });
+  </script>
+
+  <!-- (Your other scripts like Plausible or CSS links come here) -->
+	
 	<meta name="theme-color" content="#10b981">
 <link rel="icon" href="Images/khf-logo.png">
 <link rel="manifest" href="Images/manifest.json">
@@ -1505,9 +1519,22 @@ useEffect(() => {
 
 	<script defer data-domain="kibogahillfarmuganda.co.ug" src="https://plausible.io/js/script.js">
 		</script>
-
+<script>
+  (function() {
+    function sendPageView() {
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: location.href,
+        page_path: location.hash || '/'
+      });
+    }
+    if (window.gtag) sendPageView();
+    window.addEventListener('hashchange', sendPageView);
+  })();
+</script>
 </body>
 </html>
+
 
 
 
