@@ -981,23 +981,47 @@ const AdBanner = ({ src, href = "#", alt = "Sponsor" }) => (
   </div>
 );
 
-// ----Advertize -----
+// ----Advertize (updated)-----
 const Advertise = () => (
   <section className="page" id="advertise">
     <div className="container">
       <h2>Advertise With Kiboga Hill Farm Uganda</h2>
-      <p className="muted">Partner with us to reach farmers, youth, and agricultural professionals across Uganda and beyond.</p>
+      <p className="muted">
+        Advertise with Kiboga Hill Farm Uganda — the leading online farm and climate-smart
+        advisory platform reaching farmers, livestock traders, youth and agri-professionals
+        across Uganda and East Africa.
+      </p>
 
       <h3>Why Advertise With Us?</h3>
       <ul>
         <li>Targeted reach in the agriculture and climate-smart community</li>
         <li>Affordable local rates and flexible packages</li>
-        <li>Multi-channel visibility – web, TikTok, and WhatsApp groups</li>
+        <li>Multi-channel visibility — web, TikTok, and WhatsApp groups</li>
       </ul>
 
-      <h3>Available Placements</h3>
-      <AdBanner src="/ads/ad-sample.webp" href="#" alt="Sample Ad" />
-      <table className="muted">
+      {/* === Live Demo (Preview) of Ad Slots === */}
+      <h3 style={{marginTop:16}}>Live Demo (Preview)</h3>
+      <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center",marginTop:10}}>
+        {/* Homepage Banner preview */}
+        <a href="#" aria-label="Homepage Banner preview"
+           style={{borderRadius:12,overflow:"hidden",boxShadow:"0 10px 25px rgba(0,0,0,.10)"}}>
+          {/* Use an existing image so it never 404s */}
+          <img src="Images/camp-poster.png" alt="Homepage Banner — sample ad"
+               width="728" height="90" loading="lazy" decoding="async"
+               style={{display:"block",maxWidth:"100%",height:"auto"}}/>
+        </a>
+
+        {/* Sidebar Ad preview */}
+        <a href="#" aria-label="Sidebar Ad preview"
+           style={{borderRadius:12,overflow:"hidden",boxShadow:"0 10px 25px rgba(0,0,0,.10)"}}>
+          <img src="Images/khf-logo.png" alt="Sidebar Ad — sample ad"
+               width="300" height="250" loading="lazy" decoding="async"
+               style={{display:"block",maxWidth:"100%",height:"auto"}}/>
+        </a>
+      </div>
+
+      <h3 style={{marginTop:22}}>Available Placements</h3>
+      <table className="muted" style={{width:"100%",maxWidth:720}}>
         <thead>
           <tr><th>Placement</th><th>Description</th><th>Rate (UGX)</th></tr>
         </thead>
@@ -1008,21 +1032,33 @@ const Advertise = () => (
         </tbody>
       </table>
 
-      <h3>Contact Us</h3>
+      <h3 style={{marginTop:22}}>Contact Us</h3>
       <p>Email: <a href="mailto:info@kibogahillfarmuganda.co.ug">info@kibogahillfarmuganda.co.ug</a></p>
       <p>Phone / WhatsApp: +256 763 081 880</p>
-		{/* ✅ Add download button here */}
-      <a
-        className="btn"
-        href="Images/KHFU-Media-Kit-2025.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Download Media Kit (PDF)
-      </a>
+
+      {/* Media Kit + Partner CTA */}
+      <div style={{display:"flex",gap:10,flexWrap:"wrap",marginTop:10}}>
+        <a
+          className="btn"
+          href="Images/KHFU-Media-Kit-2025.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download Media Kit (PDF)
+        </a>
+
+        <a
+          className="btn"
+          href={`mailto:info@kibogahillfarmuganda.co.ug?subject=${encodeURIComponent("Advertising Inquiry - Kiboga Hill Farm")}&body=${encodeURIComponent("Hello KHFU team,\n\nWe'd like to advertise on your website. Please share available slots and payment options.\n\nRegards,\n")}`}
+          aria-label="Start an advertising inquiry by email"
+        >
+          Partner With Us →
+        </a>
+      </div>
     </div>
   </section>
 );
+
 
 	
 // --- Gallery: Farm Photos (thumbs in /Images/thumbs) ---
@@ -1467,6 +1503,7 @@ useEffect(() => {
 
 </body>
 </html>
+
 
 
 
