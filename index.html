@@ -1355,6 +1355,40 @@ const FamilyBackground = () => (
         return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
       }, [route, sub]);
 
+		// Close the Core Services dropdown when clicking/tapping anywhere outside it
+useEffect(() => {
+  const nav = document.querySelector("nav.khf-nav");
+  if (!nav) return;
+
+  const closeIfOutside = (e) => {
+    const openDetails = nav.querySelector("details[open]");
+    if (!openDetails) return;
+
+    // If the click/touch did NOT happen inside the open <details>, close it.
+    if (!openDetails.contains(e.target)) {
+      openDetails.open = false;
+    }
+  };
+
+  const closeOnEsc = (e) => {
+    if (e.key === "Escape") {
+      const openDetails = nav.querySelector("details[open]");
+      if (openDetails) openDetails.open = false;
+    }
+  };
+
+  document.addEventListener("mousedown", closeIfOutside);
+  document.addEventListener("touchstart", closeIfOutside, { passive: true });
+  document.addEventListener("keydown", closeOnEsc);
+
+  return () => {
+    document.removeEventListener("mousedown", closeIfOutside);
+    document.removeEventListener("touchstart", closeIfOutside);
+    document.removeEventListener("keydown", closeOnEsc);
+  };
+}, [route, sub]);
+
+
       return (
   		<div className="khf-root" id="main" role="main">
           <header className="khf-header">
@@ -1433,6 +1467,7 @@ const FamilyBackground = () => (
 
 </body>
 </html>
+
 
 
 
