@@ -630,11 +630,11 @@
 
 // ---- Weather updates (data unchanged) ----
 // const WEATHER_UPDATES = [ ... ]  <-- keep yours
-
+// === Advisory (drop-in, paste once) ===
 const Advisory = () => {
-  const [openId, setOpenId] = React.useState(null);        // expanded summary id
-  const [tipsOpen, setTipsOpen] = React.useState({});      // { [id]: true/false }
-  const toggleTips = (id) => setTipsOpen(p => ({ ...p, [id]: !p[id] }));
+  const [openId, setOpenId] = React.useState(null);   // which update is expanded
+  const [tipsOpen, setTipsOpen] = React.useState({}); // { [id]: true/false }
+  const toggleTips = (id) => setTipsOpen(prev => ({ ...prev, [id]: !prev[id] }));
 
   return (
     <section className="page" id="advisory">
@@ -657,7 +657,7 @@ const Advisory = () => {
             <div className="grid" style={{ marginTop: 12, gap: 12 }}>
               {WEATHER_UPDATES.map(u => (
                 <article key={u.id} className="card" style={{ padding: 14 }}>
-                  {/* Header + actions */}
+                  {/* Title + actions */}
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
                     <div>
                       <b style={{ display: "block" }}>{u.title}</b>
@@ -665,6 +665,7 @@ const Advisory = () => {
                         Posted {new Date(u.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
                       </span>
                     </div>
+
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                       <a
                         className="btn"
@@ -685,16 +686,22 @@ const Advisory = () => {
                       >
                         Download
                       </a>
-                      <button className="btn out" onClick={() => setOpenId(openId === u.id ? null : u.id)}>
+                      <button
+                        className="btn out"
+                        onClick={() => setOpenId(openId === u.id ? null : u.id)}
+                      >
                         {openId === u.id ? "Hide Summary" : "Read Summary"}
                       </button>
-                      <button className="btn out" onClick={() => toggleTips(u.id)}>
+                      <button
+                        className="btn out"
+                        onClick={() => toggleTips(u.id)}
+                      >
                         {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
                       </button>
                     </div>
                   </div>
 
-                  {/* Tips block (separate from summary) */}
+                  {/* Farming tips */}
                   {u.tips && tipsOpen[u.id] && (
                     <div
                       className="card"
@@ -703,7 +710,7 @@ const Advisory = () => {
                         background: "#f9fafb",
                         border: "1px solid #eef2f7",
                         borderRadius: 12,
-                        padding: 12,
+                        padding: 12
                       }}
                     >
                       <h4 style={{ margin: "0 0 6px" }}>Farming tips from this forecast</h4>
@@ -713,7 +720,7 @@ const Advisory = () => {
                     </div>
                   )}
 
-                  {/* Expandable summary + map + embedded PDF */}
+                  {/* Expanded summary + image + embedded PDF */}
                   {openId === u.id && (
                     <div style={{ marginTop: 10 }}>
                       <p className="muted" style={{ marginTop: 8 }}>{u.summary}</p>
@@ -774,7 +781,6 @@ const Advisory = () => {
         <h3 id="decisions" style={{ marginTop: 22 }}>
           Decisions made from Weather and Climate forecasts
         </h3>
-
         <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
           {[
             { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
@@ -792,54 +798,6 @@ const Advisory = () => {
     </section>
   );
 };
-
-
-
-                          {/* Inline PDF viewer */}
-                          <details style={{ marginTop: 10 }}>
-                            <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--ink)" }}>
-                              Quick Preview (embedded PDF)
-                            </summary>
-                            <div style={{ position: "relative", width: "100%", paddingBottom: "62%", marginTop: 8, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 24px rgba(0,0,0,.06)" }}>
-                              <iframe
-                                src={u.pdf}
-                                title={`${u.title} — PDF`}
-                                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-                                loading="lazy"
-                              ></iframe>
-                            </div>
-                          </details>
-                        </div>
-                      )}
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
-
-    {/* ---- Decisions made from forecasts ---- */}
-<h3 id="decisions" style={{ marginTop: 22 }}>
-  Decisions made from Weather and Climate forecasts
-</h3>
-
-<div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
-  {[
-    { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
-    { title: "Harvest & Post-Harvest", text: "When to harvest; dry-spell & rain-risk timing for safe drying and storage plans." },
-    { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease-risk updates." },
-    { title: "Livestock Farm Start", text: "Housing designs, breeding guidance, and health schedules." },
-  ].map(a => (
-    <div key={a.title} className="card">
-      <b>{a.title}</b>
-      <p className="muted" style={{ marginTop: 8 }}>{a.text}</p>
-    </div>
-  ))}
-</div>
-
-          </div>
-        </section>
-      );
-    };
 
     /* -------- Email helpers -------- */
     const EMAIL_PRIMARY = "info@kibogahillfarmuganda.co.ug";
@@ -1719,6 +1677,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
