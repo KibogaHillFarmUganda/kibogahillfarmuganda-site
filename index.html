@@ -632,9 +632,16 @@
 // const WEATHER_UPDATES = [ ... ]  <-- keep yours
 
 const Advisory = () => {
-  const [openId, setOpenId] = React.useState(null);   // which update is expanded
-  const [tipsOpen, setTipsOpen] = React.useState({}); // { [id]: true/false }
+  const [openId, setOpenId] = React.useState(null);      // which update is expanded
+  const [tipsOpen, setTipsOpen] = React.useState({});    // { [id]: true/false }
   const toggleTips = (id) => setTipsOpen(prev => ({ ...prev, [id]: !prev[id] }));
+
+  // For a brief green flash on PDF / Download
+  const [active, setActive] = React.useState({ type: null, id: null });
+  const flashActive = (type, id) => {
+    setActive({ type, id });
+    setTimeout(() => setActive({ type: null, id: null }), 1200);
+  };
 
   return (
     <section className="page" id="advisory">
@@ -666,39 +673,45 @@ const Advisory = () => {
                       </span>
                     </div>
 
-                    {/* Buttons — reordered */}
+                    {/* Buttons — reordered + stateful coloring */}
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {/* Forecast Summary (green when open) */}
                       <button
-                        className="btn out"
+                        className={openId === u.id ? "btn" : "btn out"}
                         onClick={() => setOpenId(openId === u.id ? null : u.id)}
                       >
-                        {openId === u.id ? "Hide Summary" : "Read Summary"}
+                        {openId === u.id ? "Hide Summary" : "Forecast Summary"}
                       </button>
 
+                      {/* Farming Tips (green when open) */}
                       <button
-                        className="btn out"
+                        className={tipsOpen[u.id] ? "btn" : "btn out"}
                         onClick={() => toggleTips(u.id)}
                       >
                         {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
                       </button>
 
+                      {/* View PDF (neutral; flashes green on click) */}
                       <a
-                        className="btn"
+                        className={active.type === "pdf" && active.id === u.id ? "btn" : "btn out"}
                         href={u.pdf}
                         target="_blank"
                         rel="noopener noreferrer"
                         data-ga-event="weather_pdf_view"
                         data-ga-label={u.title}
+                        onMouseDown={() => flashActive("pdf", u.id)}
                       >
-                        View Issued/Signed PDF
+                        View Issued copy in PDF
                       </a>
 
+                      {/* Download (neutral; flashes green on click) */}
                       <a
-                        className="btn out"
+                        className={active.type === "dl" && active.id === u.id ? "btn" : "btn out"}
                         href={u.pdf}
                         download
                         data-ga-event="weather_pdf_download"
                         data-ga-label={u.title}
+                        onMouseDown={() => flashActive("dl", u.id)}
                       >
                         Download
                       </a>
@@ -1682,6 +1695,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
