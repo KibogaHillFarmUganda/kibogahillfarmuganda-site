@@ -664,75 +664,36 @@
                             Posted {new Date(u.date).toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" })}
                           </span>
                         </div>
-                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                          <a
-                            className="btn"
-                            href={u.pdf}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            data-ga-event="weather_pdf_view"
-                            data-ga-label={u.title}
-                          >
-                            View Issued/Signed PDF
-                          </a>
-                          <a
-                            className="btn out"
-                            href={u.pdf}
-                            download
-                            data-ga-event="weather_pdf_download"
-                            data-ga-label={u.title}
-                          >
-                            Download
-                          </a>
-                          <button
-                            className="btn out"
-                            onClick={() => setOpenId(openId === u.id ? null : u.id)}
-                          >
-                            {openId === u.id ? "Hide Summary" : "Read Summary"}
-                          </button>
-                          <button className="btn out" onClick={() => toggleTips(u.id)}>
-                            {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* OPENED CONTENT */}
-                      {openId === u.id && (
-                        <div style={{ marginTop: 10 }}>
-                          <p className="muted" style={{ marginTop: 8 }}>{u.summary}</p>
-
-                          {u.image && (
-                            <figure
-                              className="forecast-map"
-                              style={{
-                                margin: 0,
-                                marginTop: 8,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                gap: 8
-                              }}
-                            >
-                              <img
-                                src={u.image}
-                                alt={`${u.title} — Rainfall outlook map`}
-                                loading="lazy"
-                                style={{
-                                  display: "block",
-                                  margin: "0 auto",
-                                  maxWidth: "100%",
-                                  height: "auto",
-                                  borderRadius: 12,
-                                  boxShadow: "0 8px 24px rgba(0,0,0,.06)"
-                                }}
-                              />
-                              <figcaption className="muted" style={{ fontSize: 12, marginTop: 2, textAlign: "center" }}>
-                                October 2025 rainfall outlook map (source: official release).
-                              </figcaption>
-                            </figure>
-                          )}
-
-                          </div>
+                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+  <a
+    className="btn"
+    href={u.pdf}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-ga-event="weather_pdf_view"
+    data-ga-label={u.title}
+  >
+    View Issued/Signed PDF
+  </a>
+  <a
+    className="btn out"
+    href={u.pdf}
+    download
+    data-ga-event="weather_pdf_download"
+    data-ga-label={u.title}
+  >
+    Download
+  </a>
+  <button
+    className="btn out"
+    onClick={() => setOpenId(openId === u.id ? null : u.id)}
+  >
+    {openId === u.id ? "Hide Summary" : "Read Summary"}
+  </button>
+  <button className="btn out" onClick={() => toggleTips(u.id)}>
+    {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
+  </button>
+</div>
 
 {/* ✅ tips live outside the toolbar and are properly closed */}
 {u.tips && tipsOpen[u.id] && (
@@ -759,7 +720,7 @@
     </div>
   </section>
 )}
-                          )}
+
 
                           {/* Inline PDF viewer */}
                           <details style={{ marginTop: 10 }}>
@@ -1680,5 +1641,6 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
