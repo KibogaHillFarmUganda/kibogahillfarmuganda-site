@@ -192,9 +192,28 @@
     .khf-nav .menu-label{font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
     .khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
     @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
-  </style>
+
+		/* Center + style the forecast map */
+.forecast-map{
+  display:flex;
+  flex-direction:column;
+  align-items:center;   /* centers image + caption */
+  gap:8px;
+  margin:12px 0;
+}
+.forecast-map img{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  box-shadow: var(--shadow);
+}
+.forecast-map figcaption{ text-align:center; }	
+	
+	</style>
+	
 </head>
-<body>
+
+	<body>
   <a href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
   <div id="root"></div>
 
@@ -684,18 +703,35 @@ const WEATHER_UPDATES = [
                       <p className="muted" style={{ marginTop: 8 }}>{u.summary}</p>
 
                       {u.image && (
-                        <figure style={{ margin: 0, marginTop: 8 }}>
-                          <img
-                            src={u.image}
-                            alt={`${u.title} — Rainfall outlook map`}
-                            loading="lazy"
-                            style={{ maxWidth: "100%", height: "auto", borderRadius: 12, boxShadow: "0 8px 24px rgba(0,0,0,.06)" }}
-                          />
-                          <figcaption className="muted" style={{ fontSize: 12, marginTop: 6 }}>
-                            October 2025 rainfall outlook map (source: official release).
-                          </figcaption>
-                        </figure>
-                      )}
+  <figure
+    className="forecast-map"
+    style={{
+      margin: 0,
+      marginTop: 8,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",   // ⬅ centers image + caption
+      gap: 8
+    }}
+  >
+    <img
+      src={u.image}
+      alt={`${u.title} — Rainfall outlook map`}
+      loading="lazy"
+      style={{
+        display: "block",
+        margin: "0 auto",      // ⬅ ensures center if styles change later
+        maxWidth: "100%",
+        height: "auto",
+        borderRadius: 12,
+        boxShadow: "0 8px 24px rgba(0,0,0,.06)"
+      }}
+    />
+    <figcaption className="muted" style={{ fontSize: 12, marginTop: 2, textAlign: "center" }}>
+      October 2025 rainfall outlook map (source: official release).
+    </figcaption>
+  </figure>
+)}
 
                       {/* Inline viewer (optional). Comment out if not needed. */}
                       <details style={{ marginTop: 10 }}>
@@ -1643,6 +1679,7 @@ useEffect(() => {
 </script>
 </body>
 </html>
+
 
 
 
