@@ -618,25 +618,36 @@ const Family = () => {
 };
 
 /* ---- Weather updates (add new rows over time) ---- */
-const WEATHER_UPDATES = [
+	const WEATHER_UPDATES = [
   {
     id: "2025-10",
     title: "Weather Update — October 2025",
     date: "2025-10-09",
-    // keep this brief; you can edit later
     summary:
       "Peak of the SOND 2025 rainy season expected in October. Enhanced rainfall likely over most of Uganda. Areas near Lake Victoria and parts of western, which had intermittent rainfall, are expected to receive enhanced rainfall during October.",
-    // put your signed PDF and (optional) image into the repo and point to them:
     pdf: "docs/Weather-Update-October-2025-SIGNED.pdf",
-    image: "Images/updates/oct-2025-rainfall-outlook.png" // optional preview image
+    image: "Images/updates/oct-2025-rainfall-outlook.png",
+tips: [
+  "Use the current rains to continue planting new crops where fields are ready.",
+  "Practice soil & water conservation (waterways, trenches, contour/grass bands, diversion channels) to reduce floods and water-logging.",
+  "Do early/timely weeding to control fast-growing weeds (nut grass, spear grass, wandering jews, couch grass).",
+  "Stock and apply pesticides prudently (per label/vet/extension advice) due to higher pest & disease pressure (bacterial & fungal).",
+  "Apply fertilizer/manure to sustain soil fertility; watch for leaching/erosion in lowlands and time applications after heavy rain breaks.",
+  "Relocate kraals to raised, fresh ground to reduce foot-rot and infections during muddy conditions.",
+  "Harvest rainwater (tanks/ponds/lined pits) and maintain field drainage to improve water availability and reduce flood damage.",
+  "Plant trees / adopt energy-saving stoves to support agroforestry and reduce fuel costs." // <- delete if you want strictly farm-field only
+]
+
   }
-  // add the next months here…
+  // …next months
 ];
 
 
 
   const Advisory = () => {
   const [openId, setOpenId] = React.useState(null); // which update is expanded
+  const [tipsOpen, setTipsOpen] = React.useState({}); // { [updateId]: true/false }
+  const toggleTips = (id) => setTipsOpen(prev => ({ ...prev, [id]: !prev[id] }));
 
   return (
     <section className="page" id="advisory">
@@ -695,6 +706,12 @@ const WEATHER_UPDATES = [
                       >
                         {openId === u.id ? "Hide Summary" : "Read Summary"}
                       </button>
+					
+						<button className="btn out" onClick={() => toggleTips(u.id)}>
+  						{tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
+						</button>
+
+						
                     </div>
                   </div>
 
@@ -1598,7 +1615,18 @@ useEffect(() => {
               <nav className="khf-nav" aria-label="Primary">
                 <Link to="#/about">About</Link>
                 <Link to="#/camps">Camps & Farm Visits</Link>
-			
+
+				  {u.tips && tipsOpen[u.id] && (
+  <section className="tips">
+    <h4 className="tips-title">Farming tips from this forecast</h4>
+    <div className="tip-card">
+      <ul className="tip-list">
+        {u.tips.map(t => <li key={t}>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+)}
+
                 <details>
                   <summary>Core Services ▾</summary>
                   <div className="menu" role="menu">
@@ -1679,6 +1707,7 @@ useEffect(() => {
 </script>
 </body>
 </html>
+
 
 
 
