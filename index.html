@@ -1639,41 +1639,48 @@ Date: ${f.sdate}
       <span className="logo">KH</span> Kiboga Hill Farm Uganda
     </Link>
 
-    <nav className="khf-nav" aria-label="Primary">
-      <Link to="#/about"     className={route==='about'     ? 'active' : ''}>About</Link>
-      <Link to="#/camps"     className={route==='camps'     ? 'active' : ''}>Camps & Farm Visits</Link>
+<nav className="khf-nav" aria-label="Primary">
+  <Link to="#/about" className={route==='about' ? 'active' : ''}>About</Link>
 
-      <details open={['products','services','advisory'].includes(route)}>
-        <summary className={['products','services','advisory'].includes(route) ? 'active' : ''}>
-          Core Services ▾
-        </summary>
-        <div className="menu" role="menu">
-          <div className="menu-label">Livestock & Crops</div>
-          <Link to="#/products" role="menuitem" className={route==='products' ? 'active' : ''}>
-            All Livestock & Crops
-          </Link>
+  {/* Core Services FIRST */}
+  <details open={['products','services','advisory'].includes(route)}>
+    <summary className={['products','services','advisory'].includes(route) ? 'active' : ''}>
+      Core Services ▾
+    </summary>
+    <div className="menu" role="menu">
+      <div className="menu-label">Livestock & Crops</div>
+      <Link to="#/products" role="menuitem"
+            className={route==='products' ? 'active' : ''}>
+        All Livestock & Crops
+      </Link>
 
-          <div className="menu-sep"></div>
+      <div className="menu-sep"></div>
 
-          {/* Core services */}
-          <Link to="#/services/sales" role="menuitem"
-                className={route==='services' && sub==='sales' ? 'active' : ''}>
-            Farm Gate Services
-          </Link>
+      <Link to="#/services/sales" role="menuitem"
+            className={route==='services' && sub==='sales' ? 'active' : ''}>
+        Farm Gate Services
+      </Link>
 
-          <div className="menu-sep"></div>
-          <div className="menu-label">Advisory</div>
-          <Link to="#/advisory" role="menuitem" className={route==='advisory' ? 'active' : ''}>
-            Weather-Smart Advisory
-          </Link>
-        </div>
-      </details>
+      <div className="menu-sep"></div>
+      <div className="menu-label">Advisory</div>
+      <Link to="#/advisory" role="menuitem"
+            className={route==='advisory' ? 'active' : ''}>
+        Weather-Smart Advisory
+      </Link>
+    </div>
+  </details>
 
-      <Link to="#/family"    className={route==='family'    ? 'active' : ''}>Family</Link>
-      <Link to="#/advertise" className={route==='advertise' ? 'active' : ''}>Advertise</Link>
-      <Link to="#/gallery"   className={route==='gallery'   ? 'active' : ''}>Gallery</Link>
-      <Link to="#/contact"   className={route==='contact'   ? 'active' : ''}>Contact</Link>
-    </nav>
+  {/* Camps & Farm Visits AFTER Core Services */}
+  <Link to="#/camps" className={route==='camps' ? 'active' : ''}>
+    Camps &amp; Farm Visits
+  </Link>
+
+  <Link to="#/family"    className={route==='family'    ? 'active' : ''}>Family</Link>
+  <Link to="#/advertise" className={route==='advertise' ? 'active' : ''}>Advertise</Link>
+  <Link to="#/gallery"   className={route==='gallery'   ? 'active' : ''}>Gallery</Link>
+  <Link to="#/contact"   className={route==='contact'   ? 'active' : ''}>Contact</Link>
+</nav>
+
   </div>
 </header>
 
@@ -1731,6 +1738,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
