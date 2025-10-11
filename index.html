@@ -70,6 +70,7 @@
     .logo{width:38px;height:38px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#84cc16,#10b981);color:#fff;box-shadow:var(--shadow);font-weight:900}
     nav.khf-nav a{margin:0 10px;text-decoration:none;color:var(--ink);font-weight:700}
     nav.khf-nav a:hover{color:var(--brand)}
+    
     .btn{display:inline-flex;align-items:center;gap:8px;border:0;padding:10px 16px;border-radius:16px;background:var(--brand);color:#fff;cursor:pointer;box-shadow:var(--shadow);text-decoration:none;font-weight:800}
     .btn.out{background:#fff;color:var(--ink);border:2px solid #e9ecef}
     section{padding:56px 0}
@@ -186,6 +187,29 @@
     .khf-nav .menu-label{font-size:12px;color:#6b7280;padding:6px 10px 4px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
     .khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
     @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
+
+    /* Give nav links a pill + room for highlight */
+.khf-nav a{ 
+  margin:0 6px; padding:6px 10px; border-radius:10px; 
+  text-decoration:none; color:var(--ink); font-weight:700;
+}
+
+/* Active state (current page) */
+.khf-nav a.active,
+.khf-nav .menu a.active,
+.khf-nav summary.active{
+  background: rgba(16,185,129,.12);   /* soft green */
+  color: var(--brand);
+  box-shadow: inset 0 0 0 1.5px rgba(16,185,129,.55);
+}
+
+/* Keyboard focus ring */
+.khf-nav a:focus-visible,
+.khf-nav summary:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.4);
+  border-radius:10px;
+}
 
     /* Center + style the forecast map */
     .forecast-map{
@@ -1609,38 +1633,50 @@ Date: ${f.sdate}
 
       return (
         <div className="khf-root" id="main" role="main">
-          <header className="khf-header">
-            <div className="container row">
-              <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
+<header className="khf-header">
+  <div className="container row">
+    <Link to="#/" className="brand">
+      <span className="logo">KH</span> Kiboga Hill Farm Uganda
+    </Link>
 
-              <nav className="khf-nav" aria-label="Primary">
-                <Link to="#/about">About</Link>
-                <Link to="#/camps">Camps &amp; Farm Visits</Link>
+    <nav className="khf-nav" aria-label="Primary">
+      <Link to="#/about"     className={route==='about'     ? 'active' : ''}>About</Link>
+      <Link to="#/camps"     className={route==='camps'     ? 'active' : ''}>Camps & Farm Visits</Link>
 
-                <details>
-                  <summary>Core Services ▾</summary>
-                  <div className="menu" role="menu">
-                    <div className="menu-label">Livestock &amp; Crops</div>
-                    <Link to="#/products" role="menuitem">All Livestock &amp; Crops</Link>
+      <details open={['products','services','advisory'].includes(route)}>
+        <summary className={['products','services','advisory'].includes(route) ? 'active' : ''}>
+          Core Services ▾
+        </summary>
+        <div className="menu" role="menu">
+          <div className="menu-label">Livestock & Crops</div>
+          <Link to="#/products" role="menuitem" className={route==='products' ? 'active' : ''}>
+            All Livestock & Crops
+          </Link>
 
-                    <div className="menu-sep"></div>
+          <div className="menu-sep"></div>
 
-                    {/* Core services */}
-                    <Link to="#/services/sales" role="menuitem">Farm Gate Services</Link>
+          {/* Core services */}
+          <Link to="#/services/sales" role="menuitem"
+                className={route==='services' && sub==='sales' ? 'active' : ''}>
+            Farm Gate Services
+          </Link>
 
-                    <div className="menu-sep"></div>
-                    <div className="menu-label">Advisory</div>
-                    <Link to="#/advisory" role="menuitem">Weather-Smart Advisory</Link>
-                  </div>
-                </details>
+          <div className="menu-sep"></div>
+          <div className="menu-label">Advisory</div>
+          <Link to="#/advisory" role="menuitem" className={route==='advisory' ? 'active' : ''}>
+            Weather-Smart Advisory
+          </Link>
+        </div>
+      </details>
 
-                <Link to="#/family">Family</Link>
-                <Link to="#/advertise">Advertise</Link>
-                <Link to="#/gallery">Gallery</Link>
-                <Link to="#/contact">Contact</Link>
-              </nav>
-            </div>
-          </header>
+      <Link to="#/family"    className={route==='family'    ? 'active' : ''}>Family</Link>
+      <Link to="#/advertise" className={route==='advertise' ? 'active' : ''}>Advertise</Link>
+      <Link to="#/gallery"   className={route==='gallery'   ? 'active' : ''}>Gallery</Link>
+      <Link to="#/contact"   className={route==='contact'   ? 'active' : ''}>Contact</Link>
+    </nav>
+  </div>
+</header>
+
 
           {(!route || route === "") && <Home/>}
           {route === "about" && <About/>}
@@ -1695,6 +1731,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
