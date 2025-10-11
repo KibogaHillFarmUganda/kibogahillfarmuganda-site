@@ -630,7 +630,7 @@
 
 // ---- Weather updates (data unchanged) ----
 // const WEATHER_UPDATES = [ ... ]  <-- keep yours
-// === Advisory (drop-in, paste once) ===
+
 const Advisory = () => {
   const [openId, setOpenId] = React.useState(null);   // which update is expanded
   const [tipsOpen, setTipsOpen] = React.useState({}); // { [id]: true/false }
@@ -641,7 +641,7 @@ const Advisory = () => {
       <div className="container">
         <h2>Weather-Smart Advisory</h2>
         <p className="muted">
-          We translate official weather &amp; climate forecasts into simple actions for crops and livestock.
+          We translate official weather and climate forecasts into simple actions for crops and livestock.
         </p>
 
         {/* ---- Latest Weather Updates ---- */}
@@ -666,7 +666,22 @@ const Advisory = () => {
                       </span>
                     </div>
 
+                    {/* Buttons — reordered */}
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <button
+                        className="btn out"
+                        onClick={() => setOpenId(openId === u.id ? null : u.id)}
+                      >
+                        {openId === u.id ? "Hide Summary" : "Read Summary"}
+                      </button>
+
+                      <button
+                        className="btn out"
+                        onClick={() => toggleTips(u.id)}
+                      >
+                        {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
+                      </button>
+
                       <a
                         className="btn"
                         href={u.pdf}
@@ -677,6 +692,7 @@ const Advisory = () => {
                       >
                         View Issued/Signed PDF
                       </a>
+
                       <a
                         className="btn out"
                         href={u.pdf}
@@ -686,18 +702,6 @@ const Advisory = () => {
                       >
                         Download
                       </a>
-                      <button
-                        className="btn out"
-                        onClick={() => setOpenId(openId === u.id ? null : u.id)}
-                      >
-                        {openId === u.id ? "Hide Summary" : "Read Summary"}
-                      </button>
-                      <button
-                        className="btn out"
-                        onClick={() => toggleTips(u.id)}
-                      >
-                        {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
-                      </button>
                     </div>
                   </div>
 
@@ -798,6 +802,7 @@ const Advisory = () => {
     </section>
   );
 };
+
 
     /* -------- Email helpers -------- */
     const EMAIL_PRIMARY = "info@kibogahillfarmuganda.co.ug";
@@ -1677,6 +1682,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
