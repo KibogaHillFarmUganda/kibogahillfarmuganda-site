@@ -744,20 +744,25 @@
               )}
             </div>
 
-            {/* ---- Static advisory tiles ---- */}
-            <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
-              {[
-                { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
-                { title: "Harvest & Post-Harvest", text: "When to harvest; dry-spell & rain-risk timing for safe drying and storage plans." },
-                { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease-risk updates." },
-                { title: "Livestock Farm Start", text: "Housing designs, breeding guidance, and health schedules." },
-              ].map(a => (
-                <div key={a.title} className="card">
-                  <b>{a.title}</b>
-                  <p className="muted" style={{ marginTop: 8 }}>{a.text}</p>
-                </div>
-              ))}
-            </div>
+    {/* ---- Decisions made from forecasts ---- */}
+<h3 id="decisions" style={{ marginTop: 22 }}>
+  Decisions made from Weather and Climate forecasts
+</h3>
+
+<div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
+  {[
+    { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
+    { title: "Harvest & Post-Harvest", text: "When to harvest; dry-spell & rain-risk timing for safe drying and storage plans." },
+    { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease-risk updates." },
+    { title: "Livestock Farm Start", text: "Housing designs, breeding guidance, and health schedules." },
+  ].map(a => (
+    <div key={a.title} className="card">
+      <b>{a.title}</b>
+      <p className="muted" style={{ marginTop: 8 }}>{a.text}</p>
+    </div>
+  ))}
+</div>
+
           </div>
         </section>
       );
@@ -1641,6 +1646,7 @@ Date: ${f.sdate}
   </script>
 </body>
 </html>
+
 
 
 
