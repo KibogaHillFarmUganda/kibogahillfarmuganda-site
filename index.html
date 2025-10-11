@@ -6,65 +6,60 @@
   <title>Kiboga Hill Farm Uganda</title>
   <meta name="description" content="Kiboga Hill Farm Uganda – Goats, cattle, bananas & coffee, with climate-smart advisory." />
 
-	  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7B25Y1NGY"></script>
   <script>
     // GA4 base
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
-
     // For single-page apps, we'll send page_view manually
     gtag('js', new Date());
     gtag('config', 'G-C7B25Y1NGY', { send_page_view: false });
   </script>
 
-  <!-- (Your other scripts like Plausible or CSS links come here) -->
-	
-	<meta name="theme-color" content="#10b981">
-<link rel="icon" href="Images/khf-logo.png">
-<link rel="manifest" href="Images/manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <link rel="icon" href="Images/khf-logo.png">
+  <link rel="manifest" href="Images/manifest.json">
 
-<!-- Open Graph / Twitter cards -->
-<meta property="og:title" content="Kiboga Hill Farm Uganda">
-<meta property="og:description" content="Goats, cattle, bananas & coffee — with weather-smart advisory.">
-<meta property="og:image" content="Images/camp-poster.png">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kibogahillfarmuganda.co.ug/">
-<meta name="twitter:card" content="summary_large_image">
+  <!-- Open Graph / Twitter cards -->
+  <meta property="og:title" content="Kiboga Hill Farm Uganda">
+  <meta property="og:description" content="Goats, cattle, bananas & coffee — with weather-smart advisory.">
+  <meta property="og:image" content="Images/camp-poster.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kibogahillfarmuganda.co.ug/">
+  <meta name="twitter:card" content="summary_large_image">
 
-<!-- SEO tags -->
-<meta name="keywords" content="advertise Uganda farm, goats, farming ads Uganda, agriculture marketing, goat and cattle advertising, agri media Uganda, weather-smart advisory, Kiboga Hill Farm advertising">
-<meta name="author" content="Kiboga Hill Farm Uganda">
+  <!-- SEO tags -->
+  <meta name="keywords" content="advertise Uganda farm, goats, farming ads Uganda, agriculture marketing, goat and cattle advertising, agri media Uganda, weather-smart advisory, Kiboga Hill Farm advertising">
+  <meta name="author" content="Kiboga Hill Farm Uganda">
 
+  <!-- LocalBusiness / Farm structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Farm",
+    "name":"Kiboga Hill Farm Uganda",
+    "image":"https://kibogahillfarmuganda.co.ug/Images/khf-logo.png",
+    "telephone":"+256763081880",
+    "email":"info@kibogahillfarmuganda.co.ug",
+    "address":{
+      "@type":"PostalAddress",
+      "addressCountry":"UG",
+      "addressRegion":"Kiboga District",
+      "streetAddress":"3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kyomya S/C"
+    },
+    "geo":{"@type":"GeoCoordinates","latitude":0.716167,"longitude":32.0245},
+    "url":"https://kibogahillfarmuganda.co.ug/",
+    "sameAs":[
+      "https://www.tiktok.com/@kiboga_hill_farm.ug",
+      "https://www.instagram.com/kibogahillfarmuganda/",
+      "https://www.youtube.com/@Kibogahillfarm.ug1",
+      "https://web.facebook.com/profile.php?id=61581757133392"
+    ]
+  }
+  </script>
 
-<!-- LocalBusiness / Farm structured data -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Farm",
-  "name":"Kiboga Hill Farm Uganda",
-  "image":"https://kibogahillfarmuganda.co.ug/Images/khf-logo.png",
-  "telephone":"+256763081880",
-  "email":"info@kibogahillfarmuganda.co.ug",
-  "address":{
-    "@type":"PostalAddress",
-    "addressCountry":"UG",
-    "addressRegion":"Kiboga District",
-    "streetAddress":"3Km from Kikuubo, Bukomero Town Council off Hoima Road, Kyomya S/C"
-  },
-  "geo":{"@type":"GeoCoordinates","latitude":0.716167,"longitude":32.0245},
-  "url":"https://kibogahillfarmuganda.co.ug/",
-  "sameAs":[
-    "https://www.tiktok.com/@kiboga_hill_farm.ug",
-    "https://www.instagram.com/kibogahillfarmuganda/",
-    "https://www.youtube.com/@Kibogahillfarm.ug1",
-    "https://web.facebook.com/profile.php?id=61581757133392"
-  ]
-}
-</script>
-
-	
-	<style>
+  <style>
     :root{ --ink:#1f2937; --muted:#556070; --brand:#10b981; --amber:#f59e0b; --orange:#fb923c; --card:#ffffff; --shadow:0 10px 25px rgba(0,0,0,.08); --r:18px }
     *{box-sizing:border-box}
     body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"}
@@ -84,33 +79,32 @@
     .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
     .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
 
-	/* --- News / Spotlight styles --- */
-.news-spotlight{ 
-  flex:1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px;
-}
-.news-frame{
-  width:clamp(360px,46vw,640px); aspect-ratio:1/1; background:#fff; border-radius:18px;
-  box-shadow:var(--shadow); overflow:hidden; opacity:.001; transform:translateY(8px);
-  transition:opacity .6s ease, transform .6s ease;
-}
-.news-frame.is-ready{ opacity:1; transform:none; }
-.news-caption{ 
-  width:100%; max-width:clamp(360px,46vw,640px); background:#fff; border-radius:16px; 
-  box-shadow:var(--shadow); overflow:hidden; min-height:48px; display:grid; place-items:center;
-}
-.news-caption-line{
-  padding:10px 14px; color:var(--ink); font-weight:600; text-align:center;
-  animation: captionIn .6s ease both;
-}
-@keyframes captionIn{
-  from{ opacity:0; transform:translateY(8px) }
-  to{ opacity:1; transform:none }
-}
-/* respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .news-frame{ transition:none }
-  .news-caption-line{ animation:none }
-}
+    /* --- News / Spotlight styles --- */
+    .news-spotlight{ 
+      flex:1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px;
+    }
+    .news-frame{
+      width:clamp(360px,46vw,640px); aspect-ratio:1/1; background:#fff; border-radius:18px;
+      box-shadow:var(--shadow); overflow:hidden; opacity:.001; transform:translateY(8px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+    .news-frame.is-ready{ opacity:1; transform:none; }
+    .news-caption{ 
+      width:100%; max-width:clamp(360px,46vw,640px); background:#fff; border-radius:16px; 
+      box-shadow:var(--shadow); overflow:hidden; min-height:48px; display:grid; place-items:center;
+    }
+    .news-caption-line{
+      padding:10px 14px; color:var(--ink); font-weight:600; text-align:center;
+      animation: captionIn .6s ease both;
+    }
+    @keyframes captionIn{
+      from{ opacity:0; transform:translateY(8px) }
+      to{ opacity:1; transform:none }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .news-frame{ transition:none }
+      .news-caption-line{ animation:none }
+    }
 
     /* -------- Hero -------- */
     .hero{
@@ -193,27 +187,25 @@
     .khf-nav .menu-sep{height:1px;background:#f1f5f9;margin:6px 4px;border-radius:1px}
     @media (max-width:760px){ .khf-nav{flex-wrap:wrap} }
 
-		/* Center + style the forecast map */
-.forecast-map{
-  display:flex;
-  flex-direction:column;
-  align-items:center;   /* centers image + caption */
-  gap:8px;
-  margin:12px 0;
-}
-.forecast-map img{
-  max-width:100%;
-  height:auto;
-  border-radius:12px;
-  box-shadow: var(--shadow);
-}
-.forecast-map figcaption{ text-align:center; }	
-	
-	</style>
-	
+    /* Center + style the forecast map */
+    .forecast-map{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      margin:12px 0;
+    }
+    .forecast-map img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      box-shadow: var(--shadow);
+    }
+    .forecast-map figcaption{ text-align:center; }
+  </style>
 </head>
 
-	<body>
+<body>
   <a href="#main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
   <div id="root"></div>
 
@@ -221,76 +213,75 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" defer></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" defer></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<!-- Supabase (UMD) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase (UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script type="text/babel" data-presets="env,react">
-
+  <script type="text/babel" data-presets="env,react">
     const { useEffect, useMemo, useState } = React;
 
-	// --- Supabase init (safe offline fallback) ---
-const SUPABASE_URL  = "https://uieqtkdxnuqqvcpkgtiz.supabase.co";
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpZXF0a2R4bnVxcXZjcGtndGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2MDA4MTcsImV4cCI6MjA3NTE3NjgxN30.J5fkqIknkIgVX-As1yZfn1qbH2_vMfRPBhuvC2UxY3Y";
+    // --- Supabase init (safe offline fallback) ---
+    const SUPABASE_URL  = "https://uieqtkdxnuqqvcpkgtiz.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpZXF0a2R4bnVxcXZjcGtndGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2MDA4MTcsImV4cCI6MjA3NTE3NjgxN30.J5fkqIknkIgVX-As1yZfn1qbH2_vMfRPBhuvC2UxY3Y";
 
-function makeNoopSupa() {
-  const offlineErr = { message: "Supabase is not available (CDN offline/blocked)." };
-  return {
-    from() {
+    function makeNoopSupa() {
+      const offlineErr = { message: "Supabase is not available (CDN offline/blocked)." };
       return {
-        insert: async () => ({ error: offlineErr }),
-        select: async () => ({ data: [], error: offlineErr }),
-        order() { return this; }
+        from() {
+          return {
+            insert: async () => ({ error: offlineErr }),
+            select: async () => ({ data: [], error: offlineErr }),
+            order() { return this; }
+          };
+        },
+        auth: {
+          getSession: async () => ({ data: { session: null } }),
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe(){} } } }),
+          signInWithPassword: async () => ({ error: offlineErr }),
+          signOut: async () => ({ error: null }),
+        }
       };
-    },
-    auth: {
-      getSession: async () => ({ data: { session: null } }),
-      onAuthStateChange: () => ({ data: { subscription: { unsubscribe(){} } } }),
-      signInWithPassword: async () => ({ error: offlineErr }),
-      signOut: async () => ({ error: null }),
     }
-  };
-}
 
-let supa = makeNoopSupa();
-if (window.supabase?.createClient) {
-  try { supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON); }
-  catch (e) { console.warn("Supabase init failed; using offline fallback.", e); }
-}
+    let supa = makeNoopSupa();
+    if (window.supabase?.createClient) {
+      try { supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON); }
+      catch (e) { console.warn("Supabase init failed; using offline fallback.", e); }
+    }
 
     /* ---------------- Data ---------------- */
     const Camps = () => (
-  <section className="page" id="camps">
-    <div className="container">
-      <h2>Camps & Farm Visits</h2>
-      <p className="muted">
-        Our farm visits and camps involves hands-on sessions for all our visitors and we highly encourage participation from women, youth, people with special needs and community groups — Yummy goat BBQ,
-        mountain hiking and a campfire are part of unforgottable moments during our camps. We camp in a natural ecosystem with spectacular scenary and freshest air you have never breathed any where in the world.
-      </p>
+      <section className="page" id="camps">
+        <div className="container">
+          <h2>Camps & Farm Visits</h2>
+          <p className="muted">
+            Our farm visits and camps involves hands-on sessions for all our visitors and we highly encourage participation from women, youth, people with special needs and community groups — Yummy goat BBQ,
+            mountain hiking and a campfire are part of unforgottable moments during our camps. We camp in a natural ecosystem with spectacular scenary and freshest air you have never breathed any where in the world.
+          </p>
 
-      <div className="grid cards" style={{gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
-        <div className="card">
-          <b>What to expect</b>
-          <ul className="muted" style={{margin:"8px 0 0 16px"}}>
-            <li>Half-day and full-day training modules</li>
-            <li>Guided walks through farm departments</li>
-            <li>Housing, record-keeping, biosecurity & disease control</li>
-            <li>Special organically grown foods during the visits</li>
-            <li>Fun games and team activities</li>
-			<li>Experience sharing around the campfire</li>
-            <li>Group rates for schools and SACCOs</li>
-          </ul>
-        </div>
+          <div className="grid cards" style={{gridTemplateColumns:"repeat(1,minmax(0,1fr))"}}>
+            <div className="card">
+              <b>What to expect</b>
+              <ul className="muted" style={{margin:"8px 0 0 16px"}}>
+                <li>Half-day and full-day training modules</li>
+                <li>Guided walks through farm departments</li>
+                <li>Housing, record-keeping, biosecurity & disease control</li>
+                <li>Special organically grown foods during the visits</li>
+                <li>Fun games and team activities</li>
+                <li>Experience sharing around the campfire</li>
+                <li>Group rates for schools and SACCOs</li>
+              </ul>
+            </div>
 
-        <div className="card">
-          <b>Book a Visit /or Camp</b>
-          <p className="muted">Call or WhatsApp <a href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">+256 763 081 880</a>.</p>
-          <a className="btn" href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp to Book</a>
+            <div className="card">
+              <b>Book a Visit /or Camp</b>
+              <p className="muted">Call or WhatsApp <a href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">+256 763 081 880</a>.</p>
+              <a className="btn" href="https://wa.me/256763081880" target="_blank" rel="noopener noreferrer">WhatsApp to Book</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-);
-    
+      </section>
+    );
+
     const PRODUCTS = [
       { slug: "goats", icon: "🐐", title: "Goats", desc: "Savanna, Galla, Boer & local Mubende lines for meat and resilience.", details: [
         "Breeding: structured cross-breeding for growth & hardiness",
@@ -324,7 +315,6 @@ if (window.supabase?.createClient) {
         "Bulk discounts for groups (Youth, Women and Persons with Special Needs as well as the Kiboga Hill Farm Family members",
         "Quality assurance and humane standards"
       ]},
-
     ];
 
     /* ---------------- Maps helpers ---------------- */
@@ -369,7 +359,7 @@ if (window.supabase?.createClient) {
 
     /* ---------------- Home ---------------- */
     const Home = () => (
-     <section className="hero">
+      <section className="hero">
         <div className="hero-text">
           <h1>
             Quality.<br />
@@ -388,17 +378,15 @@ if (window.supabase?.createClient) {
               Explore Our Farm
             </a>
             <a href="#/family" className="btn out">
- 			 Join the Family Project
-			</a>
-
+              Join the Family Project
+            </a>
           </div>
         </div>
 
- <div className="hero-image">
-  <NewsSpotlight/>
-</div>
-
-	 </section>
+        <div className="hero-image">
+          <NewsSpotlight/>
+        </div>
+      </section>
     );
 
     /* ---------------- Other Pages ---------------- */
@@ -480,9 +468,9 @@ if (window.supabase?.createClient) {
       return (
         <section className="page" id={`service-${slug}`}>
           <div className="container">
-           <h2 style={{display:"flex", alignItems:"center", gap:10}}>
-  			<span className="icon" aria-hidden>{s.icon}</span>{s.title}
-		   </h2>
+            <h2 style={{display:"flex", alignItems:"center", gap:10}}>
+              <span className="icon" aria-hidden>{s.icon}</span>{s.title}
+            </h2>
 
             <p className="muted" style={{marginTop:8}}>{s.text}</p>
             <ul className="muted" style={{margin: "12px 0 0 18px"}}>
@@ -493,308 +481,320 @@ if (window.supabase?.createClient) {
       );
     };
 
-const Family = () => {
-  // Small helper component for collapsible objective groups
-  const Objective = ({ icon = "🌿", title, items }) => {
-    const prefersOpen = (typeof window !== "undefined" ? window.innerWidth >= 760 : true);
-    const [open, setOpen] = React.useState(prefersOpen);
-    const [hover, setHover] = React.useState(false);
+    const Family = () => {
+      // Small helper component for collapsible objective groups
+      const Objective = ({ icon = "🌿", title, items }) => {
+        const prefersOpen = (typeof window !== "undefined" ? window.innerWidth >= 760 : true);
+        const [open, setOpen] = React.useState(prefersOpen);
+        const [hover, setHover] = React.useState(false);
 
-    const cardStyle = {
-      background: "rgba(255,255,255,.92)",
-      border: "1px solid #e5e7eb",
-      borderRadius: 14,
-      padding: 12,
-      margin: "10px 0",
-      boxShadow: hover ? "0 12px 28px rgba(0,0,0,.10)" : "0 6px 18px rgba(0,0,0,.06)",
-      transform: hover ? "translateY(-1px)" : "none",
-      transition: "box-shadow .25s ease, transform .25s ease, background .25s ease"
-    };
+        const cardStyle = {
+          background: "rgba(255,255,255,.92)",
+          border: "1px solid #e5e7eb",
+          borderRadius: 14,
+          padding: 12,
+          margin: "10px 0",
+          boxShadow: hover ? "0 12px 28px rgba(0,0,0,.10)" : "0 6px 18px rgba(0,0,0,.06)",
+          transform: hover ? "translateY(-1px)" : "none",
+          transition: "box-shadow .25s ease, transform .25s ease, background .25s ease"
+        };
 
-    const sumStyle = {
-      listStyle: "none",
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      gap: 10,
-      fontWeight: 800,
-      color: "#2f7d32",
-      padding: "4px 2px",
-      userSelect: "none"
-    };
+        const sumStyle = {
+          listStyle: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          fontWeight: 800,
+          color: "#2f7d32",
+          padding: "4px 2px",
+          userSelect: "none"
+        };
 
-    return (
-      <details
-        open={open}
-        onToggle={e => setOpen(e.currentTarget.open)}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        style={cardStyle}
-      >
-        <summary style={sumStyle}>
-          <span aria-hidden style={{
-            width: 28, height: 28, borderRadius: 10, display: "grid", placeItems: "center",
-            background: "linear-gradient(135deg,#22c55e,#84cc16)", color: "#fff", fontSize: 16, fontWeight: 900
-          }}>
-            {icon}
-          </span>
-          {title}
-          <span className="muted" style={{ marginLeft: 8, fontWeight: 600, fontSize: 13 }}>
-            {open ? "— tap to collapse" : "— tap to expand"}
-          </span>
-        </summary>
+        return (
+          <details
+            open={open}
+            onToggle={e => setOpen(e.currentTarget.open)}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            style={cardStyle}
+          >
+            <summary style={sumStyle}>
+              <span aria-hidden style={{
+                width: 28, height: 28, borderRadius: 10, display: "grid", placeItems: "center",
+                background: "linear-gradient(135deg,#22c55e,#84cc16)", color: "#fff", fontSize: 16, fontWeight: 900
+              }}>
+                {icon}
+              </span>
+              {title}
+              <span className="muted" style={{ marginLeft: 8, fontWeight: 600, fontSize: 13 }}>
+                {open ? "— tap to collapse" : "— tap to expand"}
+              </span>
+            </summary>
 
-        <ul className="muted" style={{ margin: "8px 0 0 22px" }}>
-          {items.map((p) => <li key={p}>{p}</li>)}
-        </ul>
-      </details>
-    );
-  };
+            <ul className="muted" style={{ margin: "8px 0 0 22px" }}>
+              {items.map((p) => <li key={p}>{p}</li>)}
+            </ul>
+          </details>
+        );
+      };
 
-  return (
-    <section className="page" id="family">
-      <div className="container">
+      return (
+        <section className="page" id="family">
+          <div className="container">
+            {/* Background / Story */}
+            <FamilyBackground />
 
-        {/* Background / Story */}
-        <FamilyBackground />
+            {/* Family Project – goal */}
+            <div
+              style={{
+                background: "linear-gradient(90deg,#34d399,#fbbf24)",
+                padding: "20px 24px",
+                borderRadius: "16px",
+                marginBottom: 20
+              }}
+            >
+              <h2 style={{ margin: 0 }}>Family Project</h2>
+              <p style={{ marginTop: 8 }}>
+                <b>Goal:</b> To support and encourage our high farming passionate and loving
+                members towards starting small but with a future dream of reaping big from
+                Agriculture.
+              </p>
+            </div>
 
-        {/* Family Project – goal */}
-        <div
-          style={{
-            background: "linear-gradient(90deg,#34d399,#fbbf24)",
-            padding: "20px 24px",
-            borderRadius: "16px",
-            marginBottom: 20
-          }}
-        >
-          <h2 style={{ margin: 0 }}>Family Project</h2>
-          <p style={{ marginTop: 8 }}>
-            <b>Goal:</b> To support and encourage our high farming passionate and loving
-            members towards starting small but with a future dream of reaping big from
-            Agriculture.
-          </p>
-        </div>
+            {/* Objectives (collapsible with icons) */}
+            <div
+              style={{
+                background: "linear-gradient(90deg,#34d399,#fbbf24)",
+                padding: "20px 24px",
+                borderRadius: "16px",
+                marginBottom: 20
+              }}
+            >
+              <h2 style={{ marginTop: 0 }}>Family Project Objectives</h2>
 
-        {/* Objectives (collapsible with icons) */}
-        <div
-          style={{
-            background: "linear-gradient(90deg,#34d399,#fbbf24)",
-            padding: "20px 24px",
-            borderRadius: "16px",
-            marginBottom: 20
-          }}
-        >
-          <h2 style={{ marginTop: 0 }}>Family Project Objectives</h2>
+              <Objective
+                icon="✅"
+                title="Jump Start"
+                items={["Dream Big", "Motivate One Another", "Grow Passion", "Learn"]}
+              />
+              <Objective
+                icon="🤝"
+                title="Social Network"
+                items={["Meet and Make many Friends", "Keep True Friends", "Teamwork"]}
+              />
+              <Objective
+                icon="📋"
+                title="Project Management"
+                items={["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"]}
+              />
+              <Objective
+                icon="📈"
+                title="Collective Marketing"
+                items={["Collective Advertising", "Quality Standards & Assurance"]}
+              />
+            </div>
 
-          <Objective
-            icon="✅"
-            title="Jump Start"
-            items={["Dream Big", "Motivate One Another", "Grow Passion", "Learn"]}
-          />
-          <Objective
-            icon="🤝"
-            title="Social Network"
-            items={["Meet and Make many Friends", "Keep True Friends", "Teamwork"]}
-          />
-          <Objective
-            icon="📋"
-            title="Project Management"
-            items={["Choice of Enterprise", "Project Direction", "Collective Decisions", "3-month Camps"]}
-          />
-          <Objective
-            icon="📈"
-            title="Collective Marketing"
-            items={["Collective Advertising", "Quality Standards & Assurance"]}
-          />
-        </div>
-
-        {/* Apply button */}
-        <div style={{ marginTop: 12 }}>
-          <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-/* ---- Weather updates (add new rows over time) ---- */
-	const WEATHER_UPDATES = [
-  {
-    id: "2025-10",
-    title: "Weather Update — October 2025",
-    date: "2025-10-09",
-    summary:
-      "Peak of the SOND 2025 rainy season expected in October. Enhanced rainfall likely over most of Uganda. Areas near Lake Victoria and parts of western, which had intermittent rainfall, are expected to receive enhanced rainfall during October.",
-    pdf: "docs/Weather-Update-October-2025-SIGNED.pdf",
-    image: "Images/updates/oct-2025-rainfall-outlook.png",
-tips: [
-  "Use the current rains to continue planting new crops where fields are ready.",
-  "Practice soil & water conservation (waterways, trenches, contour/grass bands, diversion channels) to reduce floods and water-logging.",
-  "Do early/timely weeding to control fast-growing weeds (nut grass, spear grass, wandering jews, couch grass).",
-  "Stock and apply pesticides prudently (per label/vet/extension advice) due to higher pest & disease pressure (bacterial & fungal).",
-  "Apply fertilizer/manure to sustain soil fertility; watch for leaching/erosion in lowlands and time applications after heavy rain breaks.",
-  "Relocate kraals to raised, fresh ground to reduce foot-rot and infections during muddy conditions.",
-  "Harvest rainwater (tanks/ponds/lined pits) and maintain field drainage to improve water availability and reduce flood damage.",
-  "Plant trees / adopt energy-saving stoves to support agroforestry and reduce fuel costs." // <- delete if you want strictly farm-field only
-]
-
-  }
-  // …next months
-];
-
-
-
-  const Advisory = () => {
-  const [openId, setOpenId] = React.useState(null); // which update is expanded
-  const [tipsOpen, setTipsOpen] = React.useState({}); // { [updateId]: true/false }
-  const toggleTips = (id) => setTipsOpen(prev => ({ ...prev, [id]: !prev[id] }));
-
-  return (
-    <section className="page" id="advisory">
-      <div className="container">
-        <h2>Weather-Smart Advisory</h2>
-        <p className="muted">
-          We use and share with our community members actionable advisories for crop and
-          livestock production, including water-stress and disease-risk management. We
-          translate official weather & climate forecasts into simple actions like when to
-          plant, vaccinate, and manage heat or rainfall. Visit our social channels for tips.
-        </p>
-
-        {/* ---- Latest Weather Updates ---- */}
-        <div className="card" style={{ margin: "18px 0" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            <h3 style={{ margin: 0 }}>Latest Weather Updates</h3>
-            <a className="btn out" href="#/advisory">Refresh</a>
+            {/* Apply button */}
+            <div style={{ marginTop: 12 }}>
+              <a className="btn" href="#/family/join" aria-label="Apply to Family Program">Apply now →</a>
+            </div>
           </div>
+        </section>
+      );
+    };
 
-          {WEATHER_UPDATES.length === 0 ? (
-            <div className="muted" style={{ marginTop: 8 }}>No updates posted yet.</div>
-          ) : (
-            <div className="grid" style={{ marginTop: 12, gap: 12 }}>
-              {WEATHER_UPDATES.map(u => (
-                <article key={u.id} className="card" style={{ padding: 14 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    <div>
-                      <b style={{ display: "block" }}>{u.title}</b>
-                      <span className="muted" style={{ fontSize: 13 }}>
-                        Posted {new Date(u.date).toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" })}
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      <a
-                        className="btn"
-                        href={u.pdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-ga-event="weather_pdf_view"
-                        data-ga-label={u.title}
-                      >
-                        View Issued/Signed PDF
-                      </a>
-                      <a
-                        className="btn out"
-                        href={u.pdf}
-                        download
-                        data-ga-event="weather_pdf_download"
-                        data-ga-label={u.title}
-                      >
-                        Download
-                      </a>
-                      <button
-                        className="btn out"
-                        onClick={() => setOpenId(openId === u.id ? null : u.id)}
-                      >
-                        {openId === u.id ? "Hide Summary" : "Read Summary"}
-                      </button>
-					
-						<button className="btn out" onClick={() => toggleTips(u.id)}>
-  						{tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
-						</button>
+    /* ---- Weather updates (add new rows over time) ---- */
+    const WEATHER_UPDATES = [
+      {
+        id: "2025-10",
+        title: "Weather Update — October 2025",
+        date: "2025-10-09",
+        summary:
+          "Peak of the SOND 2025 rainy season expected in October. Enhanced rainfall likely over most of Uganda. Areas near Lake Victoria and parts of western, which had intermittent rainfall, are expected to receive enhanced rainfall during October.",
+        pdf: "docs/Weather-Update-October-2025-SIGNED.pdf",
+        image: "Images/updates/oct-2025-rainfall-outlook.png",
+        tips: [
+          "Use the current rains to continue planting new crops where fields are ready.",
+          "Practice soil & water conservation (waterways, trenches, contour/grass bands, diversion channels) to reduce floods and water-logging.",
+          "Do early/timely weeding to control fast-growing weeds (nut grass, spear grass, wandering jews, couch grass).",
+          "Stock and apply pesticides prudently (per label/vet/extension advice) due to higher pest & disease pressure (bacterial & fungal).",
+          "Apply fertilizer/manure to sustain soil fertility; watch for leaching/erosion in lowlands and time applications after heavy rain breaks.",
+          "Relocate kraals to raised, fresh ground to reduce foot-rot and infections during muddy conditions.",
+          "Harvest rainwater (tanks/ponds/lined pits) and maintain field drainage to improve water availability and reduce flood damage.",
+          "Plant trees / adopt energy-saving stoves to support agroforestry and reduce fuel costs."
+        ]
+      }
+      // …next months
+    ];
 
-						
-                    </div>
-                  </div>
+    const Advisory = () => {
+      const [openId, setOpenId] = React.useState(null); // which update is expanded
+      const [tipsOpen, setTipsOpen] = React.useState({}); // { [updateId]: true/false }
+      const toggleTips = (id) => setTipsOpen(prev => ({ ...prev, [id]: !prev[id] }));
 
-                  {openId === u.id && (
-                    <div style={{ marginTop: 10 }}>
-                      <p className="muted" style={{ marginTop: 8 }}>{u.summary}</p>
+      return (
+        <section className="page" id="advisory">
+          <div className="container">
+            <h2>Weather-Smart Advisory</h2>
+            <p className="muted">
+              We use and share with our community members actionable advisories for crop and
+              livestock production, including water-stress and disease-risk management. We
+              translate official weather & climate forecasts into simple actions like when to
+              plant, vaccinate, and manage heat or rainfall. Visit our social channels for tips.
+            </p>
 
-                      {u.image && (
-  <figure
-    className="forecast-map"
-    style={{
-      margin: 0,
-      marginTop: 8,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",   // ⬅ centers image + caption
-      gap: 8
-    }}
-  >
-    <img
-      src={u.image}
-      alt={`${u.title} — Rainfall outlook map`}
-      loading="lazy"
-      style={{
-        display: "block",
-        margin: "0 auto",      // ⬅ ensures center if styles change later
-        maxWidth: "100%",
-        height: "auto",
-        borderRadius: 12,
-        boxShadow: "0 8px 24px rgba(0,0,0,.06)"
-      }}
-    />
-    <figcaption className="muted" style={{ fontSize: 12, marginTop: 2, textAlign: "center" }}>
-      October 2025 rainfall outlook map (source: official release).
-    </figcaption>
-  </figure>
-)}
+            {/* ---- Latest Weather Updates ---- */}
+            <div className="card" style={{ margin: "18px 0" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                <h3 style={{ margin: 0 }}>Latest Weather Updates</h3>
+                <a className="btn out" href="#/advisory">Refresh</a>
+              </div>
 
-                      {/* Inline viewer (optional). Comment out if not needed. */}
-                      <details style={{ marginTop: 10 }}>
-                        <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--ink)" }}>
-                          Quick Preview (embedded PDF)
-                        </summary>
-                        <div style={{ position: "relative", width: "100%", paddingBottom: "62%", marginTop: 8, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 24px rgba(0,0,0,.06)" }}>
-                          <iframe
-                            src={u.pdf}
-                            title={`${u.title} — PDF`}
-                            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-                            loading="lazy"
-                          ></iframe>
+              {WEATHER_UPDATES.length === 0 ? (
+                <div className="muted" style={{ marginTop: 8 }}>No updates posted yet.</div>
+              ) : (
+                <div className="grid" style={{ marginTop: 12, gap: 12 }}>
+                  {WEATHER_UPDATES.map(u => (
+                    <article key={u.id} className="card" style={{ padding: 14 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+                        <div>
+                          <b style={{ display: "block" }}>{u.title}</b>
+                          <span className="muted" style={{ fontSize: 13 }}>
+                            Posted {new Date(u.date).toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" })}
+                          </span>
                         </div>
-                      </details>
-                    </div>
-                  )}
-                </article>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          <a
+                            className="btn"
+                            href={u.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-ga-event="weather_pdf_view"
+                            data-ga-label={u.title}
+                          >
+                            View Issued/Signed PDF
+                          </a>
+                          <a
+                            className="btn out"
+                            href={u.pdf}
+                            download
+                            data-ga-event="weather_pdf_download"
+                            data-ga-label={u.title}
+                          >
+                            Download
+                          </a>
+                          <button
+                            className="btn out"
+                            onClick={() => setOpenId(openId === u.id ? null : u.id)}
+                          >
+                            {openId === u.id ? "Hide Summary" : "Read Summary"}
+                          </button>
+                          <button className="btn out" onClick={() => toggleTips(u.id)}>
+                            {tipsOpen[u.id] ? "Hide Tips" : "Farming Tips"}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* OPENED CONTENT */}
+                      {openId === u.id && (
+                        <div style={{ marginTop: 10 }}>
+                          <p className="muted" style={{ marginTop: 8 }}>{u.summary}</p>
+
+                          {u.image && (
+                            <figure
+                              className="forecast-map"
+                              style={{
+                                margin: 0,
+                                marginTop: 8,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                gap: 8
+                              }}
+                            >
+                              <img
+                                src={u.image}
+                                alt={`${u.title} — Rainfall outlook map`}
+                                loading="lazy"
+                                style={{
+                                  display: "block",
+                                  margin: "0 auto",
+                                  maxWidth: "100%",
+                                  height: "auto",
+                                  borderRadius: 12,
+                                  boxShadow: "0 8px 24px rgba(0,0,0,.06)"
+                                }}
+                              />
+                              <figcaption className="muted" style={{ fontSize: 12, marginTop: 2, textAlign: "center" }}>
+                                October 2025 rainfall outlook map (source: official release).
+                              </figcaption>
+                            </figure>
+                          )}
+
+                          {/* TIPS SECTION — now placed correctly here */}
+                          {u.tips && tipsOpen[u.id] && (
+                            <section className="tips" style={{ marginTop: 10 }}>
+                              <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:8 }}>
+                                {["Crops", "Livestock", "Water & Soil", "Post-harvest"].map(lbl => (
+                                  <span key={lbl} className="btn out" style={{ padding:"6px 10px", borderRadius:999, fontWeight:700 }}>
+                                    {lbl}
+                                  </span>
+                                ))}
+                              </div>
+
+                              <div className="tip-card" style={{ background:"#f8fafc", border:"1px solid #e5e7eb", borderRadius:12, padding:12 }}>
+                                <h4 className="tips-title" style={{ margin:"0 0 6px 0" }}>Farming tips from this forecast</h4>
+                                <ul className="tip-list" style={{ margin:"0 0 0 18px" }}>
+                                  {u.tips.map(t => <li key={t} style={{ margin:"6px 0" }}>{t}</li>)}
+                                </ul>
+                              </div>
+                            </section>
+                          )}
+
+                          {/* Inline PDF viewer */}
+                          <details style={{ marginTop: 10 }}>
+                            <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--ink)" }}>
+                              Quick Preview (embedded PDF)
+                            </summary>
+                            <div style={{ position: "relative", width: "100%", paddingBottom: "62%", marginTop: 8, borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 24px rgba(0,0,0,.06)" }}>
+                              <iframe
+                                src={u.pdf}
+                                title={`${u.title} — PDF`}
+                                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                                loading="lazy"
+                              ></iframe>
+                            </div>
+                          </details>
+                        </div>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* ---- Static advisory tiles ---- */}
+            <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
+              {[
+                { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
+                { title: "Harvest & Post-Harvest", text: "When to harvest; dry-spell & rain-risk timing for safe drying and storage plans." },
+                { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease-risk updates." },
+                { title: "Livestock Farm Start", text: "Housing designs, breeding guidance, and health schedules." },
+              ].map(a => (
+                <div key={a.title} className="card">
+                  <b>{a.title}</b>
+                  <p className="muted" style={{ marginTop: 8 }}>{a.text}</p>
+                </div>
               ))}
             </div>
-          )}
-        </div>
-
-        {/* ---- Your existing advisory tiles ---- */}
-        <div className="grid cards" style={{ gridTemplateColumns: "repeat(1,minmax(0,1fr))" }}>
-          {[
-            { title: "Crop Care", text: "When to plant, weed, irrigate, apply fertilizers, and harvest." },
-            { title: "Harvest & Post-Harvest", text: "When to harvest; dry-spell & rain-risk timing for safe drying and storage plans." },
-            { title: "Livestock Care", text: "Heat-stress alerts, water plans, and disease-risk updates." },
-            { title: "Livestock Farm Start", text: "Housing designs, breeding guidance, and health schedules." },
-          ].map(a => (
-            <div key={a.title} className="card">
-              <b>{a.title}</b>
-              <p className="muted" style={{ marginTop: 8 }}>{a.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+          </div>
+        </section>
+      );
+    };
 
     /* -------- Email helpers -------- */
     const EMAIL_PRIMARY = "info@kibogahillfarmuganda.co.ug";
-    const MAIL_SUBJECT  = encodeURIComponent("Inquiry from Kiboga Hill Farm website");
-    const MAIL_BODY     = encodeURIComponent("Hello Kiboga Hill Farm team,\n\nI’d like to ask about …\n\nThanks,");
 
     /* ---------------- Contact ---------------- */
     const Contact = () => {
@@ -812,12 +812,11 @@ tips: [
 
               <div className="card">
                 <b>Email</b>
-				  <p><a href={`mailto:${EMAIL_PRIMARY}`}>{EMAIL_PRIMARY}</a></p>
-				  <a className="btn"
-   				  href={`mailto:${EMAIL_PRIMARY}?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____`}>
-  					Email Us
-				</a>
-
+                <p><a href={`mailto:${EMAIL_PRIMARY}`}>{EMAIL_PRIMARY}</a></p>
+                <a className="btn"
+                  href={`mailto:${EMAIL_PRIMARY}?subject=Hello%20Kiboga%20Hill%20Farm&body=Hi%20KHF%20Team,%0A%0AMy%20name%20is%20____.%20I%27m%20interested%20in%20____.%0A%0ARegards,%0A____`}>
+                  Email Us
+                </a>
               </div>
 
               <div className="card">
@@ -861,7 +860,7 @@ tips: [
             </div>
           </div>
         </section>
-       );
+      );
     };
 
     /* ---------------- Family Application ---------------- */
@@ -1152,387 +1151,369 @@ Date: ${f.sdate}
       );
     };
 
-	// ---- 
-	// put this anywhere above Advertise (e.g., near other small components)
-const AdBanner = ({ src, href = "#", alt = "Sponsor" }) => (
-  <div style={{ textAlign:"center", margin:"16px 0" }}>
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      <img src={src} alt={alt} style={{ maxWidth:"100%", height:"auto", borderRadius:12, boxShadow:"0 8px 24px rgba(0,0,0,.08)" }} />
-    </a>
-  </div>
-);
-
-// ----Advertize (updated)-----
-const Advertise = () => (
-  <section className="page" id="advertise">
-    <div className="container">
-      <h2>Advertise With Kiboga Hill Farm Uganda</h2>
-      <p className="muted">
-        Advertise with Kiboga Hill Farm Uganda — the leading online farm and climate-smart
-        advisory platform reaching farmers, livestock traders, youth and agri-professionals
-        across Uganda and East Africa.
-      </p>
-
-      <h3>Why Advertise With Us?</h3>
-      <ul>
-        <li>Targeted reach in the agriculture and climate-smart community</li>
-        <li>Affordable local rates and flexible packages</li>
-        <li>Multi-channel visibility — web, TikTok, and WhatsApp groups</li>
-      </ul>
-
-      {/* === Live Demo (Preview) of Ad Slots === */}
-      <h3 style={{marginTop:16}}>Live Demo (Preview)</h3>
-      <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center",marginTop:10}}>
-        {/* Homepage Banner preview */}
-        <a href="#" aria-label="Homepage Banner preview"
-           style={{borderRadius:12,overflow:"hidden",boxShadow:"0 10px 25px rgba(0,0,0,.10)"}}>
-          {/* Use an existing image so it never 404s */}
-          <img src="Images/camp-poster.png" alt="Homepage Banner — sample ad"
-               width="728" height="90" loading="lazy" decoding="async"
-               style={{display:"block",maxWidth:"100%",height:"auto"}}/>
-        </a>
-
-        {/* Sidebar Ad preview */}
-        <a href="#" aria-label="Sidebar Ad preview"
-           style={{borderRadius:12,overflow:"hidden",boxShadow:"0 10px 25px rgba(0,0,0,.10)"}}>
-          <img src="Images/khf-logo.png" alt="Sidebar Ad — sample ad"
-               width="300" height="250" loading="lazy" decoding="async"
-               style={{display:"block",maxWidth:"100%",height:"auto"}}/>
+    // Small banner component (currently unused)
+    const AdBanner = ({ src, href = "#", alt = "Sponsor" }) => (
+      <div style={{ textAlign:"center", margin:"16px 0" }}>
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          <img src={src} alt={alt} style={{ maxWidth:"100%", height:"auto", borderRadius:12, boxShadow:"0 8px 24px rgba(0,0,0,.08)" }} />
         </a>
       </div>
+    );
 
-      <h3 style={{marginTop:22}}>Available Placements</h3>
-      <table className="muted" style={{width:"100%",maxWidth:720}}>
-        <thead>
-          <tr><th>Placement</th><th>Description</th><th>Rate (UGX)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Homepage Banner</td><td>Top of all pages</td><td>150,000</td></tr>
-          <tr><td>Sidebar Ad</td><td>Visible on all pages</td><td>100,000</td></tr>
-          <tr><td>Footer Logo</td><td>Sitewide</td><td>80,000</td></tr>
-        </tbody>
-      </table>
+    // ---- Advertise (updated) ----
+    const Advertise = () => (
+      <section className="page" id="advertise">
+        <div className="container">
+          <h2>Advertise With Kiboga Hill Farm Uganda</h2>
+          <p className="muted">
+            Advertise with Kiboga Hill Farm Uganda — the leading online farm and climate-smart
+            advisory platform reaching farmers, livestock traders, youth and agri-professionals
+            across Uganda and East Africa.
+          </p>
 
-      <h3 style={{marginTop:22}}>Contact Us</h3>
-      <p>Email: <a href="mailto:info@kibogahillfarmuganda.co.ug">info@kibogahillfarmuganda.co.ug</a></p>
-      <p>Phone / WhatsApp: +256 763 081 880</p>
+          <h3>Why Advertise With Us?</h3>
+          <ul>
+            <li>Targeted reach in the agriculture and climate-smart community</li>
+            <li>Affordable local rates and flexible packages</li>
+            <li>Multi-channel visibility — web, TikTok, and WhatsApp groups</li>
+          </ul>
 
-      {/* Media Kit + Partner CTA */}
-      <div style={{display:"flex",gap:10,flexWrap:"wrap",marginTop:10}}>
-        <a
-          className="btn"
-          href="Images/KHFU-Media-Kit-2025.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Download Media Kit (PDF)
-        </a>
+          {/* === Live Demo (Preview) of Ad Slots === */}
+          <h3 style={{marginTop:16}}>Live Demo (Preview)</h3>
+          <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center",marginTop:10}}>
+            {/* Homepage Banner preview */}
+            <a href="#" aria-label="Homepage Banner preview"
+               style={{borderRadius:12,overflow:"hidden",boxShadow:"0 10px 25px rgba(0,0,0,.10)"}}>
+              <img src="Images/camp-poster.png" alt="Homepage Banner — sample ad"
+                   width="728" height="90" loading="lazy" decoding="async"
+                   style={{display:"block",maxWidth:"100%",height:"auto"}}/>
+            </a>
 
-        <a
-          className="btn"
-          href={`mailto:info@kibogahillfarmuganda.co.ug?subject=${encodeURIComponent("Advertising Inquiry - Kiboga Hill Farm")}&body=${encodeURIComponent("Hello KHFU team,\n\nWe'd like to advertise on your website. Please share available slots and payment options.\n\nRegards,\n")}`}
-          aria-label="Start an advertising inquiry by email"
-        >
-          Partner With Us →
-        </a>
-      </div>
-    </div>
-  </section>
-);
+            {/* Sidebar Ad preview */}
+            <a href="#" aria-label="Sidebar Ad preview"
+               style={{borderRadius:12,overflow:"hidden",boxShadow:"0 10px 25px rgba(0,0,0,.10)"}}>
+              <img src="Images/khf-logo.png" alt="Sidebar Ad — sample ad"
+                   width="300" height="250" loading="lazy" decoding="async"
+                   style={{display:"block",maxWidth:"100%",height:"auto"}}/>
+            </a>
+          </div>
 
+          <h3 style={{marginTop:22}}>Available Placements</h3>
+          <table className="muted" style={{width:"100%",maxWidth:720}}>
+            <thead>
+              <tr><th>Placement</th><th>Description</th><th>Rate (UGX)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Homepage Banner</td><td>Top of all pages</td><td>150,000</td></tr>
+              <tr><td>Sidebar Ad</td><td>Visible on all pages</td><td>100,000</td></tr>
+              <tr><td>Footer Logo</td><td>Sitewide</td><td>80,000</td></tr>
+            </tbody>
+          </table>
 
-	
-// --- Gallery: Farm Photos (thumbs in /Images/thumbs) ---
-const Gallery = () => {
-  // Keep base names EXACTLY as your files are named
-  const photos = [
-    { base: "Coffee_Spread",  cap: "Coffee spread" },
-    { base: "Education_Tours",cap: "Education tours" },
-    { base: "Faithwithbby",   cap: "Faith with baby goat" },
-    { base: "First_Camp",     cap: "First camp highlights" },
-    { base: "Goats_Rest",     cap: "Goats at rest" },
-    { base: "Goats_sold",     cap: "Farm-gate goat sales" },
-    { base: "Mtn_Hiking",     cap: "Mountain hiking" },
-    { base: "camp-poster",    cap: "Camp poster" },
-  ];
+          <h3 style={{marginTop:22}}>Contact Us</h3>
+          <p>Email: <a href="mailto:info@kibogahillfarmuganda.co.ug">info@kibogahillfarmuganda.co.ug</a></p>
+          <p>Phone / WhatsApp: +256 763 081 880</p>
 
-  // Progressive image with fallback chain (unchanged)
-  const SmartImg = ({ srcs, alt }) => {
-    const [i, setI] = React.useState(0);
-    const [hide, setHide] = React.useState(false);
-    if (hide) return null;
-    const onError = () => (i < srcs.length - 1 ? setI(i + 1) : setHide(true));
-    const onLoad  = (e) => e.currentTarget.classList.add("img-loaded");
-    return <img src={srcs[i]} alt={alt} loading="lazy" decoding="async" onError={onError} onLoad={onLoad} />;
-  };
+          {/* Media Kit + Partner CTA */}
+          <div style={{display:"flex",gap:10,flexWrap:"wrap",marginTop:10}}>
+            <a
+              className="btn"
+              href="Images/KHFU-Media-Kit-2025.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download Media Kit (PDF)
+            </a>
 
-  // --- Lightbox state (index of selected photo, or -1 when closed) ---
-  const [idx, setIdx] = React.useState(-1);
-  const isOpen = idx >= 0;
-
-  const open = (i) => setIdx(i);
-  const close = () => setIdx(-1);
-
-  const next = React.useCallback(() => {
-    setIdx((i) => (i + 1) % photos.length);
-  }, [photos.length]);
-
-  const prev = React.useCallback(() => {
-    setIdx((i) => (i - 1 + photos.length) % photos.length);
-  }, [photos.length]);
-
-  // Keyboard handlers: Esc to close, ArrowLeft/Right to navigate
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowRight") next();
-      else if (e.key === "ArrowLeft") prev();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [isOpen, next, prev]);
-
-  return (
-    <section className="page" id="gallery">
-      <div className="container">
-        <h2>Farm Photos</h2>
-        <p className="muted">A look into daily life at Kiboga Hill Farm Uganda.</p>
-
-        <div className="gallery-grid">
-          {photos.map(({ base, cap }, i) => {
-            const thumb520   = `Images/thumbs/${base}-520.webp`;
-            const large1040  = `Images/thumbs/${base}-1040.webp`;
-            const fallbackJpg= `Images/${base}.jpg`;
-            const fallbackPng= `Images/${base}.png`;
-
-            return (
-              <figure key={base} className="gallery-tile" onClick={() => open(i)} style={{cursor:"zoom-in"}}>
-                <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} width={260} height={200} />
-                <figcaption className="gallery-caption">{cap}</figcaption>
-              </figure>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ---- Lightbox overlay with arrows ---- */}
-      {isOpen && (
-        <div
-          onClick={close}
-          style={{
-            position:"fixed", inset:0, background:"rgba(0,0,0,.86)",
-            display:"flex", alignItems:"center", justifyContent:"center",
-            zIndex:60, padding:"24px", cursor:"zoom-out"
-          }}
-          aria-modal="true" role="dialog"
-        >
-          {/* inner container to stop propagation */}
-          <div onClick={(e)=>e.stopPropagation()} style={{position:"relative", maxWidth:"96vw", textAlign:"center", cursor:"default"}}>
-            <img
-              src={`Images/thumbs/${photos[idx].base}-1040.webp`}
-              alt={photos[idx].cap}
-              style={{
-                maxWidth:"92vw", maxHeight:"80vh",
-                borderRadius:12, boxShadow:"0 20px 60px rgba(0,0,0,.45)"
-              }}
-            />
-            <div style={{ color:"#fff", marginTop:10, fontWeight:600 }}>{photos[idx].cap}</div>
-
-            {/* Prev / Next buttons */}
-            <button
-              onClick={prev}
-              aria-label="Previous photo"
-              style={{
-                position:"absolute", left:-8, top:"50%", transform:"translateY(-50%)",
-                background:"rgba(255,255,255,.14)", color:"#fff",
-                border:"0", borderRadius:12, padding:"10px 12px", fontSize:20, fontWeight:900, cursor:"pointer"
-              }}
-            >‹</button>
-
-            <button
-              onClick={next}
-              aria-label="Next photo"
-              style={{
-                position:"absolute", right:-8, top:"50%", transform:"translateY(-50%)",
-                background:"rgba(255,255,255,.14)", color:"#fff",
-                border:"0", borderRadius:12, padding:"10px 12px", fontSize:20, fontWeight:900, cursor:"pointer"
-              }}
-            >›</button>
-
-            {/* Close (X) */}
-            <button
-              onClick={close}
-              aria-label="Close"
-              style={{
-                position:"absolute", top:-8, right:-8,
-                background:"rgba(255,255,255,.14)", color:"#fff",
-                border:"0", borderRadius:12, padding:"8px 10px", fontWeight:900, cursor:"pointer"
-              }}
-            >✕</button>
+            <a
+              className="btn"
+              href={`mailto:info@kibogahillfarmuganda.co.ug?subject=${encodeURIComponent("Advertising Inquiry - Kiboga Hill Farm")}&body=${encodeURIComponent("Hello KHFU team,\n\nWe'd like to advertise on your website. Please share available slots and payment options.\n\nRegards,\n")}`}
+              aria-label="Start an advertising inquiry by email"
+            >
+              Partner With Us →
+            </a>
           </div>
         </div>
-      )}
-    </section>
-  );
-};
-
-
-
-	function CampLogoBadge(){
-  return (
-    <div style={{position:"absolute",left:0,right:0,top:10,display:"grid",justifyItems:"center",zIndex:4,pointerEvents:"none"}}>
-      <div style={{display:"grid",gridTemplateRows:"auto auto",justifyItems:"center",gap:8}}>
-        <div style={{width:108,height:108,borderRadius:"999px",display:"grid",placeItems:"center",background:"#fff",boxShadow:"0 10px 25px rgba(0,0,0,.08)",position:"relative",overflow:"hidden"}}>
-          <picture>
-            <source type="image/webp" srcSet="Images/khf-logo.webp" />
-            <img
-              src="Images/khf-logo.png"
-              onError={(e)=>{ e.currentTarget.src="Images/khf-logo.PNG"; }}
-              alt="Kiboga Hill Farm logo"
-              width="72" height="72" loading="lazy" decoding="async"
-            />
-          </picture>
-          <span style={{position:"absolute",bottom:-6,right:-6,background:"linear-gradient(135deg,#10b981,#84cc16)",color:"#fff",fontWeight:900,fontSize:12,padding:"6px 10px",borderRadius:999,boxShadow:"0 10px 25px rgba(0,0,0,.08)"}}>
-            Nov 29–30
-          </span>
-        </div>
-        <div style={{fontSize:".95rem",color:"var(--ink)",textAlign:"center"}}>What we have at Kiboga Hill Farm.</div>
-      </div>
-    </div>
-  );
-}
-// --- News / Spotlight (one-at-a-time, ~20s, with animated caption) ---
-function NewsSpotlight(){
-  // Order matters: logo first, then other news images
-  const items = [
-    {
-      srcs: ["Images/khf-logo.webp","Images/khf-logo.png","Images/khf-logo.PNG"],
-      alt: "Kiboga Hill Farm — Company Logo",
-      caption: "Kiboga Hill Farm Uganda — official updates & announcements",
-    },
-    {
-      srcs: ["Images/camp-poster.avif","Images/camp-poster.webp","Images/camp-poster.png"],
-      alt: "Kiboga Hill Farm Camp",
-      caption: "November Camp: training, goat choma, campfire & networking",
-    },
-    // add more items here later…
-  ];
-
-  // simple fallback-through <img> (avoids broken sources)
-  const SmartImg = ({ srcs, alt, onLoad }) => {
-    const [i, setI] = React.useState(0);
-    const [hide, setHide] = React.useState(false);
-    if (hide) return null;
-    return (
-      <img
-        src={srcs[i]}
-        alt={alt}
-        onError={() => (i < srcs.length - 1 ? setI(i+1) : setHide(true))}
-        onLoad={onLoad}
-        loading="eager"
-        decoding="async"
-        width={640}
-		height={640}
-		style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }}
-
-      />
+      </section>
     );
-  };
 
-  const [idx, setIdx] = React.useState(0);
-  const [ready, setReady] = React.useState(false);
+    // --- Gallery: Farm Photos ---
+    const Gallery = () => {
+      const photos = [
+        { base: "Coffee_Spread",  cap: "Coffee spread" },
+        { base: "Education_Tours",cap: "Education tours" },
+        { base: "Faithwithbby",   cap: "Faith with baby goat" },
+        { base: "First_Camp",     cap: "First camp highlights" },
+        { base: "Goats_Rest",     cap: "Goats at rest" },
+        { base: "Goats_sold",     cap: "Farm-gate goat sales" },
+        { base: "Mtn_Hiking",     cap: "Mountain hiking" },
+        { base: "camp-poster",    cap: "Camp poster" },
+      ];
 
-  // rotate every ~3s, pause on hover via a flag
-  const [paused, setPaused] = React.useState(false);
-  React.useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setIdx(i => (i + 1) % items.length), 3000);
-    return () => clearInterval(t);
-  }, [paused, items.length]);
+      const SmartImg = ({ srcs, alt }) => {
+        const [i, setI] = React.useState(0);
+        const [hide, setHide] = React.useState(false);
+        if (hide) return null;
+        const onError = () => (i < srcs.length - 1 ? setI(i + 1) : setHide(true));
+        const onLoad  = (e) => e.currentTarget.classList.add("img-loaded");
+        return <img src={srcs[i]} alt={alt} loading="lazy" decoding="async" onError={onError} onLoad={onLoad} />;
+      };
 
-  const it = items[idx];
+      const [idx, setIdx] = React.useState(-1);
+      const isOpen = idx >= 0;
 
-  return (
-    <div className="news-spotlight"
-         onMouseEnter={() => setPaused(true)}
-         onMouseLeave={() => setPaused(false)}>
+      const open = (i) => setIdx(i);
+      const close = () => setIdx(-1);
 
-      <div className={`news-frame ${ready ? "is-ready":""}`}>
-        <SmartImg srcs={it.srcs} alt={it.alt} onLoad={() => setReady(true)} />
+      const next = React.useCallback(() => {
+        setIdx((i) => (i + 1) % photos.length);
+      }, [photos.length]);
+
+      const prev = React.useCallback(() => {
+        setIdx((i) => (i - 1 + photos.length) % photos.length);
+      }, [photos.length]);
+
+      React.useEffect(() => {
+        if (!isOpen) return;
+        const onKey = (e) => {
+          if (e.key === "Escape") close();
+          else if (e.key === "ArrowRight") next();
+          else if (e.key === "ArrowLeft") prev();
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+      }, [isOpen, next, prev]);
+
+      return (
+        <section className="page" id="gallery">
+          <div className="container">
+            <h2>Farm Photos</h2>
+            <p className="muted">A look into daily life at Kiboga Hill Farm Uganda.</p>
+
+            <div className="gallery-grid">
+              {photos.map(({ base, cap }, i) => {
+                const thumb520   = `Images/thumbs/${base}-520.webp`;
+                const fallbackJpg= `Images/${base}.jpg`;
+                const fallbackPng= `Images/${base}.png`;
+
+                return (
+                  <figure key={base} className="gallery-tile" onClick={() => open(i)} style={{cursor:"zoom-in"}}>
+                    <SmartImg srcs={[thumb520, fallbackJpg, fallbackPng]} alt={cap} width={260} height={200} />
+                    <figcaption className="gallery-caption">{cap}</figcaption>
+                  </figure>
+                );
+              })}
+            </div>
+          </div>
+
+          {isOpen && (
+            <div
+              onClick={close}
+              style={{
+                position:"fixed", inset:0, background:"rgba(0,0,0,.86)",
+                display:"flex", alignItems:"center", justifyContent:"center",
+                zIndex:60, padding:"24px", cursor:"zoom-out"
+              }}
+              aria-modal="true" role="dialog"
+            >
+              <div onClick={(e)=>e.stopPropagation()} style={{position:"relative", maxWidth:"96vw", textAlign:"center", cursor:"default"}}>
+                <img
+                  src={`Images/thumbs/${photos[idx].base}-1040.webp`}
+                  alt={photos[idx].cap}
+                  style={{
+                    maxWidth:"92vw", maxHeight:"80vh",
+                    borderRadius:12, boxShadow:"0 20px 60px rgba(0,0,0,.45)"
+                  }}
+                />
+                <div style={{ color:"#fff", marginTop:10, fontWeight:600 }}>{photos[idx].cap}</div>
+
+                <button
+                  onClick={prev}
+                  aria-label="Previous photo"
+                  style={{
+                    position:"absolute", left:-8, top:"50%", transform:"translateY(-50%)",
+                    background:"rgba(255,255,255,.14)", color:"#fff",
+                    border:"0", borderRadius:12, padding:"10px 12px", fontSize:20, fontWeight:900, cursor:"pointer"
+                  }}
+                >‹</button>
+
+                <button
+                  onClick={next}
+                  aria-label="Next photo"
+                  style={{
+                    position:"absolute", right:-8, top:"50%", transform:"translateY(-50%)",
+                    background:"rgba(255,255,255,.14)", color:"#fff",
+                    border:"0", borderRadius:12, padding:"10px 12px", fontSize:20, fontWeight:900, cursor:"pointer"
+                  }}
+                >›</button>
+
+                <button
+                  onClick={close}
+                  aria-label="Close"
+                  style={{
+                    position:"absolute", top:-8, right:-8,
+                    background:"rgba(255,255,255,.14)", color:"#fff",
+                    border:"0", borderRadius:12, padding:"8px 10px", fontWeight:900, cursor:"pointer"
+                  }}
+                >✕</button>
+              </div>
+            </div>
+          )}
+        </section>
+      );
+    };
+
+    function CampLogoBadge(){
+      return (
+        <div style={{position:"absolute",left:0,right:0,top:10,display:"grid",justifyItems:"center",zIndex:4,pointerEvents:"none"}}>
+          <div style={{display:"grid",gridTemplateRows:"auto auto",justifyItems:"center",gap:8}}>
+            <div style={{width:108,height:108,borderRadius:"999px",display:"grid",placeItems:"center",background:"#fff",boxShadow:"0 10px 25px rgba(0,0,0,.08)",position:"relative",overflow:"hidden"}}>
+              <picture>
+                <source type="image/webp" srcSet="Images/khf-logo.webp" />
+                <img
+                  src="Images/khf-logo.png"
+                  onError={(e)=>{ e.currentTarget.src="Images/khf-logo.PNG"; }}
+                  alt="Kiboga Hill Farm logo"
+                  width="72" height="72" loading="lazy" decoding="async"
+                />
+              </picture>
+              <span style={{position:"absolute",bottom:-6,right:-6,background:"linear-gradient(135deg,#10b981,#84cc16)",color:"#fff",fontWeight:900,fontSize:12,padding:"6px 10px",borderRadius:999,boxShadow:"0 10px 25px rgba(0,0,0,.08)"}}>
+                Nov 29–30
+              </span>
+            </div>
+            <div style={{fontSize:".95rem",color:"var(--ink)",textAlign:"center"}}>What we have at Kiboga Hill Farm.</div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- News / Spotlight ---
+    function NewsSpotlight(){
+      const items = [
+        {
+          srcs: ["Images/khf-logo.webp","Images/khf-logo.png","Images/khf-logo.PNG"],
+          alt: "Kiboga Hill Farm — Company Logo",
+          caption: "Kiboga Hill Farm Uganda — official updates & announcements",
+        },
+        {
+          srcs: ["Images/camp-poster.avif","Images/camp-poster.webp","Images/camp-poster.png"],
+          alt: "Kiboga Hill Farm Camp",
+          caption: "November Camp: training, goat choma, campfire & networking",
+        },
+      ];
+
+      const SmartImg = ({ srcs, alt, onLoad }) => {
+        const [i, setI] = React.useState(0);
+        const [hide, setHide] = React.useState(false);
+        if (hide) return null;
+        return (
+          <img
+            src={srcs[i]}
+            alt={alt}
+            onError={() => (i < srcs.length - 1 ? setI(i+1) : setHide(true))}
+            onLoad={onLoad}
+            loading="eager"
+            decoding="async"
+            width={640}
+            height={640}
+            style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }}
+          />
+        );
+      };
+
+      const [idx, setIdx] = React.useState(0);
+      const [ready, setReady] = React.useState(false);
+
+      const [paused, setPaused] = React.useState(false);
+      React.useEffect(() => {
+        if (paused) return;
+        const t = setInterval(() => setIdx(i => (i + 1) % items.length), 3000);
+        return () => clearInterval(t);
+      }, [paused, items.length]);
+
+      const it = items[idx];
+
+      return (
+        <div className="news-spotlight"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}>
+
+          <div className={`news-frame ${ready ? "is-ready":""}`}>
+            <SmartImg srcs={it.srcs} alt={it.alt} onLoad={() => setReady(true)} />
+          </div>
+
+          <div className="news-caption" aria-live="polite">
+            <div key={idx} className="news-caption-line">{it.caption}</div>
+          </div>
+        </div>
+      );
+    }
+
+    // === Family Background ===
+    const FamilyBackground = () => (
+      <div
+        style={{
+          background: "linear-gradient(90deg,#d1fae5,#fef3c7)",
+          padding: "22px 24px",
+          borderRadius: "16px",
+          marginBottom: 20,
+          boxShadow: "0 10px 25px rgba(0,0,0,.06)"
+        }}
+      >
+        <h2 style={{ margin: 0 }}>Background to Kiboga Hill Farm Family</h2>
+        <p className="muted" style={{ marginTop: 10 }}>
+          The <b>Kiboga Hill Farm Family</b> began in <b>February 2025</b> from TikTok Lives,
+          where interested viewers shared WhatsApp numbers to join our group. As of
+          <b> 8 October 2025</b> we are <b>85</b> voluntary members. We’ll keep the door open
+          until we reach <b>100</b> highly active members aligned to our routine programs.
+          After 100, new admissions will prioritize owners of large farm enterprises,
+          agricultural professionals, and veterinary experts.
+        </p>
+
+        <h3 style={{ margin: "16px 0 8px" }}>Family Project Vision</h3>
+        <p className="muted">
+          Our goal is a jointly owned project where members contribute equally and
+          share equal rights. In <b>April 2025</b>, members began buying <b>goats</b> and
+          <b> cattle</b> managed at Kiboga Hill Farm. <b>Princess Sharifah</b> bought the
+          first goat and mobilized friends—<b>SwtRema</b>, <b>Tricia Tricia</b>, <b>Faluwa</b>.
+          Another circle by <b>Tracy United</b> with <b>Agie Amazing</b> and <b>Lilly Nshuti</b>
+          contributed monthly. Animals were selected over WhatsApp video calls.
+          In <b>June 2025</b> we paused individual purchases to draft SOPs.
+        </p>
+
+        <h3 style={{ margin: "16px 0 8px" }}>Launch of the Family Project</h3>
+        <p className="muted">
+          On <b>7 July 2025</b>, <b>Bruno Ahimbisibwe (BRUMAX UG)</b> proposed immediately
+          starting the project to reduce member uncertainty. Members agreed to begin
+          from <b>September–December 2025</b> with a monthly contribution of
+          <b> UGX 50,000</b>. Funds are invested (goats, cattle, poultry, or other) by
+          majority decision. After sales, proceeds are shared equally among
+          contributors.
+        </p>
+
+        <h3 style={{ margin: "16px 0 8px" }}>Accountability & Participation</h3>
+        <p className="muted">
+          We camp at the farm <b>every three months</b> to review progress and solve
+          challenges. Anyone can join the Family; to join the <b>Family Project</b> you
+          sign a membership form and provide a <b>next of kin</b>.
+        </p>
+
+        <h3 style={{ margin: "16px 0 8px" }}>Interim Committee (Jun–Dec 2025)</h3>
+        <ul className="muted" style={{ margin: "8px 0 0 18px" }}>
+          <li><b>Chairperson:</b> Mr. Kalema Abubakar (Kiboga Hill Farm Uganda)</li>
+          <li><b>Vice Chairperson:</b> Mr. Derek Danielz</li>
+          <li><b>General Secretary:</b> Ms. Suzie Savior</li>
+          <li><b>Publicity:</b> Sky Rich &amp; Princess Sharifah</li>
+          <li><b>Mobilizers / Disciplinary:</b> Dota wa Kiboga, Swt Rema,
+              Tricia Tricia, Tracy United, Amutex, Fr. Ignatius (Ewacu Heza)
+          </li>
+        </ul>
+        <p className="muted" style={{ marginTop: 8 }}>
+          Elections for the next term will be held in <b>December 2025</b> for
+          <b> January–December 2026</b>.
+        </p>
       </div>
-
-      <div className="news-caption" aria-live="polite">
-        <div key={idx} className="news-caption-line">{it.caption}</div>
-      </div>
-    </div>
-  );
-}
-// === Family Background (place above function App) ===
-const FamilyBackground = () => (
-  <div
-    style={{
-      background: "linear-gradient(90deg,#d1fae5,#fef3c7)",
-      padding: "22px 24px",
-      borderRadius: "16px",
-      marginBottom: 20,
-      boxShadow: "0 10px 25px rgba(0,0,0,.06)"
-    }}
-  >
-    <h2 style={{ margin: 0 }}>Background to Kiboga Hill Farm Family</h2>
-    <p className="muted" style={{ marginTop: 10 }}>
-      The <b>Kiboga Hill Farm Family</b> began in <b>February 2025</b> from TikTok Lives,
-      where interested viewers shared WhatsApp numbers to join our group. As of
-      <b> 8 October 2025</b> we are <b>85</b> voluntary members. We’ll keep the door open
-      until we reach <b>100</b> highly active members aligned to our routine programs.
-      After 100, new admissions will prioritize owners of large farm enterprises,
-      agricultural professionals, and veterinary experts.
-    </p>
-
-    <h3 style={{ margin: "16px 0 8px" }}>Family Project Vision</h3>
-    <p className="muted">
-      Our goal is a jointly owned project where members contribute equally and
-      share equal rights. In <b>April 2025</b>, members began buying <b>goats</b> and
-      <b> cattle</b> managed at Kiboga Hill Farm. <b>Princess Sharifah</b> bought the
-      first goat and mobilized friends—<b>SwtRema</b>, <b>Tricia Tricia</b>, <b>Faluwa</b>.
-      Another circle by <b>Tracy United</b> with <b>Agie Amazing</b> and <b>Lilly Nshuti</b>
-      contributed monthly. Animals were selected over WhatsApp video calls.
-      In <b>June 2025</b> we paused individual purchases to draft SOPs.
-    </p>
-
-    <h3 style={{ margin: "16px 0 8px" }}>Launch of the Family Project</h3>
-    <p className="muted">
-      On <b>7 July 2025</b>, <b>Bruno Ahimbisibwe (BRUMAX UG)</b> proposed immediately
-      starting the project to reduce member uncertainty. Members agreed to begin
-      from <b>September–December 2025</b> with a monthly contribution of
-      <b> UGX 50,000</b>. Funds are invested (goats, cattle, poultry, or other) by
-      majority decision. After sales, proceeds are shared equally among
-      contributors.
-    </p>
-
-    <h3 style={{ margin: "16px 0 8px" }}>Accountability & Participation</h3>
-    <p className="muted">
-      We camp at the farm <b>every three months</b> to review progress and solve
-      challenges. Anyone can join the Family; to join the <b>Family Project</b> you
-      sign a membership form and provide a <b>next of kin</b>.
-    </p>
-
-    <h3 style={{ margin: "16px 0 8px" }}>Interim Committee (Jun–Dec 2025)</h3>
-    <ul className="muted" style={{ margin: "8px 0 0 18px" }}>
-      <li><b>Chairperson:</b> Mr. Kalema Abubakar (Kiboga Hill Farm Uganda)</li>
-      <li><b>Vice Chairperson:</b> Mr. Derek Danielz</li>
-      <li><b>General Secretary:</b> Ms. Suzie Savior</li>
-      <li><b>Publicity:</b> Sky Rich &amp; Princess Sharifah</li>
-      <li><b>Mobilizers / Disciplinary:</b> Dota wa Kiboga, Swt Rema,
-          Tricia Tricia, Tracy United, Amutex, Fr. Ignatius (Ewacu Heza)
-      </li>
-    </ul>
-    <p className="muted" style={{ marginTop: 8 }}>
-      Elections for the next term will be held in <b>December 2025</b> for
-      <b> January–December 2026</b>.
-    </p>
-  </div>
-);
+    );
 
     function App(){
       const { parts } = useHashRoute();
@@ -1545,12 +1526,11 @@ const FamilyBackground = () => (
         }
       }, [route, sub]);
 
-		useEffect(() => {
-  if (route === "services" && sub === "climate") {
-    window.location.hash = "#/advisory";
-  }
-}, [route, sub]);
-
+      useEffect(() => {
+        if (route === "services" && sub === "climate") {
+          window.location.hash = "#/advisory";
+        }
+      }, [route, sub]);
 
       useEffect(() => {
         const fails = [];
@@ -1572,111 +1552,95 @@ const FamilyBackground = () => (
         return () => links.forEach(a => a.removeEventListener("click", closeOnClick));
       }, [route, sub]);
 
-		// Close the Core Services dropdown when clicking/tapping anywhere outside it
-useEffect(() => {
-  const nav = document.querySelector("nav.khf-nav");
-  if (!nav) return;
+      // Close Core Services dropdown when clicking outside or pressing Esc
+      useEffect(() => {
+        const nav = document.querySelector("nav.khf-nav");
+        if (!nav) return;
 
-  const closeIfOutside = (e) => {
-    const openDetails = nav.querySelector("details[open]");
-    if (!openDetails) return;
+        const closeIfOutside = (e) => {
+          const openDetails = nav.querySelector("details[open]");
+          if (!openDetails) return;
+          if (!openDetails.contains(e.target)) {
+            openDetails.open = false;
+          }
+        };
 
-    // If the click/touch did NOT happen inside the open <details>, close it.
-    if (!openDetails.contains(e.target)) {
-      openDetails.open = false;
-    }
-  };
+        const closeOnEsc = (e) => {
+          if (e.key === "Escape") {
+            const openDetails = nav.querySelector("details[open]");
+            if (openDetails) openDetails.open = false;
+          }
+        };
 
-  const closeOnEsc = (e) => {
-    if (e.key === "Escape") {
-      const openDetails = nav.querySelector("details[open]");
-      if (openDetails) openDetails.open = false;
-    }
-  };
+        document.addEventListener("mousedown", closeIfOutside);
+        document.addEventListener("touchstart", closeIfOutside, { passive: true });
+        document.addEventListener("keydown", closeOnEsc);
 
-  document.addEventListener("mousedown", closeIfOutside);
-  document.addEventListener("touchstart", closeIfOutside, { passive: true });
-  document.addEventListener("keydown", closeOnEsc);
-
-  return () => {
-    document.removeEventListener("mousedown", closeIfOutside);
-    document.removeEventListener("touchstart", closeIfOutside);
-    document.removeEventListener("keydown", closeOnEsc);
-  };
-}, [route, sub]);
-
+        return () => {
+          document.removeEventListener("mousedown", closeIfOutside);
+          document.removeEventListener("touchstart", closeIfOutside);
+          document.removeEventListener("keydown", closeOnEsc);
+        };
+      }, [route, sub]);
 
       return (
-  		<div className="khf-root" id="main" role="main">
+        <div className="khf-root" id="main" role="main">
           <header className="khf-header">
             <div className="container row">
               <Link to="#/" className="brand"><span className="logo">KH</span> Kiboga Hill Farm Uganda</Link>
 
               <nav className="khf-nav" aria-label="Primary">
                 <Link to="#/about">About</Link>
-                <Link to="#/camps">Camps & Farm Visits</Link>
-
-				  {u.tips && tipsOpen[u.id] && (
-  <section className="tips">
-    <h4 className="tips-title">Farming tips from this forecast</h4>
-    <div className="tip-card">
-      <ul className="tip-list">
-        {u.tips.map(t => <li key={t}>{t}</li>)}
-      </ul>
-    </div>
-  </section>
-)}
+                <Link to="#/camps">Camps &amp; Farm Visits</Link>
 
                 <details>
                   <summary>Core Services ▾</summary>
                   <div className="menu" role="menu">
-  <div className="menu-label">Livestock & Crops</div>
-  <Link to="#/products" role="menuitem">All Livestock & Crops</Link>
+                    <div className="menu-label">Livestock &amp; Crops</div>
+                    <Link to="#/products" role="menuitem">All Livestock &amp; Crops</Link>
 
-  <div className="menu-sep"></div>
+                    <div className="menu-sep"></div>
 
-  {/* Core services (no label) */}
-  <Link to="#/services/sales" role="menuitem">Farm Gate Services</Link>
+                    {/* Core services */}
+                    <Link to="#/services/sales" role="menuitem">Farm Gate Services</Link>
 
-  <div className="menu-sep"></div>
-  <div className="menu-label">Advisory</div>
-  <Link to="#/advisory" role="menuitem">Weather-Smart Advisory</Link>
-</div>
-
-				</details>
+                    <div className="menu-sep"></div>
+                    <div className="menu-label">Advisory</div>
+                    <Link to="#/advisory" role="menuitem">Weather-Smart Advisory</Link>
+                  </div>
+                </details>
 
                 <Link to="#/family">Family</Link>
-				<Link to="#/advertise">Advertise</Link>
+                <Link to="#/advertise">Advertise</Link>
                 <Link to="#/gallery">Gallery</Link>
                 <Link to="#/contact">Contact</Link>
               </nav>
             </div>
-        </header>
+          </header>
 
-{(!route || route === "") && <Home/>}
-{route === "about" && <About/>}
-{route === "camps" && <Camps/>}
-{route === "products" && !sub && <ProductsIndex/>}
-{route === "products" && sub && <ProductDetail slug={sub}/>}
-{route === "services" && !sub && <ServicesIndex/>}
-{route === "services" && sub && <ServiceDetail slug={sub}/>}
-{route === "advisory" && <Advisory/>}
-{route === "advertise" && <Advertise/>}
-{route === "gallery" && <Gallery/>}
-{route === "contact" && <Contact/>}
-{route === "admin" && <Admin/>}
-{route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
-{(!["", "about", "products", "services", "family", "advisory", "advertise", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
+          {(!route || route === "") && <Home/>}
+          {route === "about" && <About/>}
+          {route === "camps" && <Camps/>}
+          {route === "products" && !sub && <ProductsIndex/>}
+          {route === "products" && sub && <ProductDetail slug={sub}/>}
+          {route === "services" && !sub && <ServicesIndex/>}
+          {route === "services" && sub && <ServiceDetail slug={sub}/>}
+          {route === "advisory" && <Advisory/>}
+          {route === "advertise" && <Advertise/>}
+          {route === "gallery" && <Gallery/>}
+          {route === "contact" && <Contact/>}
+          {route === "admin" && <Admin/>}
+          {route === "family" && (sub === "join" ? <FamilyForm/> : <Family/>)}
+          {(!["", "about", "products", "services", "family", "advisory", "advertise", "gallery", "contact", "camps", "admin"].includes(route)) && <NotFound/>}
 
-<footer>
-  <div className="container" style={{textAlign: "center"}}>
-    © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
-    <div style={{fontSize:12, color:"#6b7280", marginTop:6}}>
-      3Km from Kikuubo, Bukomero T.C., Kyomya S/C, Kiboga • WhatsApp: <a href="tel:+256763081880">+256 763 081 880</a>
-    </div>
-  </div>
-</footer>
-
+          <footer>
+            <div className="container" style={{textAlign: "center"}}>
+              © {new Date().getFullYear()} Kiboga Hill Farm Uganda. All rights reserved.
+              <div style={{fontSize:12, color:"#6b7280", marginTop:6}}>
+                3Km from Kikuubo, Bukomero T.C., Kyomya S/C, Kiboga • WhatsApp: <a href="tel:+256763081880">+256 763 081 880</a>
+              </div>
+            </div>
+          </footer>
         </div>
       );
     }
@@ -1690,50 +1654,20 @@ useEffect(() => {
     </div>
   </noscript>
 
-	<script defer data-domain="kibogahillfarmuganda.co.ug" src="https://plausible.io/js/script.js">
-		</script>
-<script>
-  (function() {
-    function sendPageView() {
-      gtag('event', 'page_view', {
-        page_title: document.title,
-        page_location: location.href,
-        page_path: location.hash || '/'
-      });
-    }
-    if (window.gtag) sendPageView();
-    window.addEventListener('hashchange', sendPageView);
-  })();
-</script>
+  <script defer data-domain="kibogahillfarmuganda.co.ug" src="https://plausible.io/js/script.js"></script>
+
+  <script>
+    (function() {
+      function sendPageView() {
+        gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: location.href,
+          page_path: location.hash || '/'
+        });
+      }
+      if (window.gtag) sendPageView();
+      window.addEventListener('hashchange', sendPageView);
+    })();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
